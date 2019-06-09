@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "936560108952",
+    "firebase_url": "https://jiowhere-4f215.firebaseio.com",
+    "project_id": "jiowhere-4f215",
+    "storage_bucket": "jiowhere-4f215.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936560108952:android:e95dd65abf3052eb",
+        "android_client_info": {
+          "package_name": "com.example.jiowhere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936560108952-9gf854q66ih9jmqdquasuqp279k6vgkg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDEIpJXB1NwAy0fkI-uBgVKV-1BUrFN0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936560108952-9gf854q66ih9jmqdquasuqp279k6vgkg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
