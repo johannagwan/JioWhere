@@ -37,10 +37,10 @@
             android:text="Register User" />
 
         <TextView
-            android:textAlignment="center"
-            android:text="Already Registered? Sign in here!"
             android:id="@+id/textViewSignIn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Already Registered? Sign in here!!!"
+            android:textAlignment="center" />
     </LinearLayout>
 </RelativeLayout>
