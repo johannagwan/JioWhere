@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 public class HomePageActivity extends AppCompatActivity {
 
+
     ListView mListView;
 
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
@@ -20,10 +21,12 @@ public class HomePageActivity extends AppCompatActivity {
     String[] location = {"Kent Ridge/Bouna Vista", "Habourfront", "Habourfront", "Habourfront", "Kent Ridge"}; //nearest MRT
     String[] time = {"Permanant", "Permanant", "Permanant", "Permanant", "Permanent"};
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        //setContentView(R.layout.testing);
 
         mListView = (ListView) findViewById(R.id.listViewTimeLimitedActivities);
 
@@ -50,6 +53,7 @@ public class HomePageActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 
 
@@ -89,4 +93,5 @@ public class HomePageActivity extends AppCompatActivity {
             return view;
         }
     }
+
 }
