@@ -26,7 +26,6 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        //setContentView(R.layout.testing);
 
         mListView = (ListView) findViewById(R.id.listViewTimeLimitedActivities);
 
@@ -34,7 +33,7 @@ public class HomePageActivity extends AppCompatActivity {
         mListView.setAdapter(customAdaptor);
 
         //trying to make the listview clickable
-        //crashes
+        //crashes => problem with RecommendationDetailsActivity, code is okay (?) => just need more cases
         mListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
@@ -44,6 +43,7 @@ public class HomePageActivity extends AppCompatActivity {
 
                         if (position == 1) {
                             //code specific to first list item
+                            //Intent myIntent = new Intent(view.getContext(), RecommendationDetailsActivity.class);
                             Intent myIntent = new Intent(view.getContext(), RecommendationDetailsActivity.class);
                             startActivity(myIntent);
 
