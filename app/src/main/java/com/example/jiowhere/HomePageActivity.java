@@ -13,12 +13,14 @@ import android.widget.TextView;
 
 public class HomePageActivity extends AppCompatActivity {
 
+
     ListView mListView;
 
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
     String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
     String[] location = {"Kent Ridge/Bouna Vista", "Habourfront", "Habourfront", "Habourfront", "Kent Ridge"}; //nearest MRT
     String[] time = {"Permanant", "Permanant", "Permanant", "Permanant", "Permanent"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class HomePageActivity extends AppCompatActivity {
         mListView.setAdapter(customAdaptor);
 
         //trying to make the listview clickable
-        //crashes
+        //crashes => problem with RecommendationDetailsActivity, code is okay (?) => just need more cases
         mListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
@@ -41,6 +43,7 @@ public class HomePageActivity extends AppCompatActivity {
 
                         if (position == 1) {
                             //code specific to first list item
+                            //Intent myIntent = new Intent(view.getContext(), RecommendationDetailsActivity.class);
                             Intent myIntent = new Intent(view.getContext(), RecommendationDetailsActivity.class);
                             startActivity(myIntent);
 
@@ -50,6 +53,7 @@ public class HomePageActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 
 
@@ -89,4 +93,5 @@ public class HomePageActivity extends AppCompatActivity {
             return view;
         }
     }
+
 }
