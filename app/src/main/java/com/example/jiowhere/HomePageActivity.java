@@ -41,6 +41,11 @@ public class HomePageActivity extends AppCompatActivity {
 
                         //startActivity(new Intent(view.getContext(), RecommendationDetailsActivity.class));
 
+                        Intent myIntent = new Intent(view.getContext(), RecommendationDetailsActivity.class);
+
+                        loopingForListView(position, myIntent, images.length);
+
+                        /*
                         if (position == 1) {
                             //code specific to first list item
                             //Intent myIntent = new Intent(view.getContext(), RecommendationDetailsActivity.class);
@@ -49,11 +54,20 @@ public class HomePageActivity extends AppCompatActivity {
 
 
                         }
+                        */
 
                     }
                 });
     }
 
+    protected void loopingForListView(int position, Intent intent, int maxValue) {
+
+        for (int i = 0; i < maxValue; i++) {
+            if (position == i) {
+                startActivity(intent);
+            }
+        }
+    }
 
 
 
