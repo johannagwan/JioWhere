@@ -62,7 +62,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         //Initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference("recommendations");
 
         //initializing view
         nameOfActivityEditText = (EditText) findViewById(R.id.nameOfActivityEditText);
@@ -95,15 +95,22 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         boolean isPermanent = true; //dummy value
         String reviews = reviewsEditText.getText().toString().trim();
 
-        RecommendationDetails recommendationDetails =
-                new RecommendationDetails(nameOfActivity, nearestMRT, address, timePeriod, isPermanent, reviews);
+        if (!TextUtils.isEmpty(nameOfActivity)) {
+            String id = databaseReference.push().getKey();
+            RecommendationDetails recommendationDetails =
+                new RecommendationDetails(id, nameOfActivity, nearestMRT, address, timePeriod, isPermanent, reviews);
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+            //getUid() is a built-in function in Firebase
+            databaseReference.child(id).setValue(recommendationDetails);
+            Toast.makeText(this, "Recommendation Saved...", Toast.LENGTH_LONG).show();
+            finish();
+            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+        } else {
+            Toast.makeText(this, "Please fill up the required fields", Toast.LENGTH_SHORT).show();
+        }
 
-        //getUid() is a built-in function in Firebase
-        databaseReference.child(user.getUid()).setValue(recommendationDetails);
+        //FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        Toast.makeText(this, "Recommendation Saved...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
