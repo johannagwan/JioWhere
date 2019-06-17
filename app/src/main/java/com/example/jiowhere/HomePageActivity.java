@@ -28,11 +28,14 @@ import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
     ListView mListView;
-    SearchView mySearchView;
     TextView myTextView;
     ImageView myImageView;
 
+    ListViewAdaptor adaptor;
+    ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
+
     //private List<RecommendationInfo> recommendationInfoList;
+
 
 
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
@@ -47,23 +50,36 @@ public class HomePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         mListView = (ListView) findViewById(R.id.listViewTimeLimitedActivities);
+
+        for (int i = 0; i < activity.length; i++) {
+            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], images[i]);
+            arrayList.add(ri);
+        }
+
+        adaptor = new ListViewAdaptor(this, arrayList);
+        mListView.setAdapter(adaptor);
+
+
+        //the search bar
         myTextView = (TextView) findViewById(R.id.searchTextView);
         myImageView = (ImageView) findViewById(R.id.searchImage);
 
-        myTextView.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        myTextView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
                 startActivity(intent);
             }
         });
 
-        myImageView.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        myImageView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
                 startActivity(intent);
             }
         });
+    }
 
+    /*
         final CustomAdaptor customAdaptor = new CustomAdaptor();
         mListView.setAdapter(customAdaptor);
 
@@ -100,6 +116,7 @@ public class HomePageActivity extends AppCompatActivity {
     }
     */
 
+    /*
     protected void loopingForListView(int position, Intent intent, int maxValue) {
         for (int i = 0; i < maxValue; i++) {
             if (position == i) {
@@ -145,4 +162,5 @@ public class HomePageActivity extends AppCompatActivity {
             return view;
         }
     }
+    */
 }
