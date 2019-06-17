@@ -10,10 +10,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Button;
 
-public class HomePageActivity extends AppCompatActivity {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
 
     ListView mListView;
+    private Button recommendButton;
 
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
     String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
@@ -26,6 +31,7 @@ public class HomePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         mListView = (ListView) findViewById(R.id.listViewTimeLimitedActivities);
+        recommendButton = (Button) findViewById(R.id.recommendButton);
 
         CustomAdaptor customAdaptor = new CustomAdaptor();
         mListView.setAdapter(customAdaptor);
@@ -49,6 +55,8 @@ public class HomePageActivity extends AppCompatActivity {
 
                     }
                 });
+
+        recommendButton.setOnClickListener(this);
     }
 
 
@@ -87,6 +95,12 @@ public class HomePageActivity extends AppCompatActivity {
             tTextView.setText(time[position]);
 
             return view;
+        }
+    }
+
+    public void onClick(View v) {
+        if (v == recommendButton) {
+            startActivity(new Intent(this, RecommendingActivity.class));
         }
     }
 }
