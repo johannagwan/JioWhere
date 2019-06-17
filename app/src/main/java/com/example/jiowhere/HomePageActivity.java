@@ -145,6 +145,4 @@ public class HomePageActivity extends AppCompatActivity {
             return view;
         }
     }
-
-
 }

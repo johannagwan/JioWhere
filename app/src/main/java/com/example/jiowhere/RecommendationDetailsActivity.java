@@ -22,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RecommendationDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+    //This is the full recommendation -> the detailed recommendation
 
     ListView mListView;
 

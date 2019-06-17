@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,6 +50,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         textViewSignIn.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
+
     }
 
     private void userLogin() {
