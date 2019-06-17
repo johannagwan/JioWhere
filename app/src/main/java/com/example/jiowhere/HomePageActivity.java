@@ -13,6 +13,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+
+import android.widget.Button;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -26,8 +32,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePageActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
     ListView mListView;
+
+    private Button recommendButton;
+
     TextView myTextView;
     ImageView myImageView;
 
@@ -35,6 +44,7 @@ public class HomePageActivity extends AppCompatActivity {
     ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
 
     //private List<RecommendationInfo> recommendationInfoList;
+
 
 
 
@@ -50,6 +60,7 @@ public class HomePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         mListView = (ListView) findViewById(R.id.listViewTimeLimitedActivities);
+        recommendButton = (Button) findViewById(R.id.recommendButton);
 
         for (int i = 0; i < activity.length; i++) {
             RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], images[i]);
@@ -77,6 +88,8 @@ public class HomePageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+      
+        recommendButton.setOnClickListener(this);
     }
 
     /*
@@ -101,6 +114,12 @@ public class HomePageActivity extends AppCompatActivity {
 
 
         //making serachView
+
+
+                    }
+                });
+
+       
 
     }
 
@@ -163,4 +182,10 @@ public class HomePageActivity extends AppCompatActivity {
         }
     }
     */
+  
+    public void onClick(View v) {
+        if (v == recommendButton) {
+            startActivity(new Intent(this, RecommendingActivity.class));
+        }
+    }
 }
