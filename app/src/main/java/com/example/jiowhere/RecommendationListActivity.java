@@ -11,10 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -28,6 +24,9 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
     ListView mListView;
     SearchView mySearchView;
 
+    ListViewAdaptor adaptor;
+    ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
+
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
     String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
     String[] location = {"Kent Ridge/Bouna Vista", "Habourfront", "Habourfront", "Habourfront", "Kent Ridge"}; //nearest MRT
@@ -40,21 +39,38 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
         mListView = (ListView) findViewById(R.id.mainListView);
 
-        final CustomAdaptor customAdaptor = new CustomAdaptor();
-        mListView.setAdapter(customAdaptor);
+        for (int i = 0; i < activity.length; i++) {
+            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], images[i]);
+            arrayList.add(ri);
+        }
 
+        adaptor = new ListViewAdaptor(this, arrayList);
+        mListView.setAdapter(adaptor);
 
-        //trying to make the listview clickable
-        mListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent myIntent = new Intent(view.getContext(), RecommendationDetailsActivity.class);
-                        loopingForListView(position, myIntent, images.length);
-                    }
-                });
+        //trying to make search view
+        SearchView searchView = (SearchView) findViewById(R.id.mainSearchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                    adaptor.filter("");
+                    mListView.clearTextFilter();
+                } else {
+                    adaptor.filter(newText);
+                }
+
+                return true;
+            }
+        });
 
     }
+
+    /*
 
     protected void loopingForListView(int position, Intent intent, int maxValue) {
         for (int i = 0; i < maxValue; i++) {
@@ -102,6 +118,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
         }
 
     }
+    */
 
     @Override
     public void onClick(View v) {
