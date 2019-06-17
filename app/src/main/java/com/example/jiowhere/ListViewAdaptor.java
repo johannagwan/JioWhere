@@ -1,6 +1,7 @@
 package com.example.jiowhere;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,9 +75,30 @@ public class ListViewAdaptor extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //code later
+                Intent myIntent = new Intent(mContext, RecommendationDetailsActivity.class);
+                mContext.startActivity(myIntent);
             }
         });
+
+        /*
+                mListView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent myIntent = new Intent(view.getContext(), RecommendationDetailsActivity.class);
+                        loopingForListView(position, myIntent, images.length);
+                    }
+                });
+
+    protected void loopingForListView(int position, Intent intent, int maxValue) {
+        for (int i = 0; i < maxValue; i++) {
+            if (position == i) {
+                startActivity(intent);
+            }
+        }
+    }
+
+         */
 
         return convertView;
     }
