@@ -13,6 +13,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+
+import android.widget.Button;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -26,13 +32,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePageActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
     ListView mListView;
-    SearchView mySearchView;
+
+    private Button recommendButton;
+
     TextView myTextView;
     ImageView myImageView;
 
+    ListViewAdaptor adaptor;
+    ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
+
     //private List<RecommendationInfo> recommendationInfoList;
+
+
 
 
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
@@ -47,23 +60,39 @@ public class HomePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         mListView = (ListView) findViewById(R.id.listViewTimeLimitedActivities);
+        recommendButton = (Button) findViewById(R.id.recommendButton);
+
+        for (int i = 0; i < activity.length; i++) {
+            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], images[i]);
+            arrayList.add(ri);
+        }
+
+        adaptor = new ListViewAdaptor(this, arrayList);
+        mListView.setAdapter(adaptor);
+
+
+        //the search bar
         myTextView = (TextView) findViewById(R.id.searchTextView);
         myImageView = (ImageView) findViewById(R.id.searchImage);
 
-        myTextView.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        myTextView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
                 startActivity(intent);
             }
         });
 
-        myImageView.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        myImageView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
                 startActivity(intent);
             }
         });
+      
+        recommendButton.setOnClickListener(this);
+    }
 
+    /*
         final CustomAdaptor customAdaptor = new CustomAdaptor();
         mListView.setAdapter(customAdaptor);
 
@@ -86,6 +115,12 @@ public class HomePageActivity extends AppCompatActivity {
 
         //making serachView
 
+
+                    }
+                });
+
+       
+
     }
 
     /*
@@ -100,6 +135,7 @@ public class HomePageActivity extends AppCompatActivity {
     }
     */
 
+    /*
     protected void loopingForListView(int position, Intent intent, int maxValue) {
         for (int i = 0; i < maxValue; i++) {
             if (position == i) {
@@ -143,6 +179,13 @@ public class HomePageActivity extends AppCompatActivity {
             tTextView.setText(time[position]);
 
             return view;
+        }
+    }
+    */
+  
+    public void onClick(View v) {
+        if (v == recommendButton) {
+            startActivity(new Intent(this, RecommendingActivity.class));
         }
     }
 }
