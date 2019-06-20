@@ -3,6 +3,8 @@ package com.example.jiowhere;
 public class RecommendationInfo {
     /*
     Trying to see if I can use ArrayAdaptor instead of Custom Adaptor
+
+    from RecommendationDetails (firebase) -> RecommendationInfo
      */
 
     private String location;

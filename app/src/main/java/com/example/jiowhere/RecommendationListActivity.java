@@ -27,6 +27,8 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
     ListViewAdaptor adaptor;
     ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
 
+
+    //see if I can get data from firebase instead
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
     String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
     String[] location = {"Kent Ridge/Bouna Vista", "Habourfront", "Habourfront", "Habourfront", "Kent Ridge"}; //nearest MRT
@@ -39,6 +41,11 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
         mListView = (ListView) findViewById(R.id.mainListView);
 
+        //try and read data pls
+
+
+
+        //adding data into the arrayList
         for (int i = 0; i < activity.length; i++) {
             RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], images[i]);
             arrayList.add(ri);
