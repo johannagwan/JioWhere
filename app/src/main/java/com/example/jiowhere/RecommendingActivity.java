@@ -50,7 +50,6 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     private Button uploadPicButton;
 
     private Button recommendActivityButton;
-
     private DatabaseReference databaseReference;
 
 
@@ -61,7 +60,6 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
 
         //Initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
-
         databaseReference = FirebaseDatabase.getInstance().getReference("recommendations");
 
         //initializing view

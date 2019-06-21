@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">JioWhere</string>
     <string name="search">Search</string>
+    <string name="todo">todo</string>
+    <string name="link_to_google_maps">link_to_google_maps</string>
+    <string name="location_nearest_mrt">Location (Nearest Mrt):</string>
+    <string name="address">Address:</string>
+    <string name="nearest_mrt_name">nearest_mrt_name</string>
+    <string name="activity_name">Activity Name</string>
+    <string name="time_period">Time Period</string>
+    <string name="insert_time_period">insert time period</string>
+    <string name="price">Price:</string>
+    <string name="insert_price_e_g_free_2_10">*insert price* e.g. free/$2-$10</string>
+    <string name="tags">Tags:</string>
+    <string name="shopping">Shopping</string>
+    <string name="friends">Friends</string>
+    <string name="reviews">Reviews</string>
+    <string name="family">Family</string>
+    <string name="leave_a_review">Leave a Review</string>
 </resources>
