@@ -3,18 +3,23 @@ package com.example.jiowhere;
 public class RecommendationInfo {
     /*
     Trying to see if I can use ArrayAdaptor instead of Custom Adaptor
+
+    from RecommendationDetails (firebase) -> RecommendationInfo
      */
 
     private String location;
     private String time_period;
     private String name;
+    private String tags;
     private int image;
 
-    public RecommendationInfo(String location, String time_period, String name, int image) {
+
+    public RecommendationInfo(String location, String time_period, String name, String tags, int image) {
         this.location = location;
         this.time_period = time_period;
         this.name = name;
         this.image = image;
+        this.tags = tags;
     }
 
     public String getLocation() {
@@ -48,5 +53,13 @@ public class RecommendationInfo {
 
     public void setImage(int image) {
         this.image = image;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

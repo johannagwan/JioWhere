@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,6 +36,12 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
     //for Firebase database retrieval
     private DatabaseReference reff;
 
+    TextView name;
+    TextView location;
+    TextView time;
+    ImageView image;
+    Button leaveReview;
+
 
     int[] images = {R.drawable.sentosa, R.drawable.two, R.drawable.three, R.drawable.four};
     //String[] reviews = {"first", "2nd", "sdddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "nxw"};
@@ -46,14 +53,36 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
         setContentView(R.layout.recommendation_layout);
 
         mListView = (ListView) findViewById(R.id.reviewsList);
-        leaveReviewButton = (Button) findViewById(R.id.leaveReviewButton);
 
+        leaveReviewButton = (Button) findViewById(R.id.leaveReviewButton);
         CustomAdaptor customAdaptor = new CustomAdaptor();
         mListView.setAdapter(customAdaptor);
 
+        //Passing data inside
+        name = (TextView) findViewById(R.id.activityNameTitle);
+        location = (TextView) findViewById(R.id.mrtName);
+        time = (TextView) findViewById(R.id.timePeriod);
+        image = (ImageView) findViewById(R.id.imageView);
+
+        // Receiving value into activity using intent.
+        String activityName = getIntent().getStringExtra("name");
+        String activityLocation = getIntent().getStringExtra("location");
+        String activityTime = getIntent().getStringExtra("time");
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            int picture = bundle.getInt("picture");
+            image.setImageResource(picture);
+        }
+
+        // Setting up received value into EditText.
+        name.setText(activityName);
+        location.setText(activityLocation);
+        time.setText(activityTime);
+
     }
 
-    @Override
+
     public void onClick(View v) {
         if (v == leaveReviewButton) {
             startActivity(new Intent(this, LeaveReviewActivity.class));
@@ -68,23 +97,6 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
             return images.length;
         }
 
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View view = getLayoutInflater().inflate(R.layout.review_layout, null);
-
-            ImageView mImageView = (ImageView) view.findViewById(R.id.profile_picture);
-            final TextView aTextView = (TextView) view.findViewById(R.id.reviewBox);
 
             reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child("NUS");
             reff.addValueEventListener(new ValueEventListener() {
@@ -97,8 +109,18 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
+
                 }
             });
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            View view = getLayoutInflater().inflate(R.layout.review_layout, null);
+
+            ImageView mImageView = (ImageView) view.findViewById(R.id.profile_picture);
+            TextView aTextView = (TextView) view.findViewById(R.id.reviewBox);
+
 
             mImageView.setImageResource(images[position]);
             //aTextView.setText(reviews[position]);
@@ -106,4 +128,5 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
             return view;
         }
     }
+
 }

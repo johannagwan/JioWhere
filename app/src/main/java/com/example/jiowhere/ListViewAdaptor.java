@@ -29,7 +29,7 @@ public class ListViewAdaptor extends BaseAdapter {
     }
 
     public class ViewHolder {
-        TextView myActivity, myLocation, myTimePeriod;
+        TextView myActivity, myLocation, myTimePeriod, myTags;
         ImageView myImage;
     }
 
@@ -59,6 +59,7 @@ public class ListViewAdaptor extends BaseAdapter {
             holder.myActivity = (TextView) convertView.findViewById(R.id.activityTextView);
             holder.myLocation = (TextView) convertView.findViewById(R.id.locationTextView);
             holder.myTimePeriod = (TextView) convertView.findViewById(R.id.timePreiodTextView);
+            holder.myTags = (TextView) convertView.findViewById(R.id.tagsView);
 
             convertView.setTag(holder);
         } else {
@@ -70,35 +71,38 @@ public class ListViewAdaptor extends BaseAdapter {
         holder.myTimePeriod.setText(recommendationInfoList.get(position).getTime_period());
         holder.myLocation.setText(recommendationInfoList.get(position).getLocation());
         holder.myActivity.setText(recommendationInfoList.get(position).getName());
+        holder.myTags.setText(recommendationInfoList.get(position).getTags());
 
         //make clickable
+        final int currentPosition = position;
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //String TempListViewClickedValue = listValue[position].toString();
                 Intent myIntent = new Intent(mContext, RecommendationDetailsActivity.class);
+
+                //trying to pass data
+                int image = recommendationInfoList.get(currentPosition).getImage();
+                String name = recommendationInfoList.get(currentPosition).getName();
+                String time_period = recommendationInfoList.get(currentPosition).getTime_period();
+                String location = recommendationInfoList.get(currentPosition).getLocation();
+                String tags = recommendationInfoList.get(currentPosition).getTags();
+
+                myIntent.putExtra("name", name);
+                myIntent.putExtra("location", location);
+                myIntent.putExtra("time", time_period);
+                myIntent.putExtra("tags", tags);
+                myIntent.putExtra("picture", image);
+
+                //passing image
+
+                //end of passing image
+
+                //end of pass data
                 mContext.startActivity(myIntent);
             }
         });
 
-        /*
-                mListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent myIntent = new Intent(view.getContext(), RecommendationDetailsActivity.class);
-                        loopingForListView(position, myIntent, images.length);
-                    }
-                });
-
-    protected void loopingForListView(int position, Intent intent, int maxValue) {
-        for (int i = 0; i < maxValue; i++) {
-            if (position == i) {
-                startActivity(intent);
-            }
-        }
-    }
-
-         */
 
         return convertView;
     }
@@ -112,6 +116,22 @@ public class ListViewAdaptor extends BaseAdapter {
         } else {
             for (RecommendationInfo rc : arrayList) {
                 if (rc.getLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    recommendationInfoList.add(rc);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    //tags
+    public void tagFilter (String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        recommendationInfoList.clear();
+        if (charText.length() == 0) {
+            recommendationInfoList.addAll(arrayList);
+        } else {
+            for (RecommendationInfo rc : arrayList) {
+                if (rc.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
                     recommendationInfoList.add(rc);
                 }
             }

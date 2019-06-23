@@ -50,8 +50,12 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
     String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
+
     String[] location = {"Kent Ridge/Buona Vista", "Harbour Front", "Harbour Front", "Harbour Front", "Kent Ridge"}; //nearest MRT
     String[] time = {"Permanent", "Permanent", "Permanent", "Permanent", "Permanent"};
+
+    String[] tags = {"#Family", "#Lover", "#Solo", "#Outdoor", "#Indoor  #Lover"};
+
 
 
     @Override
@@ -63,7 +67,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         recommendButton = (Button) findViewById(R.id.recommendButton);
 
         for (int i = 0; i < activity.length; i++) {
-            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], images[i]);
+            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], tags[i], images[i]);
             arrayList.add(ri);
         }
 
@@ -75,26 +79,20 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         myTextView = (TextView) findViewById(R.id.searchTextView);
         myImageView = (ImageView) findViewById(R.id.searchImage);
 
-        myTextView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        myImageView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
-                startActivity(intent);
-            }
-        });
-      
+        myTextView.setOnClickListener(this);
+        myImageView.setOnClickListener(this);
         recommendButton.setOnClickListener(this);
     }
   
     public void onClick(View v) {
         if (v == recommendButton) {
             startActivity(new Intent(this, RecommendingActivity.class));
+        } else if (v == myImageView) {
+            Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
+            startActivity(intent);
+        } else if (v == myTextView) {
+            Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
+            startActivity(intent);
         }
     }
 }
