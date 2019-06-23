@@ -36,7 +36,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
     String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
     String[] location = {"Kent Ridge/Bouna Vista", "Habourfront", "Habourfront", "Habourfront", "Kent Ridge"}; //nearest MRT
     String[] time = {"Permanant", "Permanant", "Permanant", "Permanant", "Permanent"};
-    String[] tags = {"Family", "Lover", "Solo", "Outdoor", "Indoor"};
+    String[] tags = {"#Family", "#Lover", "#Solo", "#Outdoor", "#Indoor  #Lover"};
 
 
     @Override
