@@ -50,8 +50,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
     String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
-    String[] location = {"Kent Ridge/Bouna Vista", "Habourfront", "Habourfront", "Habourfront", "Kent Ridge"}; //nearest MRT
-    String[] time = {"Permanant", "Permanant", "Permanant", "Permanant", "Permanent"};
+    String[] location = {"Kent Ridge/Buona Vista", "Harbour Front", "Harbour Front", "Harbour Front", "Kent Ridge"}; //nearest MRT
+    String[] time = {"Permanent", "Permanent", "Permanent", "Permanent", "Permanent"};
 
 
     @Override
@@ -91,97 +91,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
       
         recommendButton.setOnClickListener(this);
     }
-
-    /*
-        final CustomAdaptor customAdaptor = new CustomAdaptor();
-        mListView.setAdapter(customAdaptor);
-
-
-        //using array adaptor
-        //ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, R.layout.recommendation_layout, items);
-        //end of using arrayadaptor
-
-
-        //trying to make the listview clickable
-        mListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent myIntent = new Intent(view.getContext(), RecommendationDetailsActivity.class);
-                        loopingForListView(position, myIntent, images.length);
-                    }
-                });
-
-
-        //making serachView
-
-
-                    }
-                });
-
-       
-
-    }
-
-    /*
-    private void fillRecInfoList() {
-        //RecommendationInfo(String location, String time_period, String name, int image)
-        recommendationInfoList = new ArrayList<>();
-        recommendationInfoList.add(new RecommendationInfo("Kent Ridge", "Permanent", "NUS", R.drawable.nus));
-        recommendationInfoList.add(new RecommendationInfo("Kent Ridge", "Permanent", "Nus Soc", R.drawable.socnus));
-        recommendationInfoList.add(new RecommendationInfo("Habourfront", "Permanent", "Vivo City", R.drawable.vivo));
-        recommendationInfoList.add(new RecommendationInfo("Habourfront", "Permanent", "Sentosa", R.drawable.sentosa));
-        recommendationInfoList.add(new RecommendationInfo("Habourfront", "Permanent", "Underwater World", R.drawable.underwaterworldsg));
-    }
-    */
-
-    /*
-    protected void loopingForListView(int position, Intent intent, int maxValue) {
-        for (int i = 0; i < maxValue; i++) {
-            if (position == i) {
-                startActivity(intent);
-            }
-        }
-    }
-
-
-    //adaptor for the listview
-    class CustomAdaptor extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return images.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View view = getLayoutInflater().inflate(R.layout.custom_listview_layout, null);
-
-            ImageView mImageView = (ImageView) view.findViewById(R.id.imageView2);
-            TextView aTextView = (TextView) view.findViewById(R.id.activityTextView);
-            TextView lTextView = (TextView) view.findViewById(R.id.locationTextView);
-            TextView tTextView = (TextView) view.findViewById(R.id.timePreiodTextView);
-
-            mImageView.setImageResource(images[position]);
-            aTextView.setText(activity[position]);
-            lTextView.setText(location[position]);
-            tTextView.setText(time[position]);
-
-            return view;
-        }
-    }
-    */
   
     public void onClick(View v) {
         if (v == recommendButton) {

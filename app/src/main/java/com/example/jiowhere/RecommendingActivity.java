@@ -60,7 +60,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_recommending);
 
         //Initializing firebase authentication object
-        firebaseAuth = FirebaseAuth.getInstance();
+        //firebaseAuth = FirebaseAuth.getInstance();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("recommendations");
 
@@ -101,7 +101,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
                 new RecommendationDetails(id, nameOfActivity, nearestMRT, address, timePeriod, isPermanent, reviews);
 
             //getUid() is a built-in function in Firebase
-            databaseReference.child(id).setValue(recommendationDetails);
+            databaseReference.child(recommendationDetails.getNameOfActivity()).setValue(recommendationDetails);
             Toast.makeText(this, "Recommendation Saved...", Toast.LENGTH_LONG).show();
             finish();
             startActivity(new Intent(getApplicationContext(), HomePageActivity.class));

@@ -20,4 +20,28 @@ public class RecommendationDetails {
         this.isPermanent = isPermanent;
         this.reviews = reviews;
     }
+
+    public String getNameOfActivity() {
+        return nameOfActivity;
+    }
+
+    public String getNearestMRT() {
+        return nearestMRT;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getTimePeriod() {
+        return timePeriod;
+    }
+
+    public boolean getIsPermanent() {
+        return isPermanent;
+    }
+
+    public String getReviews() {
+        return reviews;
+    }
 }
