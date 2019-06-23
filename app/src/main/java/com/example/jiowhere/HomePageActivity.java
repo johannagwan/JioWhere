@@ -75,26 +75,20 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         myTextView = (TextView) findViewById(R.id.searchTextView);
         myImageView = (ImageView) findViewById(R.id.searchImage);
 
-        myTextView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        myImageView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
-                startActivity(intent);
-            }
-        });
-      
+        myTextView.setOnClickListener(this);
+        myImageView.setOnClickListener(this);
         recommendButton.setOnClickListener(this);
     }
   
     public void onClick(View v) {
         if (v == recommendButton) {
             startActivity(new Intent(this, RecommendingActivity.class));
+        } else if (v == myImageView) {
+            Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
+            startActivity(intent);
+        } else if (v == myTextView) {
+            Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
+            startActivity(intent);
         }
     }
 }

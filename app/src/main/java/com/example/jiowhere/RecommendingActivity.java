@@ -24,6 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.w3c.dom.Text;
 
 public class RecommendingActivity extends AppCompatActivity implements View.OnClickListener {
@@ -51,6 +54,8 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
 
     private Button recommendActivityButton;
     private DatabaseReference databaseReference;
+
+    public static List<String> uniqueID = new ArrayList<>();
 
 
     @Override
@@ -95,6 +100,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
 
         if (!TextUtils.isEmpty(nameOfActivity)) {
             String id = databaseReference.push().getKey();
+            uniqueID.add(id);
             RecommendationDetails recommendationDetails =
                 new RecommendationDetails(id, nameOfActivity, nearestMRT, address, timePeriod, isPermanent, reviews);
 

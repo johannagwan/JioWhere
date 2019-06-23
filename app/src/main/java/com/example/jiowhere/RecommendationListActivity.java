@@ -1,38 +1,46 @@
 package com.example.jiowhere;
 
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class RecommendationListActivity extends AppCompatActivity implements View.OnClickListener{
     //this is the search list
     ListView mListView;
     SearchView mySearchView;
+    Button tagButton;
 
     ListViewAdaptor adaptor;
     ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
 
+    Intent myIntent;
+    String strEditText;
+    //TextView tagView = findViewById(R.id.filterByTags);
+
+
 
     //see if I can get data from firebase instead
+
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
     String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
     String[] location = {"Kent Ridge/Bouna Vista", "Habourfront", "Habourfront", "Habourfront", "Kent Ridge"}; //nearest MRT
     String[] time = {"Permanant", "Permanant", "Permanant", "Permanant", "Permanent"};
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +62,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
         adaptor = new ListViewAdaptor(this, arrayList);
         mListView.setAdapter(adaptor);
 
+
         //trying to make search view
         SearchView searchView = (SearchView) findViewById(R.id.mainSearchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -65,8 +74,8 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (TextUtils.isEmpty(newText)) {
-                    adaptor.filter("");
-                    mListView.clearTextFilter();
+                        adaptor.filter("");
+                        mListView.clearTextFilter();
                 } else {
                     adaptor.filter(newText);
                 }
@@ -75,60 +84,66 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
             }
         });
 
+
+        //Tags System
+        tagButton = (Button) findViewById(R.id.tagButton);
+        tagButton.setOnClickListener(this);
+
+
+
+        /*
+        SearchView tag = (SearchView) findViewById(R.id.tagSearchView);
+
+        tag.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                    adaptor.tagFilter("");
+                    mListView.clearTextFilter();
+                } else {
+                    adaptor.tagFilter(newText);
+                }
+
+                return true;
+            }
+        });
+        */
+
+
     }
 
-    /*
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-    protected void loopingForListView(int position, Intent intent, int maxValue) {
-        for (int i = 0; i < maxValue; i++) {
-            if (position == i) {
-                startActivity(intent);
+        // Check that it is the SecondActivity with an OK result
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                // Get String data from Intent
+                String returnString = data.getStringExtra("keyName");
+
+                // Set text view with string
+                TextView filterView = (TextView) findViewById(R.id.filterByTags);
+                filterView.setText(returnString);
             }
         }
     }
 
 
-    //adaptor for the listview
-    class CustomAdaptor extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return images.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View view = getLayoutInflater().inflate(R.layout.custom_listview_layout, null);
-
-            ImageView mImageView = (ImageView) view.findViewById(R.id.imageView2);
-            TextView aTextView = (TextView) view.findViewById(R.id.activityTextView);
-            TextView lTextView = (TextView) view.findViewById(R.id.locationTextView);
-            TextView tTextView = (TextView) view.findViewById(R.id.timePreiodTextView);
-
-            mImageView.setImageResource(images[position]);
-            aTextView.setText(activity[position]);
-            lTextView.setText(location[position]);
-            tTextView.setText(time[position]);
-
-            return view;
-        }
-
-    }
-    */
-
     @Override
     public void onClick(View v) {
 
+        if (v == tagButton) {
+            Intent intent = new Intent(this, TagSystem.class);
+            startActivityForResult(intent, 1);
+
+            onActivityResult(1, RESULT_OK, intent);
+        }
+
     }
 }
+

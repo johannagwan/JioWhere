@@ -17,4 +17,6 @@
     <string name="reviews">Reviews</string>
     <string name="family">Family</string>
     <string name="leave_a_review">Leave a Review</string>
+    <string name="submit">Submit</string>
+    <string name="leave_a_review_here">Leave a review here</string>
 </resources>

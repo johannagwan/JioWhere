@@ -118,4 +118,20 @@ public class ListViewAdaptor extends BaseAdapter {
         }
         notifyDataSetChanged();
     }
+
+    //tags
+    public void tagFilter (String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        recommendationInfoList.clear();
+        if (charText.length() == 0) {
+            recommendationInfoList.addAll(arrayList);
+        } else {
+            for (RecommendationInfo rc : arrayList) {
+                if (rc.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    recommendationInfoList.add(rc);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 }
