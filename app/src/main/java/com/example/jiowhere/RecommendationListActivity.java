@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,18 +30,13 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
     ListViewAdaptor adaptor;
     ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
 
-    Intent myIntent;
-    String strEditText;
-    //TextView tagView = findViewById(R.id.filterByTags);
-
-
-
     //see if I can get data from firebase instead
 
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
     String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
     String[] location = {"Kent Ridge/Bouna Vista", "Habourfront", "Habourfront", "Habourfront", "Kent Ridge"}; //nearest MRT
     String[] time = {"Permanant", "Permanant", "Permanant", "Permanant", "Permanent"};
+    String[] tags = {"Family", "Lover", "Solo", "Outdoor", "Indoor"};
 
 
     @Override
@@ -55,7 +52,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
         //adding data into the arrayList
         for (int i = 0; i < activity.length; i++) {
-            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], images[i]);
+            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], tags[i], images[i]);
             arrayList.add(ri);
         }
 
@@ -74,8 +71,8 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (TextUtils.isEmpty(newText)) {
-                        adaptor.filter("");
-                        mListView.clearTextFilter();
+                    adaptor.filter("");
+                    mListView.clearTextFilter();
                 } else {
                     adaptor.filter(newText);
                 }
@@ -90,6 +87,25 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
         tagButton.setOnClickListener(this);
 
 
+        TextView tagFilter = findViewById(R.id.filterByTags);
+        tagFilter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("Text ["+s+"]");
+
+                adaptor.tagFilter(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
         /*
         SearchView tag = (SearchView) findViewById(R.id.tagSearchView);

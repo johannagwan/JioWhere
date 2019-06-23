@@ -52,6 +52,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
     String[] location = {"Kent Ridge/Bouna Vista", "Habourfront", "Habourfront", "Habourfront", "Kent Ridge"}; //nearest MRT
     String[] time = {"Permanant", "Permanant", "Permanant", "Permanant", "Permanent"};
+    String[] tags = {"Family", "Lover", "Solo", "Outdoor", "Indoor"};
 
 
     @Override
@@ -63,7 +64,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         recommendButton = (Button) findViewById(R.id.recommendButton);
 
         for (int i = 0; i < activity.length; i++) {
-            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], images[i]);
+            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], tags[i], images[i]);
             arrayList.add(ri);
         }
 
