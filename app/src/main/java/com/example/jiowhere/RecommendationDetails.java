@@ -21,6 +21,7 @@ public class RecommendationDetails {
         this.reviews = reviews;
     }
 
+
     public String getId() {
         return id;
     }
@@ -41,6 +42,7 @@ public class RecommendationDetails {
         return nameOfActivity;
     }
 
+
     public void setNameOfActivity(String nameOfActivity) {
         this.nameOfActivity = nameOfActivity;
     }
@@ -48,6 +50,9 @@ public class RecommendationDetails {
     public String getNearestMRT() {
         return nearestMRT;
     }
+
+    public String getAddress() {
+        return address;
 
     public void setNearestMRT(String nearestMRT) {
         this.nearestMRT = nearestMRT;
@@ -59,10 +64,20 @@ public class RecommendationDetails {
 
     public void setReviews(String reviews) {
         this.reviews = reviews;
+
     }
 
     public String getTimePeriod() {
         return timePeriod;
+    }
+
+
+    public boolean getIsPermanent() {
+        return isPermanent;
+    }
+
+    public String getReviews() {
+        return reviews;
     }
 
     public void setTimePeriod(String timePeriod) {

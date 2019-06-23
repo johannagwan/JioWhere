@@ -50,9 +50,12 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
     String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
-    String[] location = {"Kent Ridge/Bouna Vista", "Habourfront", "Habourfront", "Habourfront", "Kent Ridge"}; //nearest MRT
-    String[] time = {"Permanant", "Permanant", "Permanant", "Permanant", "Permanent"};
+
+    String[] location = {"Kent Ridge/Buona Vista", "Harbour Front", "Harbour Front", "Harbour Front", "Kent Ridge"}; //nearest MRT
+    String[] time = {"Permanent", "Permanent", "Permanent", "Permanent", "Permanent"};
+
     String[] tags = {"#Family", "#Lover", "#Solo", "#Outdoor", "#Indoor  #Lover"};
+
 
 
     @Override
