@@ -41,21 +41,37 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
         }*/
 
+
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
         textViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
 
-        buttonSignIn.setOnClickListener(this);
+        //buttonSignIn.setOnClickListener(this);
+
+
+        buttonSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == buttonSignIn){
+                    userLogin();
+                }
+            }
+        });
         textViewSignIn.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
+
+
 
     }
 
     private void userLogin() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+
+        //String email = inputEmail.getText().toString();
+        //final String password = inputPassword.getText().toString();
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show();
@@ -70,6 +86,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         //if both email and password are entered, show a progressDialogue
         progressDialog.setMessage("Logging in...");
         progressDialog.show();
+
+
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -86,10 +104,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 }
             });
+
     }
+
 
     @Override
     public void onClick(View v) {
+
         if (v == buttonSignIn) {
             userLogin();
         }

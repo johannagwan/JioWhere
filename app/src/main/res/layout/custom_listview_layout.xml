@@ -105,13 +105,13 @@
 
     <TextView
         android:id="@+id/tagsView"
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
+        android:layout_width="213dp"
+        android:layout_height="17dp"
         android:layout_below="@+id/textView4"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="7dp"
         android:layout_toEndOf="@+id/imageView2"
         android:text="TextView" />
 

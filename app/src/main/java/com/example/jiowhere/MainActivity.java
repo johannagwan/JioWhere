@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void registerUser() {
         String email = editTextEmail.getText().toString().trim();
-        String password = editTextEmail.getText().toString().trim();
+        //String password = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show();

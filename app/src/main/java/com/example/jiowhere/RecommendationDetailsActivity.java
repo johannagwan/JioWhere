@@ -55,6 +55,8 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
         mListView = (ListView) findViewById(R.id.reviewsList);
 
         leaveReviewButton = (Button) findViewById(R.id.leaveReviewButton);
+        leaveReviewButton.setOnClickListener(this);
+
         CustomAdaptor customAdaptor = new CustomAdaptor();
         mListView.setAdapter(customAdaptor);
 
@@ -97,6 +99,24 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
             return images.length;
         }
 
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            View view = getLayoutInflater().inflate(R.layout.review_layout, null);
+
+            ImageView mImageView = (ImageView) view.findViewById(R.id.profile_picture);
+            final TextView aTextView = (TextView) view.findViewById(R.id.reviewBox);
 
             reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child("NUS");
             reff.addValueEventListener(new ValueEventListener() {
@@ -112,15 +132,6 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
 
                 }
             });
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View view = getLayoutInflater().inflate(R.layout.review_layout, null);
-
-            ImageView mImageView = (ImageView) view.findViewById(R.id.profile_picture);
-            TextView aTextView = (TextView) view.findViewById(R.id.reviewBox);
-
 
             mImageView.setImageResource(images[position]);
             //aTextView.setText(reviews[position]);
