@@ -16,7 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,6 +23,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignIn;
+    private TextView resetPasswordLogin;
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
@@ -42,10 +42,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }*/
 
 
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        editTextEmail = (EditText) findViewById(R.id.emailResetPW);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
-        textViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
+        textViewSignIn = (TextView) findViewById(R.id.SignInText);
+        resetPasswordLogin = (TextView) findViewById(R.id.resetPasswordLogin);
 
         //buttonSignIn.setOnClickListener(this);
 
@@ -59,6 +60,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
         textViewSignIn.setOnClickListener(this);
+        resetPasswordLogin.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
 
@@ -118,6 +120,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (v == textViewSignIn) {
             finish();
             startActivity(new Intent(this, MainActivity.class));
+        }
+
+        if (v == resetPasswordLogin) {
+            startActivity(new Intent(this, ResetPasswordActivity.class));
         }
     }
 }

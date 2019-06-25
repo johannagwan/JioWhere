@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class TagSystem extends AppCompatActivity {
 
-    private static final String[] TAGS = new String[] { "Family", "Friends", "Lover", "Solo", "Indoor", "Outdoor", "Culinary", "Romance" };
+    private static final String[] TAGS = new String[] {"No Tag", "Family", "Friends", "Lover", "Solo", "Indoor", "Outdoor", "Culinary", "Romance" };
     Context mContext;
     ListView listView;
 

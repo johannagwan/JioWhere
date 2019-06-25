@@ -144,7 +144,11 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
                 // Set text view with string
                 TextView filterView = (TextView) findViewById(R.id.filterByTags);
-                filterView.setText(returnString);
+                if (returnString == "No Tag") {
+                    filterView.setText("");
+                } else {
+                    filterView.setText(returnString);
+                }
             }
         }
     }

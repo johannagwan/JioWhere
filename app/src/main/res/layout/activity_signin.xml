@@ -7,11 +7,10 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="378dp"
+        android:layout_height="380dp"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textViewUserLogin"
@@ -23,21 +22,21 @@
 
 
         <EditText
-            android:layout_margin="15dp"
-            android:inputType="textEmailAddress"
-            android:hint="Email address"
-            android:id="@+id/editTextEmail"
+            android:id="@+id/emailResetPW"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Email address"
+            android:inputType="textEmailAddress" />
 
 
         <EditText
-            android:layout_margin="15dp"
-            android:inputType="textPassword"
-            android:hint="Password"
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Password"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/buttonSignIn"
@@ -47,11 +46,26 @@
             android:text="Sign In" />
 
         <TextView
-            android:textAlignment="center"
-            android:text="No account? Sign Up here"
-            android:id="@+id/textViewSignIn"
+            android:id="@+id/SignInText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="53dp"
+            android:clickable="true"
+            android:text="No account? Sign Up here"
+            android:textAlignment="center"
+            android:textColor="#3F51B5" />
+
+        <TextView
+            android:id="@+id/resetPasswordLogin"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:text="Forgot password? Reset here"
+            android:textAlignment="center"
+            android:textColor="#3F51B5" />
+
     </LinearLayout>
+
+
 
 </RelativeLayout>

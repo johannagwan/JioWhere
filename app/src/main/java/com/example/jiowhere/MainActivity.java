@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignIn;
+    private  TextView resetPasswordSignup;
 
     private ProgressDialog progressDialog;
 
@@ -43,14 +44,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         progressDialog = new ProgressDialog(this);
 
-        buttonRegister = (Button) findViewById(R.id.buttonRegister);
+        buttonRegister = (Button) findViewById(R.id.resetPwButton);
 
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        editTextEmail = (EditText) findViewById(R.id.emailResetPW);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        textViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
+        textViewSignIn = (TextView) findViewById(R.id.SignInText);
+        resetPasswordSignup = (TextView) findViewById(R.id.resetPasswordSignup);
 
         buttonRegister.setOnClickListener(this);
         textViewSignIn.setOnClickListener(this);
+        resetPasswordSignup.setOnClickListener(this);
     }
 
     private void registerUser() {
@@ -99,6 +102,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == textViewSignIn) {
             //will open Sign in activity here
             startActivity(new Intent(this, SignInActivity.class));
+        }
+
+        if (v == resetPasswordSignup) {
+            startActivity(new Intent(this, ResetPasswordActivity.class));
         }
     }
 }

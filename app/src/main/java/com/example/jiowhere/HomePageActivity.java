@@ -2,6 +2,7 @@ package com.example.jiowhere;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -41,8 +42,14 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     ImageView myImageView;
 
     ListViewAdaptor adaptor;
+    //RecDetailsAdaptor adaptor;
     ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
 
+
+
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mReference;
+    private List<RecommendationDetails> rd = new ArrayList<>();
     //private List<RecommendationInfo> recommendationInfoList;
 
 
@@ -50,10 +57,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
     String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
-
     String[] location = {"Kent Ridge/Buona Vista", "Harbour Front", "Harbour Front", "Harbour Front", "Kent Ridge"}; //nearest MRT
     String[] time = {"Permanent", "Permanent", "Permanent", "Permanent", "Permanent"};
-
     String[] tags = {"#Family", "#Lover", "#Solo", "#Outdoor", "#Indoor  #Lover"};
 
 
@@ -66,6 +71,48 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         mListView = (ListView) findViewById(R.id.listViewTimeLimitedActivities);
         recommendButton = (Button) findViewById(R.id.recommendButton);
 
+        //database thingy
+        /*
+        mDatabase = FirebaseDatabase.getInstance();
+        mReference = mDatabase.getReference("recommendations");
+
+        mReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                rd.clear();
+                List<String> keys = new ArrayList<>();
+                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                    keys.add(keyNode.getKey());
+                    RecommendationDetails recommendationDetails = keyNode.getValue(RecommendationDetails.class);
+                    rd.add(recommendationDetails);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        */
+
+
+        //adaptor = new RecDetailsAdaptor(this, rd);
+        //mListView.setAdapter(adaptor);
+        //end of database thingy
+
+
+        /*
+        for (int i = 0; i < activity.length; i++) {
+            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], tags[i], images[i]);
+            arrayList.add(ri);
+        }
+        */
+
+        //testing
+        //String length = "Help la" + rd.size();
+        //TextView testingFire = findViewById(R.id.testingFire);
+        //testingFire.setText(length);
+
         for (int i = 0; i < activity.length; i++) {
             RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], tags[i], images[i]);
             arrayList.add(ri);
@@ -73,6 +120,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         adaptor = new ListViewAdaptor(this, arrayList);
         mListView.setAdapter(adaptor);
+
 
 
         //the search bar
@@ -83,6 +131,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         myImageView.setOnClickListener(this);
         recommendButton.setOnClickListener(this);
     }
+
+
   
     public void onClick(View v) {
         if (v == recommendButton) {
