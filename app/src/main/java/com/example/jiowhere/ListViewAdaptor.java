@@ -119,24 +119,6 @@ public class ListViewAdaptor extends BaseAdapter {
         charText = charText.toLowerCase(Locale.getDefault());
         recommendationInfoList.clear();
 
-        /*
-        if (theTag != "" && charText != location) {
-            //List<RecommendationInfo> tempTagList = new ArrayList<>();
-            for (RecommendationInfo rc : arrayList) {
-                if (rc.getTags().toLowerCase(Locale.getDefault()).contains(theTag)) {
-                    recommendationInfoList.add(rc);
-                }
-            }
-            /*
-            for (RecommendationInfo rc : tempTagList) {
-                if (rc.getLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    recommendationInfoList.add(rc);
-                }
-            }
-
-
-        } else
-        */
         if (charText.length() == 0) {
             recommendationInfoList.addAll(arrayList);
         } else {
