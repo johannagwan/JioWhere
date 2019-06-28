@@ -1,6 +1,5 @@
 package com.example.jiowhere;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,15 +7,12 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+
 
 import java.util.ArrayList;
 
@@ -158,7 +154,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
 
         if (v == tagButton) {
-            Intent intent = new Intent(this, TagSystem.class);
+            Intent intent = new Intent(this, TagSystemActivity.class);
             startActivityForResult(intent, 1);
 
             onActivityResult(1, RESULT_OK, intent);
@@ -166,4 +162,3 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
     }
 }
-

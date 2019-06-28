@@ -11,9 +11,9 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-public class TagSystem extends AppCompatActivity {
+public class TagSystemActivity extends AppCompatActivity {
 
-    private static final String[] TAGS = new String[] {"No Tag", "Family", "Friends", "Lover", "Solo", "Indoor", "Outdoor", "Culinary", "Romance" };
+    private static final String[] TAGS = new String[] { "Family", "Friends", "Lover", "Solo", "Indoor", "Outdoor", "Culinary", "Romance" };
     Context mContext;
     ListView listView;
 
@@ -39,16 +39,17 @@ public class TagSystem extends AppCompatActivity {
                 String selectedFromList = (String) (listView.getItemAtPosition(position));
                 testing.setText(selectedFromList);
 
+
                 Intent intent = new Intent();
                 intent.putExtra("keyName", selectedFromList);
                 setResult(RESULT_OK, intent);
                 finish();
-                //finishActivity(1);
+
 
                 /*
-                Intent intent = new Intent();
-                intent.putExtra("editTextValue", selectedFromList);
-                setResult(RESULT_OK, intent);
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("tagValue", selectedFromList);
+                setResult(TagSystemActivity.RESULT_OK, resultIntent);
                 finish();
                 */
             }});
