@@ -21,6 +21,7 @@ public class ListViewAdaptor extends BaseAdapter {
     ArrayList<RecommendationInfo> arrayList;
 
     String location;
+    String tagedWord;
 
 
     public ListViewAdaptor(Context context, List<RecommendationInfo> recommendationInfoList) {
@@ -31,6 +32,7 @@ public class ListViewAdaptor extends BaseAdapter {
         this.arrayList.addAll(recommendationInfoList);
 
         location = "";
+        tagedWord = "";
 
     }
 
@@ -115,26 +117,29 @@ public class ListViewAdaptor extends BaseAdapter {
 
     //filter
     public void filter (String charText) {
-        location = charText;
 
-        charText = charText.toLowerCase(Locale.getDefault());
-        recommendationInfoList.clear();
+            location = charText;
 
-        if (charText.length() == 0) {
-            recommendationInfoList.addAll(arrayList);
-        } else {
-            for (RecommendationInfo rc : arrayList) {
-                if (rc.getLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    recommendationInfoList.add(rc);
+            charText = charText.toLowerCase(Locale.getDefault());
+            recommendationInfoList.clear();
+
+            if (charText.length() == 0) {
+                recommendationInfoList.addAll(arrayList);
+            } else {
+                for (RecommendationInfo rc : arrayList) {
+                    if (rc.getLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
+                        recommendationInfoList.add(rc);
+                    }
                 }
             }
-        }
         notifyDataSetChanged();
     }
 
 
 
     public  void tagFilter(String charText) {
+        tagedWord = charText;
+
         //if (charText != null) {
             charText = charText.toLowerCase(Locale.getDefault());
 
