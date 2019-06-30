@@ -44,7 +44,7 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
 
 
     int[] images = {R.drawable.sentosa, R.drawable.two, R.drawable.three, R.drawable.four};
-    //String[] reviews = {"first", "2nd", "sdddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "nxw"};
+    String[] reviews = {"I loved this place!", "Went with my friends, really enjoyed it.", "Was worth the price", "Fun and memorable"};
 
 
     @Override
@@ -118,6 +118,7 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
             ImageView mImageView = (ImageView) view.findViewById(R.id.profile_picture);
             final TextView aTextView = (TextView) view.findViewById(R.id.reviewBox);
 
+            /*
             reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child("NUS");
             reff.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -132,9 +133,10 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
 
                 }
             });
+            */
 
             mImageView.setImageResource(images[position]);
-            //aTextView.setText(reviews[position]);
+            aTextView.setText(reviews[position]);
 
             return view;
         }

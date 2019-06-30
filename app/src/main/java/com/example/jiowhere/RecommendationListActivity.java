@@ -1,6 +1,5 @@
 package com.example.jiowhere;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,15 +7,12 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+
 
 import java.util.ArrayList;
 
@@ -32,11 +28,11 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
     //see if I can get data from firebase instead
 
-    int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
-    String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
-    String[] location = {"Kent Ridge/Buona Vista", "Harbour Front", "Harbour Front", "Harbour Front", "Kent Ridge"}; //nearest MRT
-    String[] time = {"Permanent", "Permanent", "Permanent", "Permanent", "Permanent"};
-    String[] tags = {"#Family", "#Lover", "#Solo", "#Outdoor", "#Indoor  #Lover"};
+    int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus, R.drawable.pokemoncarnival, R.drawable.pinkdot, R.drawable.yummyfood};
+    String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS", "Pokemon Carnival 2019", "Pink Dot Concert 2019", "Yummy Food Expo 2019"};
+    String[] location = {"Kent Ridge/Buona Vista", "Harbourfront", "Harbourfront", "Harbourfront", "Kent Ridge", "Harbourfront", "Clarke Quay", "Expo"}; //nearest MRT
+    String[] time = {"Permanent", "Permanent", "Permanent", "Permanent", "Permanent", "15 June 2019 - 30 June 2019", "29 June, 5pm onwards", "27 to 30 June, 11am to 10pm"};
+    String[] tags = {"#Solo #Indoor", "#Outdoor #Friends", "#Romance #Family #Indoor", "#Indoor", "#Indoor", "#Family #Lover #Friends #Romance #Outdoor", "#Lover #Solo #romance #Outdoor #Friends", "#Solo", "#Outdoor", "#Culinary"};
 
 
     @Override
@@ -158,7 +154,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
 
         if (v == tagButton) {
-            Intent intent = new Intent(this, TagSystem.class);
+            Intent intent = new Intent(this, TagSystemActivity.class);
             startActivityForResult(intent, 1);
 
             onActivityResult(1, RESULT_OK, intent);
@@ -166,4 +162,3 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
     }
 }
-

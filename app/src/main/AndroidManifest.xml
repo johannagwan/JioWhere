@@ -12,13 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ResetPasswordActivity"></activity>
+        <activity android:name=".TagSystemActivity" />
         <activity android:name=".LeaveReviewActivity" />
         <activity android:name=".RecommendingActivity" />
         <activity android:name=".HomePageActivity" />
         <activity android:name=".RecommendationListActivity" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".RecommendationDetailsActivity" />
-        <activity android:name=".TagSystem" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

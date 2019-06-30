@@ -21,7 +21,8 @@ public class ListViewAdaptor extends BaseAdapter {
     ArrayList<RecommendationInfo> arrayList;
 
     String location;
-    String theTag;
+    String tagedWord;
+
 
     public ListViewAdaptor(Context context, List<RecommendationInfo> recommendationInfoList) {
         this.mContext = context;
@@ -30,7 +31,9 @@ public class ListViewAdaptor extends BaseAdapter {
         this.arrayList = new ArrayList<RecommendationInfo>();
         this.arrayList.addAll(recommendationInfoList);
 
-        theTag = "";
+        location = "";
+        tagedWord = "";
+
     }
 
     public class ViewHolder {
@@ -114,80 +117,54 @@ public class ListViewAdaptor extends BaseAdapter {
 
     //filter
     public void filter (String charText) {
-        location = charText;
 
-        charText = charText.toLowerCase(Locale.getDefault());
-        recommendationInfoList.clear();
+            location = charText;
 
-        /*
-        if (theTag != "" && charText != location) {
-            //List<RecommendationInfo> tempTagList = new ArrayList<>();
-            for (RecommendationInfo rc : arrayList) {
-                if (rc.getTags().toLowerCase(Locale.getDefault()).contains(theTag)) {
-                    recommendationInfoList.add(rc);
+            charText = charText.toLowerCase(Locale.getDefault());
+            recommendationInfoList.clear();
+
+            if (charText.length() == 0) {
+                recommendationInfoList.addAll(arrayList);
+            } else {
+                for (RecommendationInfo rc : arrayList) {
+                    if (rc.getLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
+                        recommendationInfoList.add(rc);
+                    }
                 }
             }
-            /*
-            for (RecommendationInfo rc : tempTagList) {
-                if (rc.getLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    recommendationInfoList.add(rc);
-                }
-            }
-
-
-        } else
-        */
-        if (charText.length() == 0) {
-            recommendationInfoList.addAll(arrayList);
-        } else {
-            for (RecommendationInfo rc : arrayList) {
-                if (rc.getLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    recommendationInfoList.add(rc);
-                }
-            }
-        }
         notifyDataSetChanged();
     }
 
-    //tags
-    /*
-    public void tagFilter (String charText) {
-        charText = charText.toLowerCase(Locale.getDefault());
-        recommendationInfoList.clear();
-        if (charText.length() == 0) {
-            recommendationInfoList.addAll(arrayList);
-        } else {
-            for (RecommendationInfo rc : arrayList) {
-                if (rc.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    recommendationInfoList.add(rc);
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }
-    */
+
 
     public  void tagFilter(String charText) {
-        charText = charText.toLowerCase(Locale.getDefault());
-        List<RecommendationInfo> tempRIList = new ArrayList<>();
+        tagedWord = charText;
 
-        theTag = charText;
+        //if (charText != null) {
+            charText = charText.toLowerCase(Locale.getDefault());
 
-        filter(location);
-        for(RecommendationInfo ri : recommendationInfoList) {
-            tempRIList.add(ri);
-        }
+            if (charText.length() != 0) {//ignore if no tag
+                recommendationInfoList.clear();
 
-        recommendationInfoList.clear();
-        if (charText.length() == 0) {
-            recommendationInfoList.addAll(tempRIList);
-        } else {
-            for (RecommendationInfo rc : tempRIList) {
-                if (rc.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    recommendationInfoList.add(rc);
+                if (location != "") {
+                    for (RecommendationInfo ri : arrayList) {
+                        if (ri.getLocation().toLowerCase(Locale.getDefault()).contains(location)) {
+                            if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
+                                recommendationInfoList.add(ri);
+                            }
+                        }
+                    }
+                } else {
+                    for (RecommendationInfo ri : arrayList) {
+                        if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
+                            recommendationInfoList.add(ri);
+                        }
+                    }
                 }
             }
+
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
-    }
+    //}
+
 }
