@@ -26,6 +26,8 @@ public class TagSystemActivity extends AppCompatActivity {
         //final TextView searchTag = findViewById(R.id.filterByTags);
         //final SearchView searchTag = findViewById(R.id.tagSearchView);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, TAGS);
         listView = (ListView) findViewById(R.id.tagsList);
         listView.setAdapter(itemsAdapter);
@@ -53,6 +55,13 @@ public class TagSystemActivity extends AppCompatActivity {
                 finish();
                 */
             }});
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        //code it to launch an intent to the activity you want
+        finish();
+        return true;
     }
 
 }

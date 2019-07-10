@@ -63,6 +63,8 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommending);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Initializing firebase authentication object
         //firebaseAuth = FirebaseAuth.getInstance();
 
@@ -83,7 +85,6 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         romanceCheckBox = (CheckBox) findViewById(R.id.romanceCheckBox);
         culinaryCheckBox = (CheckBox) findViewById(R.id.culinaryCheckBox);
         reviewsEditText = (EditText) findViewById(R.id.reviewsEditText);
-
 
         recommendActivityButton = (Button) findViewById(R.id.recommendActivityButton);
 
@@ -116,6 +117,13 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
 
         //FirebaseUser user = firebaseAuth.getCurrentUser();
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        //code it to launch an intent to the activity you want
+        finish();
+        return true;
     }
 
     @Override

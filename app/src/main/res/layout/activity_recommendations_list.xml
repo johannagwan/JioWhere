@@ -6,17 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <SearchView
-        android:id="@+id/mainSearchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:queryHint="Search by Location here"
-        android:iconifiedByDefault="false" />
-
     <ListView
         android:id="@+id/mainListView"
         android:layout_width="388dp"
@@ -37,7 +26,7 @@
         android:layout_marginTop="8dp"
         android:text="Tags"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainSearchView" />
+        app:layout_constraintTop_toBottomOf="@+id/locationSearchTextView" />
 
     <TextView
         android:id="@+id/filterByTags"
@@ -48,11 +37,39 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:hint="Filter by Tags"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/mainListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toEndOf="@+id/tagButton"
-        app:layout_constraintTop_toBottomOf="@+id/mainSearchView"
-        app:layout_constraintVertical_bias="0.533" />
+        app:layout_constraintTop_toBottomOf="@+id/locationSearchTextView" />
+
+    <TextView
+        android:id="@+id/locationSearchTextView"
+        android:layout_width="351dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Search by Location here"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/searchImageList"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/searchImageList"
+        android:layout_width="34dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tagButton"
+        app:layout_constraintEnd_toStartOf="@+id/searchTextView"
+        app:layout_constraintHorizontal_bias="0.74"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16000003"
+        app:srcCompat="@drawable/ic_search_black_24dp" />
 
 </android.support.constraint.ConstraintLayout>

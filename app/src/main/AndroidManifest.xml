@@ -11,15 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResetPasswordActivity"></activity>
+        <activity android:name=".SearchByLocationActivity"></activity>
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".TagSystemActivity" />
         <activity android:name=".LeaveReviewActivity" />
         <activity android:name=".RecommendingActivity" />
-        <activity android:name=".HomePageActivity" />
+        <activity
+            android:name=".HomePageActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".RecommendationListActivity" />
-        <activity android:name=".SignInActivity" />
+        <activity android:name=".SignUpActivity" />
         <activity android:name=".RecommendationDetailsActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

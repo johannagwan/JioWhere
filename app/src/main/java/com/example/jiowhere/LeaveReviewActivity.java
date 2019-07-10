@@ -33,6 +33,15 @@ public class LeaveReviewActivity extends AppCompatActivity {
         submitReviewButton = (Button) findViewById(R.id.submitReviewButton);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("recommendations").child("NUS");
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        //code it to launch an intent to the activity you want
+        finish();
+        return true;
     }
 
     private void submitReview() {
