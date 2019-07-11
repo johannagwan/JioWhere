@@ -20,7 +20,7 @@ public class ListViewAdaptor extends BaseAdapter {
     List<RecommendationInfo> recommendationInfoList;
     ArrayList<RecommendationInfo> arrayList;
 
-    String location;
+    String currentLocation;
     String tagedWord;
 
 
@@ -31,12 +31,12 @@ public class ListViewAdaptor extends BaseAdapter {
         this.arrayList = new ArrayList<RecommendationInfo>();
         this.arrayList.addAll(recommendationInfoList);
 
-        location = "";
+        currentLocation = "";
         tagedWord = "";
 
     }
 
-    public class ViewHolder {
+    private class ViewHolder {
         TextView myActivity, myLocation, myTimePeriod, myTags;
         ImageView myImage;
     }
@@ -117,8 +117,7 @@ public class ListViewAdaptor extends BaseAdapter {
 
     //filter
     public void filter (String charText) {
-
-            location = charText;
+            //currentLocation = charText;
 
             charText = charText.toLowerCase(Locale.getDefault());
             recommendationInfoList.clear();
@@ -127,6 +126,7 @@ public class ListViewAdaptor extends BaseAdapter {
                 recommendationInfoList.addAll(arrayList);
             } else {
                 for (RecommendationInfo rc : arrayList) {
+                    currentLocation = charText;
                     if (rc.getLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
                         recommendationInfoList.add(rc);
                     }
@@ -136,24 +136,44 @@ public class ListViewAdaptor extends BaseAdapter {
     }
 
 
+    //don't work combined
 
     public  void tagFilter(String charText) {
         tagedWord = charText;
 
         //if (charText != null) {
-            charText = charText.toLowerCase(Locale.getDefault());
+
 
             if (charText.length() != 0) {//ignore if no tag
+                charText = charText.toLowerCase(Locale.getDefault());
+
+                List<RecommendationInfo> temp = new ArrayList<>();
+                for(RecommendationInfo ri : recommendationInfoList) {
+                    temp.add(ri);
+                }
+
+
                 recommendationInfoList.clear();
 
-                if (location != "") {
+                if (currentLocation != "") { //if there is smth in location Search
+
                     for (RecommendationInfo ri : arrayList) {
-                        if (ri.getLocation().toLowerCase(Locale.getDefault()).contains(location)) {
+                        if (ri.getLocation().toLowerCase(Locale.getDefault()).contains(currentLocation)) {
                             if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
                                 recommendationInfoList.add(ri);
                             }
                         }
                     }
+
+
+                    /*
+                    for (RecommendationInfo ri : temp) {
+                        if(ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
+                            recommendationInfoList.add(ri);
+                        }
+                    }
+                    */
+
                 } else {
                     for (RecommendationInfo ri : arrayList) {
                         if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
@@ -165,6 +185,6 @@ public class ListViewAdaptor extends BaseAdapter {
 
             notifyDataSetChanged();
         }
-    //}
+
 
 }

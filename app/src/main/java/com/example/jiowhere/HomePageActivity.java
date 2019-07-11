@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-
+import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +44,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     TextView myTextView;
     ImageView myImageView;
+    Button button;
 
     ListViewAdaptor adaptor;
     //RecDetailsAdaptor adaptor;
@@ -73,47 +78,12 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         mListView = (ListView) findViewById(R.id.listViewTimeLimitedActivities);
         recommendButton = (Button) findViewById(R.id.recommendButton);
 
-        //database thingy
-        /*
-        mDatabase = FirebaseDatabase.getInstance();
-        mReference = mDatabase.getReference("recommendations");
-
-        mReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                rd.clear();
-                List<String> keys = new ArrayList<>();
-                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
-                    keys.add(keyNode.getKey());
-                    RecommendationDetails recommendationDetails = keyNode.getValue(RecommendationDetails.class);
-                    rd.add(recommendationDetails);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        */
-
-
-        //adaptor = new RecDetailsAdaptor(this, rd);
-        //mListView.setAdapter(adaptor);
-        //end of database thingy
-
-
-        /*
-        for (int i = 0; i < activity.length; i++) {
-            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], tags[i], images[i]);
-            arrayList.add(ri);
-        }
-        */
+        Toolbar toolbar = findViewById(R.id.mainActivityToolbar);
+        setSupportActionBar(toolbar);
 
         //testing
-        //String length = "Help la" + rd.size();
-        //TextView testingFire = findViewById(R.id.testingFire);
-        //testingFire.setText(length);
+        //FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+        //Toast.makeText(this, "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
 
         for (int i = 0; i < activity.length; i++) {
             RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], tags[i], images[i]);
@@ -134,8 +104,27 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         recommendButton.setOnClickListener(this);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-  
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logoutButton:
+                startActivity(new Intent(this, SignInActivity.class));
+                return true;
+            case R.id.userProfile:
+                startActivity(new Intent(this, UserProfileActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void onClick(View v) {
         if (v == recommendButton) {
             startActivity(new Intent(this, RecommendingActivity.class));

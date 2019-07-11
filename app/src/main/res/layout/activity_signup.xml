@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".SignUpActivity">
 
 
     <LinearLayout
@@ -37,6 +37,14 @@
             android:layout_margin="15dp"
             android:hint="Password"
             android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/editTextDisplayName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Display Name "
+            android:inputType="text" />
 
         <Button
             android:id="@+id/resetPwButton"

@@ -119,7 +119,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         if (v == textViewSignIn) {
             finish();
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, SignUpActivity.class));
         }
 
         if (v == resetPasswordLogin) {

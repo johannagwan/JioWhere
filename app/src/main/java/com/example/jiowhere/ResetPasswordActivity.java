@@ -31,6 +31,8 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
 
         SignInText.setOnClickListener(this);
         resetPwButton.setOnClickListener(this);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void resetPassword(String email) {
@@ -43,6 +45,13 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
                         }
                     }
                 });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        //code it to launch an intent to the activity you want
+        finish();
+        return true;
     }
 
     @Override

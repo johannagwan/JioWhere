@@ -16,25 +16,32 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+    //Main Activity -> SignUp Activity
 
     private Button buttonRegister;
     private EditText editTextEmail;
     private EditText editTextPassword;
+    private EditText editTextDisplayName;
     private TextView textViewSignIn;
-    private  TextView resetPasswordSignup;
+    private TextView resetPasswordSignup;
 
     private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_signup);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+
 
         /*if (firebaseAuth.getCurrentUser() != null) {
             //user is already registered
@@ -48,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         editTextEmail = (EditText) findViewById(R.id.emailResetPW);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editTextDisplayName = findViewById(R.id.editTextDisplayName);
         textViewSignIn = (TextView) findViewById(R.id.SignInText);
         resetPasswordSignup = (TextView) findViewById(R.id.resetPasswordSignup);
 
@@ -57,9 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void registerUser() {
-        String email = editTextEmail.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         //String password = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        final String displayName = editTextDisplayName.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show();
@@ -83,15 +92,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         if (task.isSuccessful()) {
                             //user is successfully registered and logged in
+                            String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            UserInformation userInformation = new UserInformation(email, displayName);
+                            databaseReference.child(uID).setValue(userInformation);
+
                             finish();
-                            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+                            Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                            startActivity(intent);
                         } else {
-                            Toast.makeText(MainActivity.this, "Could not register. Please register again.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "Could not register. Please register again.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
+
+
     }
+
 
     @Override
     public void onClick(View v) {

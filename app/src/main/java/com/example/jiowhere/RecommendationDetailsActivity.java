@@ -1,6 +1,7 @@
 package com.example.jiowhere;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -21,11 +22,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecommendationDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     //This is the full recommendation -> the detailed recommendation
@@ -40,12 +45,14 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
     TextView location;
     TextView time;
     ImageView image;
-    Button leaveReview;
+
+    ArrayList<String> reviewList;
+    CustomAdaptor adapter;
 
 
     int[] images = {R.drawable.sentosa, R.drawable.two, R.drawable.three, R.drawable.four};
-    String[] reviews = {"I loved this place!", "Went with my friends, really enjoyed it.", "Was worth the price", "Fun and memorable"};
-
+    //String[] reviews = {"I loved this place!", "Went with my friends, really enjoyed it.", "Was worth the price", "Fun and memorable"};
+    String[] reviews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +64,8 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
         leaveReviewButton = (Button) findViewById(R.id.leaveReviewButton);
         leaveReviewButton.setOnClickListener(this);
 
-        CustomAdaptor customAdaptor = new CustomAdaptor();
-        mListView.setAdapter(customAdaptor);
+        /*CustomAdaptor customAdaptor = new CustomAdaptor();
+        mListView.setAdapter(customAdaptor);*/
 
         //Passing data inside
         name = (TextView) findViewById(R.id.activityNameTitle);
@@ -82,6 +89,57 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
         location.setText(activityLocation);
         time.setText(activityTime);
 
+        reviewList = new ArrayList<>();
+
+        /*reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child("A").child("reviews");
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String reviews = dataSnapshot.child("rev 1").getValue().toString();
+                reviewList.add(reviews);
+                //aTextView.setText(reviews);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });*/
+
+        //reviews = reviewList.toArray(new String[reviewList.size()]);
+
+        retrieve();
+    }
+
+    public ArrayList<String> retrieve() {
+        reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child("A").child("reviews");
+        reff.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                fetchData(dataSnapshot);
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                fetchData(dataSnapshot);
+            }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        return reviewList;
+    }
+
+    private void fetchData(DataSnapshot dataSnapshot)
+    {
+        String rev = dataSnapshot.getValue(String.class);
+        reviewList.add(rev);
+
+        adapter = new CustomAdaptor(this, reviewList);
+        mListView.setAdapter(adapter);
     }
 
 
@@ -93,6 +151,13 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
 
     //adaptor for the listview
     class CustomAdaptor extends BaseAdapter {
+        Context context;
+        ArrayList<String> reviewList;
+
+        public CustomAdaptor(Context context, ArrayList<String> reviewList) {
+            this.context = context;
+            this.reviewList = reviewList;
+        }
 
         @Override
         public int getCount() {
@@ -118,26 +183,26 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
             ImageView mImageView = (ImageView) view.findViewById(R.id.profile_picture);
             final TextView aTextView = (TextView) view.findViewById(R.id.reviewBox);
 
-            /*
-            reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child("NUS");
+
+            /*reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child("A").child("reviews");
             reff.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String reviews = dataSnapshot.child("reviews").getValue().toString();
-                    aTextView.setText(reviews);
+                    //String reviews = dataSnapshot.getValue().toString();
+                    //reviewList.add(reviews);
+                    //aTextView.setText(reviews);
+                    //fetchData(dataSnapshot);
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
-
                 }
-            });
-            */
+            });*/
+
+            reviews = reviewList.toArray(new String[reviewList.size()]);
 
             mImageView.setImageResource(images[position]);
             aTextView.setText(reviews[position]);
-
+            //aTextView.setText(reviewList.get(position));
             return view;
         }
     }
