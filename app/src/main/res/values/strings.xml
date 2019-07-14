@@ -7,7 +7,7 @@
     <string name="address">Address:</string>
     <string name="nearest_mrt_name">nearest_mrt_name</string>
     <string name="activity_name">Activity Name</string>
-    <string name="time_period">Time Period</string>
+    <string name="time_period">Time Period:</string>
     <string name="insert_time_period">insert time period</string>
     <string name="price">Price:</string>
     <string name="insert_price_e_g_free_2_10">*insert price* e.g. free/$2-$10</string>

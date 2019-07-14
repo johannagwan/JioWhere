@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -52,9 +53,10 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference mReference;
+    //private FirebaseDatabase mDatabase;
+    //private DatabaseReference mReference;
     private List<RecommendationDetails> rd = new ArrayList<>();
+    private DatabaseReference reff;
     //private List<RecommendationInfo> recommendationInfoList;
 
 
@@ -124,6 +126,61 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+    private void retrieveUserInfo() {
+        reff = FirebaseDatabase.getInstance().getReference().child("recommendations");
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    /*
+
+
+    public ArrayList<String> retrieve() {
+        reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child("A").child("reviews");
+        reff.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                fetchData(dataSnapshot);
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                fetchData(dataSnapshot);
+            }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        return reviewList;
+    }
+
+    private void fetchData(DataSnapshot dataSnapshot)
+    {
+        String rev = dataSnapshot.getValue(String.class);
+        reviewList.add(rev);
+
+        adapter = new CustomAdaptor(this, reviewList);
+        mListView.setAdapter(adapter);
+    }
+    }
+    */
 
     public void onClick(View v) {
         if (v == recommendButton) {

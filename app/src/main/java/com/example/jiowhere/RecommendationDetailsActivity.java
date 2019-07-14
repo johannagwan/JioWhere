@@ -59,6 +59,8 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recommendation_layout);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mListView = (ListView) findViewById(R.id.reviewsList);
 
         leaveReviewButton = (Button) findViewById(R.id.leaveReviewButton);
@@ -107,6 +109,13 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
         //reviews = reviewList.toArray(new String[reviewList.size()]);
 
         retrieve();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        //code it to launch an intent to the activity you want
+        finish();
+        return true;
     }
 
     public ArrayList<String> retrieve() {
@@ -180,7 +189,6 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
 
             View view = getLayoutInflater().inflate(R.layout.review_layout, null);
 
-            ImageView mImageView = (ImageView) view.findViewById(R.id.profile_picture);
             final TextView aTextView = (TextView) view.findViewById(R.id.reviewBox);
 
 
@@ -200,7 +208,6 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
 
             reviews = reviewList.toArray(new String[reviewList.size()]);
 
-            mImageView.setImageResource(images[position]);
             aTextView.setText(reviews[position]);
             //aTextView.setText(reviewList.get(position));
             return view;

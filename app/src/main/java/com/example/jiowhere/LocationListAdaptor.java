@@ -9,18 +9,24 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class LocationListAdaptor extends BaseAdapter {
 
     Context mContext;
     LayoutInflater inflater;
     List<LocationAndNumber> list;
+    ArrayList<LocationAndNumber> arrayList;
 
     public LocationListAdaptor(Context mContext, List<LocationAndNumber> list) {
         this.mContext = mContext;
         inflater = LayoutInflater.from(mContext);
         this.list = list;
+
+        this.arrayList = new ArrayList<>();
+        this.arrayList.addAll(list);
     }
 
     private class ViewHolderr {
@@ -72,5 +78,24 @@ public class LocationListAdaptor extends BaseAdapter {
         // Return the completed view to render on screen
         return convertView;
     }
+
+    public void filter (String charText) {
+        //currentLocation = charText;
+
+        charText = charText.toLowerCase(Locale.getDefault());
+        list.clear();
+
+        if (charText.length() == 0) {
+            list.addAll(arrayList);
+        } else {
+            for (LocationAndNumber rc : arrayList) {
+                if (rc.getNameOfLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    list.add(rc);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
 
 }

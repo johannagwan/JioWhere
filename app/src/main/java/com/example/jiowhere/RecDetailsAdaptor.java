@@ -1,46 +1,54 @@
 package com.example.jiowhere;
 
-        import android.content.Context;
-        import android.content.Intent;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.BaseAdapter;
-        import android.widget.ImageView;
-        import android.widget.TextView;
-
-        import java.util.ArrayList;
-        import java.util.List;
-        import java.util.Locale;
+ import android.content.Context;
+ import android.content.Intent;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
+ import android.widget.BaseAdapter;
+ import android.widget.ImageView;
+ import android.widget.TextView;
+ import java.util.ArrayList;
+ import java.util.List;
+ import java.util.Locale;
 
 public class RecDetailsAdaptor extends BaseAdapter {
 
     Context mContext;
     LayoutInflater inflater;
-    List<RecommendationDetails> recommendationInfoList;
+    List<RecommendationDetails> recommendationDetailsList;
     ArrayList<RecommendationDetails> arrayList;
 
-    public RecDetailsAdaptor(Context context, List<RecommendationDetails> recommendationInfoList) {
+    String currentLocation;
+    String tagedWord;
+
+    public RecDetailsAdaptor(Context context, List<RecommendationDetails> recommendationDetailsList) {
         this.mContext = context;
-        this.recommendationInfoList = recommendationInfoList;
+        this.recommendationDetailsList = recommendationDetailsList;
         inflater = LayoutInflater.from(mContext);
-        this.arrayList = new ArrayList<RecommendationDetails>();
-        this.arrayList.addAll(recommendationInfoList);
+        //Add everything in the List into new arrayList
+        this.arrayList = new ArrayList<>();
+        this.arrayList.addAll(recommendationDetailsList);
+
+        currentLocation = "";
+        tagedWord = "";
+
     }
 
-    public class ViewHolder {
+    private class ViewHolder {
         TextView myActivity, myLocation, myTimePeriod, myTags;
         ImageView myImage;
     }
 
+
     @Override
     public int getCount() {
-        return recommendationInfoList.size();
+        return recommendationDetailsList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return recommendationInfoList.get(position);
+        return recommendationDetailsList.get(position);
     }
 
     @Override
@@ -67,11 +75,15 @@ public class RecDetailsAdaptor extends BaseAdapter {
         }
 
         //set results into TextViews
+        String activityName = recommendationDetailsList.get(position).getNameOfActivity();
+
         //holder.myImage.setImageResource(recommendationInfoList.get(position).getImage());
-        holder.myTimePeriod.setText(recommendationInfoList.get(position).getTimePeriod());
-        holder.myLocation.setText(recommendationInfoList.get(position).getNearestMRT());
-        holder.myActivity.setText(recommendationInfoList.get(position).getNameOfActivity());
-        //holder.myTags.setText(recommendationInfoList.get(position).get);
+        //reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child(activityName).child("imageUrl");
+
+        holder.myTimePeriod.setText(recommendationDetailsList.get(position).getTimePeriod());
+        holder.myLocation.setText(recommendationDetailsList.get(position).getNearestMRT());
+        holder.myActivity.setText(activityName);
+        holder.myTags.setText(recommendationDetailsList.get(position).getTags());
 
         //make clickable
         final int currentPosition = position;
@@ -82,23 +94,20 @@ public class RecDetailsAdaptor extends BaseAdapter {
                 Intent myIntent = new Intent(mContext, RecommendationDetailsActivity.class);
 
                 //trying to pass data
-                //int image = recommendationInfoList.get(currentPosition).getImage();
-                String name = recommendationInfoList.get(currentPosition).getNameOfActivity();
-                String time_period = recommendationInfoList.get(currentPosition).getTimePeriod();
-                String location = recommendationInfoList.get(currentPosition).getNearestMRT();
-                //String tags = recommendationInfoList.get(currentPosition).getTags();
+                //int image = recommendationDetailsList.get(currentPosition).getImage();
+
+                String name = recommendationDetailsList.get(currentPosition).getNameOfActivity();
+                String time_period = recommendationDetailsList.get(currentPosition).getTimePeriod();
+                String location = recommendationDetailsList.get(currentPosition).getNearestMRT();
+                String tags = recommendationDetailsList.get(currentPosition).getTags();
 
                 myIntent.putExtra("name", name);
                 myIntent.putExtra("location", location);
                 myIntent.putExtra("time", time_period);
-                //myIntent.putExtra("tags", tags);
+                myIntent.putExtra("tags", tags);
+
                 //myIntent.putExtra("picture", image);
 
-                //passing image
-
-                //end of passing image
-
-                //end of pass data
                 mContext.startActivity(myIntent);
             }
         });
@@ -109,36 +118,67 @@ public class RecDetailsAdaptor extends BaseAdapter {
 
     //filter
     public void filter (String charText) {
+        //currentLocation = charText;
+
         charText = charText.toLowerCase(Locale.getDefault());
-        recommendationInfoList.clear();
+        recommendationDetailsList.clear();
+
         if (charText.length() == 0) {
-            recommendationInfoList.addAll(arrayList);
+            recommendationDetailsList.addAll(arrayList);
         } else {
             for (RecommendationDetails rc : arrayList) {
+                currentLocation = charText;
                 if (rc.getNearestMRT().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    recommendationInfoList.add(rc);
+                    recommendationDetailsList.add(rc);
                 }
             }
         }
         notifyDataSetChanged();
     }
 
-    //tags
-    /*
-    public void tagFilter (String charText) {
-        charText = charText.toLowerCase(Locale.getDefault());
-        recommendationInfoList.clear();
-        if (charText.length() == 0) {
-            recommendationInfoList.addAll(arrayList);
-        } else {
-            for (RecommendationInfo rc : arrayList) {
-                if (rc.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    recommendationInfoList.add(rc);
+
+    //don't work combined
+
+    public  void tagFilter(String charText) {
+        tagedWord = charText;
+
+        //if (charText != null) {
+
+
+        if (charText.length() != 0) {//ignore if no tag
+            charText = charText.toLowerCase(Locale.getDefault());
+
+            List<RecommendationDetails> temp = new ArrayList<>();
+            for(RecommendationDetails ri : recommendationDetailsList) {
+                temp.add(ri);
+            }
+
+
+            recommendationDetailsList.clear();
+
+            if (currentLocation != "") { //if there is smth in location Search
+
+                for (RecommendationDetails ri : arrayList) {
+                    if (ri.getNearestMRT().toLowerCase(Locale.getDefault()).contains(currentLocation)) {
+                        if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
+                            recommendationDetailsList.add(ri);
+                        }
+                    }
+                }
+
+
+
+
+            } else {
+                for (RecommendationDetails ri : arrayList) {
+                    if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
+                        recommendationDetailsList.add(ri);
+                    }
                 }
             }
         }
+
         notifyDataSetChanged();
     }
-    */
 }
 

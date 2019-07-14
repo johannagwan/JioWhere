@@ -102,6 +102,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
                 System.out.println("Text ["+s+"]");
 
+
                 adaptor.tagFilter(s.toString());
             }
 
@@ -175,6 +176,8 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
                 // Set text view with string
                 locationSearchTextView = (TextView) findViewById(R.id.locationSearchTextView);
                 locationSearchTextView.setText(returnString);
+
+                filterView.setText("");
             }
         }
     }
@@ -187,7 +190,6 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
             Intent intent = new Intent(this, TagSystemActivity.class);
             startActivityForResult(intent, 1);
 
-            onActivityResult(1, RESULT_OK, intent);
         }
 
         if (v == locationSearchTextView || v == myImageView) {
@@ -195,7 +197,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
             //startActivity(intent);
             startActivityForResult(intent, 2);
 
-            //onActivityResult(2, RESULT_OK, intent);
+
         }
 
     }
