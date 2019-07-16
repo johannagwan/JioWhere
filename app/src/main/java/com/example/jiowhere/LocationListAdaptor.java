@@ -96,6 +96,4 @@ public class LocationListAdaptor extends BaseAdapter {
         }
         notifyDataSetChanged();
     }
-
-
 }

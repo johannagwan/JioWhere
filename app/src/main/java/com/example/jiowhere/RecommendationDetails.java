@@ -9,15 +9,18 @@ public class RecommendationDetails {
     public String address;
     public String timePeriod;
     //public boolean isPermanent;
-    public String reviews;
     public String imageUrl;
     public String openingHours;
     //UploadImage uploadImage;
     String tags;
 
+    public RecommendationDetails() {
+        //no argument constructor
+    }
+
     public RecommendationDetails(String id, String nameOfActivity,
                                  String nearestMRT, String address,
-                                 String timePeriod, String openingHours, String reviews,
+                                 String timePeriod, String openingHours,
                                  String tags, String imageUrl) {
         this.id = id;
         this.nameOfActivity = nameOfActivity;
@@ -25,7 +28,6 @@ public class RecommendationDetails {
         this.address = address;
         this.timePeriod = timePeriod;
         //this.isPermanent = isPermanent;
-        this.reviews = reviews;
         this.tags = tags;
         this.imageUrl = imageUrl;
         this.openingHours = openingHours;
@@ -70,14 +72,6 @@ public class RecommendationDetails {
 
     public void setNearestMRT(String nearestMRT) {
         this.nearestMRT = nearestMRT;
-    }
-
-    public String getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(String reviews) {
-        this.reviews = reviews;
     }
 
     public String getTimePeriod() {

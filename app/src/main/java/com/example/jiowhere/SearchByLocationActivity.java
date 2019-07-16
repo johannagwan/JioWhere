@@ -48,20 +48,6 @@ public class SearchByLocationActivity extends AppCompatActivity {
         adaptor = new LocationListAdaptor(this, arrayList);
         listView.setAdapter(adaptor);
 
-        //String selectedFromList;
-        //final String searchedText = getIntent().getStringExtra("searchedText");
-
-
-        /*
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                String selectedFromList = (String) (listView.getItemAtPosition(position));
-
-
-
-            }});
-            */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

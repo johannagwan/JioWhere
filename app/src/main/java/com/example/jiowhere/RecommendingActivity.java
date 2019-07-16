@@ -53,7 +53,6 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     private CheckBox outdoorCheckBox;
     private CheckBox romanceCheckBox;
     private CheckBox culinaryCheckBox;
-    private EditText reviewsEditText;
     private ImageView uploadedImage;
 
     private String allTags;
@@ -90,7 +89,6 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         addressEditText = (EditText) findViewById(R.id.addressEditText);
         timePeriodEditText = (EditText) findViewById(R.id.timePeriodEditText);
         openingHoursEditText = (EditText) findViewById(R.id.openingHoursEditText);
-        reviewsEditText = (EditText) findViewById(R.id.reviewsEditText);
 
 
 
@@ -175,17 +173,15 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         String timePeriod = timePeriodEditText.getText().toString().trim();
         String openingHours = openingHoursEditText.getText().toString();
         //boolean isPermanent = true; //dummy value => no longer needed, replaced with Opening Hours
-        String reviews = reviewsEditText.getText().toString().trim();
 
         if (!TextUtils.isEmpty(nameOfActivity)
                 && !TextUtils.isEmpty(nearestMRT)
                 && !TextUtils.isEmpty(address)
-                && !TextUtils.isEmpty(timePeriod)
-                && !TextUtils.isEmpty(reviews)) {
+                && !TextUtils.isEmpty(timePeriod)) {
             String id = databaseReference.push().getKey();
             uniqueID.add(id);
 
-            uploadingInfo(id, nameOfActivity, nearestMRT, address, timePeriod, openingHours, reviews, allTags);
+            uploadingInfo(id, nameOfActivity, nearestMRT, address, timePeriod, openingHours, allTags);
 
         } else {
             if (TextUtils.isEmpty(nameOfActivity)) {
@@ -196,9 +192,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
                 Toast.makeText(this, "Please fill up the address", Toast.LENGTH_SHORT).show();
             } else if (TextUtils.isEmpty(timePeriod)) {
                 Toast.makeText(this, "Please fill up the time period of the activity", Toast.LENGTH_SHORT).show();
-            } else if (TextUtils.isEmpty(reviews)) {
-                Toast.makeText(this, "Please fill up the review", Toast.LENGTH_SHORT).show();
-            } else {
+            }else {
                 Toast.makeText(this, "Please fill up the required fields", Toast.LENGTH_SHORT).show();
             }
         }
@@ -222,8 +216,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
 
     public void uploadingInfo(final String id, final String nameOfActivity,
                               final String nearestMRT, final String address,
-                              final String timePeriod, final String openingHours,
-                              final String reviews, final String allTags) {
+                              final String timePeriod, final String openingHours, final String allTags) {
         //final StorageReference filePath = UserProfileImageRef.child(currentUserID + ".jpg");
         final StorageReference filePath = storageReference.child("images/"+ UUID.randomUUID().toString());
 
@@ -246,12 +239,14 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
                         //UploadImage uploadImage = new UploadImage(activityName, downloadUrl);
                         RecommendationDetails recommendationDetails =
                                 new RecommendationDetails(id, nameOfActivity, nearestMRT, address,
-                                        timePeriod, openingHours, reviews, allTags, downloadUrl);
+                                        timePeriod, openingHours, allTags, downloadUrl);
 
                         //getUid() is a built-in function in Firebase
                         databaseReference.child(nameOfActivity).setValue(recommendationDetails);
 
                         //databaseReference.child(activityName).child("imageUrl").setValue(downloadUrl);
+                        DatabaseReference reff = FirebaseDatabase.getInstance().getReference("allActivities");
+                        reff.child(nameOfActivity).setValue(nameOfActivity);
 
                         Toast.makeText(RecommendingActivity.this, "Recommendation Saved...", Toast.LENGTH_LONG).show();
                         finish();

@@ -17,6 +17,12 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 
@@ -31,14 +37,16 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
     ListViewAdaptor adaptor;
     ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
+    ArrayList<RecommendationDetails> recommendationDetailsArrayList;
     TextView filterView;
 
+    private DatabaseReference reff;
 
-    int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus, R.drawable.pokemoncarnival, R.drawable.pinkdot, R.drawable.yummyfood};
-    String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS", "Pokemon Carnival 2019", "Pink Dot Concert 2019", "Yummy Food Expo 2019"};
+    //int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus, R.drawable.pokemoncarnival, R.drawable.pinkdot, R.drawable.yummyfood};
+    //String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS", "Pokemon Carnival 2019", "Pink Dot Concert 2019", "Yummy Food Expo 2019"};
     public static String[] LOCATION = {"Kent Ridge/Buona Vista", "Harbourfront", "Harbourfront", "Harbourfront", "Kent Ridge", "Harbourfront", "Clarke Quay", "Expo"}; //nearest MRT
-    String[] time = {"Permanent", "Permanent", "Permanent", "Permanent", "Permanent", "15 June 2019 - 30 June 2019", "29 June, 5pm onwards", "27 to 30 June, 11am to 10pm"};
-    String[] tags = {"#Solo #Indoor", "#Outdoor #Friends", "#Romance #Family #Indoor", "#Indoor", "#Indoor", "#Family #Lover #Friends #Romance #Outdoor", "#Lover #Solo #romance #Outdoor #Friends", "#Solo", "#Outdoor", "#Culinary"};
+    //String[] time = {"Permanent", "Permanent", "Permanent", "Permanent", "Permanent", "15 June 2019 - 30 June 2019", "29 June, 5pm onwards", "27 to 30 June, 11am to 10pm"};
+    //String[] tags = {"#Solo #Indoor", "#Outdoor #Friends", "#Romance #Family #Indoor", "#Indoor", "#Indoor", "#Family #Lover #Friends #Romance #Outdoor", "#Lover #Solo #romance #Outdoor #Friends", "#Solo", "#Outdoor", "#Culinary"};
 
 
     @Override
@@ -53,13 +61,17 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //adding data into the arrayList
+        /*
         for (int i = 0; i < activity.length; i++) {
             RecommendationInfo ri = new RecommendationInfo(LOCATION[i], time[i], activity[i], tags[i], images[i]);
             arrayList.add(ri);
         }
+        */
 
-        adaptor = new ListViewAdaptor(this, arrayList);
-        mListView.setAdapter(adaptor);
+        recommendationDetailsArrayList = new ArrayList<>();
+
+        //adaptor = new ListViewAdaptor(this, arrayList);
+        //mListView.setAdapter(adaptor);
 
         locationSearchTextView = findViewById(R.id.locationSearchTextView);
         myImageView = findViewById(R.id.searchImageList);
@@ -141,7 +153,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
         */
 
 
-
+    retrieveRecDetailsData();
     }
 
     @Override
@@ -149,6 +161,56 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
         //code it to launch an intent to the activity you want
         finish();
         return true;
+    }
+
+    public ArrayList<RecommendationDetails> retrieveRecDetailsData() {
+        reff = FirebaseDatabase.getInstance().getReference().child("recommendations");
+        reff.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                fetchRecDetails(dataSnapshot);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                fetchRecDetails(dataSnapshot);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        return recommendationDetailsArrayList;
+    }
+
+
+    private void fetchRecDetails(DataSnapshot dataSnapshot) {
+        RecommendationDetails rev = dataSnapshot.getValue(RecommendationDetails.class);
+        //String rev = dataSnapshot.child("nameOfActivity").getValue(String.class);
+
+        String nearestMRT = rev.getNearestMRT();
+        String timePeriod = rev.getTimePeriod();
+        String nameOfActivity = rev.getNameOfActivity();
+        String tags = rev.getTags();
+
+        String imageUrl = rev.getImageUrl();
+
+        RecommendationInfo ri = new RecommendationInfo(nearestMRT, timePeriod, nameOfActivity, tags, imageUrl);
+        arrayList.add(ri);
+
+        //recommendationDetailsArrayList.add(rev);
+
+        adaptor = new ListViewAdaptor(this, arrayList);
+        mListView.setAdapter(adaptor);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
