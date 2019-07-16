@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -45,20 +46,24 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     TextView myTextView;
     ImageView myImageView;
     Button button;
+    Button testingButton;
 
     ListViewAdaptor adaptor;
-    //RecDetailsAdaptor adaptor;
-    ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
+    ArrayList<RecommendationInfo> arrayList;
+    ArrayList<RecommendationDetails> recommendationDetailsArrayList;
 
 
 
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference mReference;
+    //private FirebaseDatabase mDatabase;
+    //private DatabaseReference mReference;
     private List<RecommendationDetails> rd = new ArrayList<>();
+    private DatabaseReference reff;
     //private List<RecommendationInfo> recommendationInfoList;
 
 
-
+    //me tryin out
+    ArrayList<String> activityList;
+    RecDetailsAdaptor adapter;
 
     int[] images = {R.drawable.pokemoncarnival, R.drawable.pinkdot, R.drawable.yummyfood};
     String[] activity = {"Pokemon Carnival 2019", "Pink Dot Concert 2019", "Yummy Food Expo 2019"};
@@ -78,17 +83,14 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         mListView = (ListView) findViewById(R.id.listViewTimeLimitedActivities);
         recommendButton = (Button) findViewById(R.id.recommendButton);
 
+        arrayList = new ArrayList<>();
+        recommendationDetailsArrayList = new ArrayList<>();
+        //reviewList = new ArrayList<>();
+
+
         Toolbar toolbar = findViewById(R.id.mainActivityToolbar);
         setSupportActionBar(toolbar);
 
-        //testing
-        //FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-        //Toast.makeText(this, "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
-
-        for (int i = 0; i < activity.length; i++) {
-            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], tags[i], images[i]);
-            arrayList.add(ri);
-        }
 
         adaptor = new ListViewAdaptor(this, arrayList);
         mListView.setAdapter(adaptor);
@@ -98,10 +100,15 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         //the search bar
         myTextView = (TextView) findViewById(R.id.searchTextView);
         myImageView = (ImageView) findViewById(R.id.searchImage);
+        testingButton = findViewById(R.id.testingButton);
 
         myTextView.setOnClickListener(this);
         myImageView.setOnClickListener(this);
         recommendButton.setOnClickListener(this);
+        testingButton.setOnClickListener(this);
+
+        //retrieve(); //activityList contains the list of activity
+        retrieveRecDetailsData();
     }
 
     @Override
@@ -125,14 +132,74 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    public ArrayList<RecommendationDetails> retrieveRecDetailsData() {
+        reff = FirebaseDatabase.getInstance().getReference().child("recommendations");
+        reff.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                fetchRecDetails(dataSnapshot);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                fetchRecDetails(dataSnapshot);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        return recommendationDetailsArrayList;
+    }
+
+
+    private void fetchRecDetails(DataSnapshot dataSnapshot) {
+        RecommendationDetails rev = dataSnapshot.getValue(RecommendationDetails.class);
+        //String rev = dataSnapshot.child("nameOfActivity").getValue(String.class);
+
+        String nearestMRT = rev.getNearestMRT();
+        String timePeriod = rev.getTimePeriod();
+        String nameOfActivity = rev.getNameOfActivity();
+        String tags = rev.getTags();
+
+        String imageUrl = rev.getImageUrl();
+
+        RecommendationInfo ri = new RecommendationInfo(nearestMRT, timePeriod, nameOfActivity, tags, imageUrl);
+        arrayList.add(ri);
+
+        //recommendationDetailsArrayList.add(rev);
+
+        adaptor = new ListViewAdaptor(this, arrayList);
+        mListView.setAdapter(adaptor);
+    }
+
+
     public void onClick(View v) {
         if (v == recommendButton) {
             startActivity(new Intent(this, RecommendingActivity.class));
-        } else if (v == myImageView) {
+        }
+
+        if (v == myImageView) {
             Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
             startActivity(intent);
-        } else if (v == myTextView) {
+        }
+
+        if (v == myTextView) {
             Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
+            startActivity(intent);
+        }
+
+        if (v == testingButton) {
+            Intent intent = new Intent(v.getContext(), TestingActivity.class);
             startActivity(intent);
         }
     }

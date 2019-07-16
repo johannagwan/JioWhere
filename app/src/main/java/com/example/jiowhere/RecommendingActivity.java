@@ -1,33 +1,38 @@
 package com.example.jiowhere;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Switch;
 import android.widget.CheckBox;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 
-import java.sql.Time;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.w3c.dom.Text;
+import java.util.UUID;
 
 public class RecommendingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,6 +42,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     private EditText nameOfActivityEditText;
     private EditText nearestMRTEditText;
     private EditText addressEditText;
+    private EditText openingHoursEditText;
     private EditText timePeriodEditText;
     private Switch permanentSwitch;
     private CheckBox familyCheckBox;
@@ -47,10 +53,17 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     private CheckBox outdoorCheckBox;
     private CheckBox romanceCheckBox;
     private CheckBox culinaryCheckBox;
-    private EditText reviewsEditText;
+    private ImageView uploadedImage;
 
-    //not done yet
+    private String allTags;
+    //Saving image
     private Button uploadPicButton;
+
+    Uri imageUri;
+    FirebaseStorage storage;
+    StorageReference storageReference;
+
+    public static final int GalleryPick = 99;
 
     private Button recommendActivityButton;
     private DatabaseReference databaseReference;
@@ -75,7 +88,10 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         nearestMRTEditText = (EditText) findViewById(R.id.nearestMRTEditText);
         addressEditText = (EditText) findViewById(R.id.addressEditText);
         timePeriodEditText = (EditText) findViewById(R.id.timePeriodEditText);
-        permanentSwitch = (Switch) findViewById(R.id.permanentSwitch);
+        openingHoursEditText = (EditText) findViewById(R.id.openingHoursEditText);
+
+
+
         familyCheckBox = (CheckBox) findViewById(R.id.familyCheckBox);
         friendsCheckBox = (CheckBox) findViewById(R.id.friendsCheckBox);
         loverCheckBox = (CheckBox) findViewById(R.id.loverCheckBox);
@@ -84,38 +100,102 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         outdoorCheckBox = (CheckBox) findViewById(R.id.outdoorCheckBox);
         romanceCheckBox = (CheckBox) findViewById(R.id.romanceCheckBox);
         culinaryCheckBox = (CheckBox) findViewById(R.id.culinaryCheckBox);
-        reviewsEditText = (EditText) findViewById(R.id.reviewsEditText);
 
+        uploadedImage = (ImageView) findViewById(R.id.uploadedImage);
+        uploadedImage.setImageResource(R.drawable.empty);
+
+        //Buttons
         recommendActivityButton = (Button) findViewById(R.id.recommendActivityButton);
+        uploadPicButton = (Button) findViewById(R.id.uploadPicButton);
+
+        allTags = "";
+
+        //switch
+        permanentSwitch = (Switch) findViewById(R.id.permanentSwitch);
+        permanentSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                if (isChecked) { //if true => if switch is on => is permanent
+                    timePeriodEditText.setText("Permanent");
+                } else {
+                    //if ((timePeriodEditText.getText()).equals("Permanent")) {
+                    String currentText = timePeriodEditText.getText().toString();
+                    if (currentText.equals("Permanent")) {
+                        timePeriodEditText.setText("");
+                    }
+                    //}
+                }
+            }
+        });
 
         //adding listener to button
         recommendActivityButton.setOnClickListener(this);
+        uploadPicButton.setOnClickListener(this);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
     }
 
+    private void checkBoxChecking() {
+        List<CheckBox> items = new ArrayList<>();
+
+        items.add(familyCheckBox);
+        items.add(friendsCheckBox);
+        items.add(loverCheckBox);
+        items.add(soloCheckBox);
+        items.add(indoorCheckBox);
+        items.add(outdoorCheckBox);
+        items.add(romanceCheckBox);
+        items.add(culinaryCheckBox);
+
+        String text = "";
+
+        for (CheckBox item : items){
+            if(item.isChecked()) {
+                text = item.getText().toString();
+                allTags = allTags + "#" + text + " ";
+            }
+
+            if (allTags.equals("")) {
+                allTags = "No tags";
+            }
+        }
+    }
+
+
     private void saveRecommendation() {
+        checkBoxChecking();
+
         String nameOfActivity = nameOfActivityEditText.getText().toString().trim();
         String nearestMRT = nearestMRTEditText.getText().toString().trim();
         String address = addressEditText.getText().toString().trim();
         String timePeriod = timePeriodEditText.getText().toString().trim();
-        boolean isPermanent = true; //dummy value
-        String reviews = reviewsEditText.getText().toString().trim();
+        String openingHours = openingHoursEditText.getText().toString();
+        //boolean isPermanent = true; //dummy value => no longer needed, replaced with Opening Hours
 
-        if (!TextUtils.isEmpty(nameOfActivity)) {
+        if (!TextUtils.isEmpty(nameOfActivity)
+                && !TextUtils.isEmpty(nearestMRT)
+                && !TextUtils.isEmpty(address)
+                && !TextUtils.isEmpty(timePeriod)) {
             String id = databaseReference.push().getKey();
             uniqueID.add(id);
-            RecommendationDetails recommendationDetails =
-                new RecommendationDetails(id, nameOfActivity, nearestMRT, address, timePeriod, isPermanent, reviews);
 
-            //getUid() is a built-in function in Firebase
-            databaseReference.child(recommendationDetails.getNameOfActivity()).setValue(recommendationDetails);
-            Toast.makeText(this, "Recommendation Saved...", Toast.LENGTH_LONG).show();
-            finish();
-            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+            uploadingInfo(id, nameOfActivity, nearestMRT, address, timePeriod, openingHours, allTags);
+
         } else {
-            Toast.makeText(this, "Please fill up the required fields", Toast.LENGTH_SHORT).show();
+            if (TextUtils.isEmpty(nameOfActivity)) {
+                Toast.makeText(this, "Please fill up name of Activity", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(nearestMRT)) {
+                Toast.makeText(this, "Please fill up the nearest MRT station", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(address)) {
+                Toast.makeText(this, "Please fill up the address", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(timePeriod)) {
+                Toast.makeText(this, "Please fill up the time period of the activity", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, "Please fill up the required fields", Toast.LENGTH_SHORT).show();
+            }
         }
-
-        //FirebaseUser user = firebaseAuth.getCurrentUser();
 
     }
 
@@ -126,10 +206,104 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         return true;
     }
 
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+
+        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    public void uploadingInfo(final String id, final String nameOfActivity,
+                              final String nearestMRT, final String address,
+                              final String timePeriod, final String openingHours, final String allTags) {
+        //final StorageReference filePath = UserProfileImageRef.child(currentUserID + ".jpg");
+        final StorageReference filePath = storageReference.child("images/"+ UUID.randomUUID().toString());
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+
+        progressDialog.setTitle("Uploading image...");
+        progressDialog.show();
+
+        filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        final String downloadUrl = uri.toString();
+                        progressDialog.dismiss();
+                        Toast.makeText(RecommendingActivity.this, "Uploaded successfully", Toast.LENGTH_SHORT).show();
+
+
+                        //UploadImage uploadImage = new UploadImage(activityName, downloadUrl);
+                        RecommendationDetails recommendationDetails =
+                                new RecommendationDetails(id, nameOfActivity, nearestMRT, address,
+                                        timePeriod, openingHours, allTags, downloadUrl);
+
+                        //getUid() is a built-in function in Firebase
+                        databaseReference.child(nameOfActivity).setValue(recommendationDetails);
+
+                        //databaseReference.child(activityName).child("imageUrl").setValue(downloadUrl);
+                        DatabaseReference reff = FirebaseDatabase.getInstance().getReference("allActivities");
+                        reff.child(nameOfActivity).setValue(nameOfActivity);
+
+                        Toast.makeText(RecommendingActivity.this, "Recommendation Saved...", Toast.LENGTH_LONG).show();
+                        finish();
+                        startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+                    }
+                });
+            }
+        });
+    }
+
+
+
+    public void openGallery() {
+        Intent galleryIntent = new Intent();
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, GalleryPick); //opening gallery
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GalleryPick && resultCode == RESULT_OK) {
+            imageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                uploadedImage.setImageBitmap(bitmap);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if (v == recommendActivityButton) {
             saveRecommendation();
+        }
+
+        if (v == uploadPicButton) {
+            openGallery();
+            /*
+            String nameOfActivity = nameOfActivityEditText.getText().toString().trim();
+
+            if (TextUtils.isEmpty(nameOfActivity)) {
+                Toast.makeText(this, "Please fill up name of Activity", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(this, SelectImageActivity.class);
+                intent.putExtra("activityName", nameOfActivity);
+
+                startActivityForResult(intent, openGalleryActivity); //opening gallery
+            }
+            */
+
         }
     }
 }

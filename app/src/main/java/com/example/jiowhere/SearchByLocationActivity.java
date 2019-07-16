@@ -3,6 +3,8 @@ package com.example.jiowhere;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -46,20 +48,6 @@ public class SearchByLocationActivity extends AppCompatActivity {
         adaptor = new LocationListAdaptor(this, arrayList);
         listView.setAdapter(adaptor);
 
-        //String selectedFromList;
-        //final String searchedText = getIntent().getStringExtra("searchedText");
-
-
-        /*
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                String selectedFromList = (String) (listView.getItemAtPosition(position));
-
-
-
-            }});
-            */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -71,6 +59,26 @@ public class SearchByLocationActivity extends AppCompatActivity {
                 intent.putExtra("locationStuff", selectedFromList);
                 setResult(RESULT_OK, intent);
                 finish();
+
+            }
+        });
+
+        locationSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("Text ["+s+"]");
+
+
+                adaptor.filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
 
             }
         });

@@ -58,19 +58,8 @@ public class UserProfileActivity extends AppCompatActivity {
         
 
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("recommendations").child("NUS");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String siz = dataSnapshot.child("nameOfActivity").getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
 
-            }
-        });
 
         /*
         databaseReference = FirebaseDatabase.getInstance().getReference().child("recommendations");

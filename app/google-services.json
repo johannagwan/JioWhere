@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "936560108952-3es0d733oggeockoer9ra1qb4oc40tu6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jiowhere",
+            "certificate_hash": "53c326dc637fe846e14ab96b78d850da2cdb7f9d"
+          }
+        },
+        {
           "client_id": "936560108952-jv8jo22c0b5hq51nnbc3bscg595un35n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
