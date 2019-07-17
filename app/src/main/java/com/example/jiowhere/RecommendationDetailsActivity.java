@@ -40,6 +40,8 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
     TextView location;
     TextView time;
     TextView tagTextView;
+    TextView googleMaps;
+    TextView durationTextView;
     ImageView image;
 
     ArrayList<Review> reviewList;
@@ -47,12 +49,8 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
 
     String activityName;
 
+
     public static final int LeavingReview = 33;
-
-
-    //int[] images = {R.drawable.sentosa, R.drawable.two, R.drawable.three, R.drawable.four};
-    //String[] reviews = {"I loved this place!", "Went with my friends, really enjoyed it.", "Was worth the price", "Fun and memorable"};
-    //String[] reviews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,15 +64,15 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
         leaveReviewButton = (Button) findViewById(R.id.leaveReviewButton);
         leaveReviewButton.setOnClickListener(this);
 
-        /*CustomAdaptor customAdaptor = new CustomAdaptor();
-        mListView.setAdapter(customAdaptor);*/
-
         //Passing data inside
         name = (TextView) findViewById(R.id.activityNameTitle);
         location = (TextView) findViewById(R.id.mrtName);
         time = (TextView) findViewById(R.id.timePeriod);
         tagTextView = findViewById(R.id.tagTextView);
         image = (ImageView) findViewById(R.id.imageView);
+        googleMaps = findViewById(R.id.googleMaps);
+        durationTextView = findViewById(R.id.durationTextView);
+
 
         // Receiving value into activity using intent.
         activityName = getIntent().getStringExtra("name");
@@ -101,6 +99,7 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
         reviewList = new ArrayList<>();
 
         //retrieveData();
+        getAndSetData();
         retrieve();
     }
 
@@ -109,6 +108,29 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
         //code it to launch an intent to the activity you want
         finish();
         return true;
+    }
+
+    public void getAndSetData(){
+        reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child(activityName);
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String address = dataSnapshot.child("address").getValue().toString();
+                String duration = dataSnapshot.child("openingHours").getValue().toString();
+
+                durationTextView.setText(duration);
+                googleMaps.setText(address);
+
+                //String email = dataSnapshot.child("email").getValue().toString();
+                //emailTextView.setText(email);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+
+            }
+        });
     }
 
 
@@ -151,48 +173,6 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
         mListView.setAdapter(adapter);
     }
 
-    /*
-    public ArrayList<String> retrieve() {
-        reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child("A").child("reviews");
-        //reff = FirebaseDatabase.getInstance().getReference().child("recommendations");
-        reff.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                fetchData(dataSnapshot);
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                fetchData(dataSnapshot);
-            }
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-        return reviewList;
-    }
-
-
-    private void fetchData(DataSnapshot dataSnapshot)
-    {
-
-        String rev = dataSnapshot.getValue(String.class);
-        //String rev = dataSnapshot.child("nameOfActivity").getValue(String.class);
-
-        reviewList.add(rev);
-
-        adapter = new CustomAdaptor(this, reviewList);
-        mListView.setAdapter(adapter);
-    }
-    */
-
-
 
     public void onClick(View v) {
         if (v == leaveReviewButton) {
@@ -204,6 +184,7 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
         }
     }
 
+    //for the review
     class CustomAdaptor extends BaseAdapter {
         Context mContext;
         LayoutInflater inflater;
@@ -273,49 +254,5 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
             return convertView;
         }
     }
-
-    /*
-    //adaptor for the listview
-    class CustomAdaptor extends BaseAdapter {
-        Context context;
-        ArrayList<Review> reviewList;
-
-        public CustomAdaptor(Context context, ArrayList<Review> reviewList) {
-            this.context = context;
-            this.reviewList = reviewList;
-        }
-
-        @Override
-        public int getCount() {
-            return reviewList.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View view = getLayoutInflater().inflate(R.layout.review_layout, null);
-
-            TextView aTextView = (TextView) view.findViewById(R.id.reviewBox);
-
-
-            //reviews = reviewList.toArray(new String[reviewList.size()]);
-
-            aTextView.setText(reviews[position]);
-            //aTextView.setText(reviewList.get(position));
-            return view;
-        }
-    }
-    */
 
 }

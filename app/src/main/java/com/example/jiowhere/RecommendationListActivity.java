@@ -8,9 +8,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -25,6 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import static com.example.jiowhere.ListViewAdaptor.MRTLOCATIONS;
+import static com.example.jiowhere.ListViewAdaptor.numberOfActivities;
+
 
 public class RecommendationListActivity extends AppCompatActivity implements View.OnClickListener{
     //this is the search list
@@ -33,20 +38,18 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
     Button tagButton;
 
     TextView locationSearchTextView;
+    TextView testText;
     ImageView myImageView;
 
     ListViewAdaptor adaptor;
     ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
     ArrayList<RecommendationDetails> recommendationDetailsArrayList;
+
+    ArrayList<String> mrtLocationList;
     TextView filterView;
 
-    private DatabaseReference reff;
 
-    //int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus, R.drawable.pokemoncarnival, R.drawable.pinkdot, R.drawable.yummyfood};
-    //String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS", "Pokemon Carnival 2019", "Pink Dot Concert 2019", "Yummy Food Expo 2019"};
-    public static String[] LOCATION = {"Kent Ridge/Buona Vista", "Harbourfront", "Harbourfront", "Harbourfront", "Kent Ridge", "Harbourfront", "Clarke Quay", "Expo"}; //nearest MRT
-    //String[] time = {"Permanent", "Permanent", "Permanent", "Permanent", "Permanent", "15 June 2019 - 30 June 2019", "29 June, 5pm onwards", "27 to 30 June, 11am to 10pm"};
-    //String[] tags = {"#Solo #Indoor", "#Outdoor #Friends", "#Romance #Family #Indoor", "#Indoor", "#Indoor", "#Family #Lover #Friends #Romance #Outdoor", "#Lover #Solo #romance #Outdoor #Friends", "#Solo", "#Outdoor", "#Culinary"};
+    private DatabaseReference reff;
 
 
     @Override
@@ -69,6 +72,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
         */
 
         recommendationDetailsArrayList = new ArrayList<>();
+        mrtLocationList = new ArrayList<>();
 
         //adaptor = new ListViewAdaptor(this, arrayList);
         //mListView.setAdapter(adaptor);
@@ -129,28 +133,6 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
             }
         });
 
-        /*
-        SearchView tag = (SearchView) findViewById(R.id.tagSearchView);
-
-        tag.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (TextUtils.isEmpty(newText)) {
-                    adaptor.tagFilter("");
-                    mListView.clearTextFilter();
-                } else {
-                    adaptor.tagFilter(newText);
-                }
-
-                return true;
-            }
-        });
-        */
 
 
     retrieveRecDetailsData();
@@ -173,7 +155,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                fetchRecDetails(dataSnapshot);
+                //fetchRecDetails(dataSnapshot);
             }
 
             @Override

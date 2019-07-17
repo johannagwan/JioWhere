@@ -33,6 +33,8 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         displayNameTextView = findViewById(R.id.displayNameTextView);
         emailTextView = findViewById(R.id.emailTextView);
 
@@ -55,37 +57,13 @@ public class UserProfileActivity extends AppCompatActivity {
 
             }
         });
-        
-
-
-
-
-
-        /*
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("recommendations");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> list = new ArrayList<>();
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    //null
-                    String name = dataSnapshot.child("nameOfActivity").getValue().toString();
-                    list.add(name);
-                }
-
-                int siz = list.size();
-                testtest.setText(siz);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-
-            }
-        });
-        */
-
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp(){
+        //code it to launch an intent to the activity you want
+        finish();
+        return true;
+    }
 }

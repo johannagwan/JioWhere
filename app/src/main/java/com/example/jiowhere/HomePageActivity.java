@@ -38,6 +38,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.jiowhere.ListViewAdaptor.MRTLOCATIONS;
+
 public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
     ListView mListView;
 
@@ -52,28 +54,12 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     ArrayList<RecommendationInfo> arrayList;
     ArrayList<RecommendationDetails> recommendationDetailsArrayList;
 
-
-
-    //private FirebaseDatabase mDatabase;
-    //private DatabaseReference mReference;
     private List<RecommendationDetails> rd = new ArrayList<>();
     private DatabaseReference reff;
-    //private List<RecommendationInfo> recommendationInfoList;
-
 
     //me tryin out
     ArrayList<String> activityList;
     RecDetailsAdaptor adapter;
-
-    int[] images = {R.drawable.pokemoncarnival, R.drawable.pinkdot, R.drawable.yummyfood};
-    String[] activity = {"Pokemon Carnival 2019", "Pink Dot Concert 2019", "Yummy Food Expo 2019"};
-    String[] location = {"Harbourfront", "Clarke Quay", "Expo"}; //nearest MRT
-    String[] time = {"15 June 2019 - 30 June 2019", "29 June, 5pm onwards", "27 to 30 June, 11am to 10pm"};
-
-    //"Family", "Friends", "Lover", "Solo", "Indoor", "Outdoor", "Culinary", "Romance"
-    String[] tags = {"#Family #Lover #Friends #Romance #Outdoor", "#Lover #Solo #romance #Outdoor #Friends", "#Solo", "#Outdoor", "#Culinary"};
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,12 +86,11 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         //the search bar
         myTextView = (TextView) findViewById(R.id.searchTextView);
         myImageView = (ImageView) findViewById(R.id.searchImage);
-        testingButton = findViewById(R.id.testingButton);
+        //testingButton = findViewById(R.id.testingButton);
 
         myTextView.setOnClickListener(this);
         myImageView.setOnClickListener(this);
         recommendButton.setOnClickListener(this);
-        testingButton.setOnClickListener(this);
 
         //retrieve(); //activityList contains the list of activity
         retrieveRecDetailsData();
@@ -142,7 +127,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                fetchRecDetails(dataSnapshot);
+                //fetchRecDetails(dataSnapshot);
             }
 
             @Override
@@ -188,19 +173,14 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
             startActivity(new Intent(this, RecommendingActivity.class));
         }
 
-        if (v == myImageView) {
-            Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
-            startActivity(intent);
+        if (v == myImageView || v == myTextView) {
+            if (MRTLOCATIONS.length != 0) {
+                Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Please wait for activities to load", Toast.LENGTH_SHORT).show();
+            }
         }
 
-        if (v == myTextView) {
-            Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
-            startActivity(intent);
-        }
-
-        if (v == testingButton) {
-            Intent intent = new Intent(v.getContext(), TestingActivity.class);
-            startActivity(intent);
-        }
     }
 }
