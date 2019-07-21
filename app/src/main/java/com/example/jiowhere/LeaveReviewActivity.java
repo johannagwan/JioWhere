@@ -90,27 +90,6 @@ public class LeaveReviewActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void submitReview() {
-
-        /*
-        reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String email = dataSnapshot.child("email").getValue().toString();
-                String review = submitReviewEditText.getText().toString().trim();
-
-                Review rev = new Review(review, email);
-                String userEmail = rev.getUserEmail();
-
-                databaseReference.child("reviews").child(email).setValue(review);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        */
         String theReview = submitReviewEditText.getText().toString();
         String userEmail = useremailTextView.getText().toString();
         String username = usernameTextView.getText().toString();
@@ -142,18 +121,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class LeaveReviewActivity extends AppCompatActivity {
+public class LeaveReviewActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DatabaseReference databaseReference;
     private EditText submitReviewEditText;
     private Button submitReviewButton;
+    private TextView name;
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
@@ -165,10 +150,15 @@ public class LeaveReviewActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        name = (TextView) findViewById(R.id.activityNameTitle2);
         submitReviewEditText = (EditText) findViewById(R.id.submitReviewEditText);
         submitReviewButton = (Button) findViewById(R.id.submitReviewButton);
+        submitReviewButton.setOnClickListener(this);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("recommendations").child("NUS");
+        String activityName = getIntent().getStringExtra("name");
+        name.setText(activityName);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("recommendations").child("A");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -181,10 +171,27 @@ public class LeaveReviewActivity extends AppCompatActivity {
     }
 
     private void submitReview() {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        String review = submitReviewEditText.getText().toString().trim();
+        final String userId = firebaseAuth.getCurrentUser().getUid();
+        DatabaseReference reff = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String email = dataSnapshot.child("email").getValue().toString();
+                String review = submitReviewEditText.getText().toString().trim();
 
-        databaseReference.child("reviews").setValue(review);
+                Review rev = new Review(review, email);
+                String userEmail = rev.getUserEmail();
+
+                databaseReference.child("reviews").child(email).setValue(review);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         Toast.makeText(this, "Review submitted...", Toast.LENGTH_LONG).show();
         finish();
         startActivity(new Intent(getApplicationContext(), RecommendationDetailsActivity.class));
@@ -195,6 +202,5 @@ public class LeaveReviewActivity extends AppCompatActivity {
             submitReview();
         }
     }
-
 }
 */

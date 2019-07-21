@@ -54,8 +54,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-    //private FirebaseDatabase mDatabase;
-    //private DatabaseReference mReference;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mReference;
     private List<RecommendationDetails> rd = new ArrayList<>();
     private DatabaseReference reff;
     //private List<RecommendationInfo> recommendationInfoList;
@@ -164,7 +164,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     private void fetchRecDetails(DataSnapshot dataSnapshot) {
         RecommendationDetails rev = dataSnapshot.getValue(RecommendationDetails.class);
-        //String rev = dataSnapshot.child("nameOfActivity").getValue(String.class);
 
         String nearestMRT = rev.getNearestMRT();
         String timePeriod = rev.getTimePeriod();

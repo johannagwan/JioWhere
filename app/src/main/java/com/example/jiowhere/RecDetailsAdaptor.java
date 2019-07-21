@@ -196,9 +196,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -255,7 +252,7 @@ public class RecDetailsAdaptor extends BaseAdapter {
             holder.myImage = (ImageView) convertView.findViewById(R.id.imageView2);
             holder.myActivity = (TextView) convertView.findViewById(R.id.activityTextView);
             holder.myLocation = (TextView) convertView.findViewById(R.id.locationTextView);
-            holder.myTimePeriod = (TextView) convertView.findViewById(R.id.timePreiodTextView);
+            holder.myTimePeriod = (TextView) convertView.findViewById(R.id.timePeriodTextView);
             holder.myTags = (TextView) convertView.findViewById(R.id.tagsView);
 
             convertView.setTag(holder);
