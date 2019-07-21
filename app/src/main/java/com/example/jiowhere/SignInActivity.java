@@ -34,11 +34,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        /*if (firebaseAuth.getCurrentUser() != null) {
+        if (firebaseAuth.getCurrentUser() != null) {
             //user is already logged in
             finish();
             startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
-        }*/
+        }
 
 
         editTextEmail = (EditText) findViewById(R.id.emailResetPW);

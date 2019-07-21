@@ -1,9 +1,11 @@
 package com.example.jiowhere;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,34 +16,48 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-public class RecommendationDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class RecommendationDetailsActivity<string> extends AppCompatActivity implements View.OnClickListener {
     //This is the full recommendation -> the detailed recommendation
 
     private ListView mListView;
     private Button leaveReviewButton;
+    private Button saveButton;
 
     //for Firebase database retrieval
     private DatabaseReference reff;
 
     TextView name;
     TextView location;
-    TextView time;
-    TextView tagTextView;
+
     TextView googleMaps;
-    TextView durationTextView;
+    TextView timePeriod;
+    TextView openingHours;
+    TextView tags;
+
     ImageView image;
 
     ArrayList<Review> reviewList;
@@ -49,8 +65,10 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
 
     String activityName;
 
-
     public static final int LeavingReview = 33;
+
+    private DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,45 +79,46 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
 
         mListView = (ListView) findViewById(R.id.reviewsList);
 
+        saveButton = (Button) findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(this);
+
         leaveReviewButton = (Button) findViewById(R.id.leaveReviewButton);
         leaveReviewButton.setOnClickListener(this);
 
+        uId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(uId).child("Saved Activities");
+
         //Passing data inside
         name = (TextView) findViewById(R.id.activityNameTitle);
-        location = (TextView) findViewById(R.id.mrtName);
-        time = (TextView) findViewById(R.id.timePeriod);
-        tagTextView = findViewById(R.id.tagTextView);
+        location = (TextView) findViewById(R.id.mrtNameTextView);
+        timePeriod = (TextView) findViewById(R.id.timePeriodTextView);
+        openingHours = (TextView) findViewById(R.id.openingHoursTextView);
+        tags = findViewById(R.id.tagTextView);
         image = (ImageView) findViewById(R.id.imageView);
         googleMaps = findViewById(R.id.googleMaps);
-        durationTextView = findViewById(R.id.durationTextView);
 
 
         // Receiving value into activity using intent.
         activityName = getIntent().getStringExtra("name");
-        String activityLocation = getIntent().getStringExtra("location");
-        String activityTime = getIntent().getStringExtra("time");
-        String tags = getIntent().getStringExtra("tags");
+        String activityNearestMRT = getIntent().getStringExtra("location");
+        String activityTimePeriod = getIntent().getStringExtra("timePeriod");
+        //String activityOpeningHours = getIntent().getStringExtra("openingHours");
+        String allTags = getIntent().getStringExtra("tags");
         String picture = getIntent().getStringExtra("picture");
 
-        /*
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            int picture = bundle.getInt("picture");
-            image.setImageResource(picture);
-        }
-        */
 
         // Setting up received value into EditText.
         name.setText(activityName);
-        location.setText(activityLocation);
-        time.setText(activityTime);
-        tagTextView.setText(tags);
+        location.setText(activityNearestMRT);
+        timePeriod.setText(activityTimePeriod);
+        //openingHours.setText(activityOpeningHours);
+        tags.setText(allTags);
         Picasso.get().load(picture).into(image);
 
         reviewList = new ArrayList<>();
 
-        //retrieveData();
         getAndSetData();
+
         retrieve();
     }
 
@@ -116,9 +135,9 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String address = dataSnapshot.child("address").getValue().toString();
-                String duration = dataSnapshot.child("openingHours").getValue().toString();
+                String openHours = dataSnapshot.child("openingHours").getValue().toString();
 
-                durationTextView.setText(duration);
+                openingHours.setText(openHours);
                 googleMaps.setText(address);
 
                 //String email = dataSnapshot.child("email").getValue().toString();
@@ -128,15 +147,12 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
             }
         });
     }
 
-
     public ArrayList<Review> retrieve() {
         reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child(activityName).child("reviews");
-        //reff = FirebaseDatabase.getInstance().getReference().child("recommendations");
         reff.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -179,9 +195,48 @@ public class RecommendationDetailsActivity extends AppCompatActivity implements 
             Intent intent = new Intent(this, LeaveReviewActivity.class);
             intent.putExtra("nameOfActivity", name.getText().toString());
             startActivityForResult(intent, LeavingReview);
-
-
         }
+
+        if (v == saveButton) {
+            saveActivity();
+        }
+    }
+
+
+    private void saveActivity() {
+        String nameOfActivity = name.getText().toString();
+        reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child(nameOfActivity);
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String id = dataSnapshot.child("id").getValue().toString();
+                String nameOfActivity = dataSnapshot.child("nameOfActivity").getValue().toString();
+                String nearestMRT = dataSnapshot.child("nearestMRT").getValue().toString();
+                String address = dataSnapshot.child("address").getValue().toString();
+                String timePer = dataSnapshot.child("timePeriod").getValue().toString();
+                String openHours = dataSnapshot.child("openingHours").getValue().toString();
+                String allTags = dataSnapshot.child("tags").getValue().toString();
+                String imageUrl = dataSnapshot.child("imageUrl").getValue().toString();
+                RecommendationDetails recommendationDetails =
+                        new RecommendationDetails(id, nameOfActivity, nearestMRT, address,
+                                timePer, openHours, allTags, imageUrl);
+              
+                databaseReference.child(nameOfActivity).setValue(recommendationDetails);
+
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.child("reviews").getChildren()) {
+                    Review rev = dataSnapshot1.getValue(Review.class);
+                    String username = dataSnapshot1.child("username").getValue().toString();
+                    databaseReference.child(nameOfActivity).child("reviews").child(username).setValue(rev);
+                }
+
+                Toast.makeText(RecommendationDetailsActivity.this, "Activity Saved...", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     //for the review

@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/vivo" />
 
     <TextView
-        android:id="@+id/mrtName"
+        android:id="@+id/mrtNameTextView"
         android:layout_width="232dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -46,7 +46,7 @@
         android:layout_marginEnd="16dp"
         android:text="@string/location_nearest_mrt"
         android:textColor="#5629A2"
-        app:layout_constraintEnd_toStartOf="@+id/mrtName"
+        app:layout_constraintEnd_toStartOf="@+id/mrtNameTextView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
@@ -59,7 +59,7 @@
         android:layout_marginEnd="16dp"
         android:text="Click for Google Maps"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mrtName" />
+        app:layout_constraintTop_toBottomOf="@+id/mrtNameTextView" />
 
     <TextView
         android:id="@+id/textView15"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <TextView
-        android:id="@+id/timePeriod"
+        android:id="@+id/timePeriodTextView"
         android:layout_width="287dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
@@ -83,6 +83,28 @@
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toEndOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/googleMaps" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="41dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/price"
+        android:textColor="#5629A2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textviewdura" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="328dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Free"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/openingHoursTextView" />
 
     <TextView
         android:id="@+id/textView20"
@@ -170,17 +192,17 @@
 
     <TextView
         android:id="@+id/textviewdura"
-        android:layout_width="61dp"
+        android:layout_width="100dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
-        android:text="Duration:"
+        android:text="Opening Hours:"
         android:textColor="#673AB7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <TextView
-        android:id="@+id/durationTextView"
-        android:layout_width="298dp"
+        android:id="@+id/openingHoursTextView"
+        android:layout_width="250dp"
         android:layout_height="19dp"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="8dp"
@@ -188,7 +210,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/textviewdura"
-        app:layout_constraintTop_toBottomOf="@+id/timePeriod" />
+        app:layout_constraintTop_toBottomOf="@+id/timePeriodTextView" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
@@ -213,6 +235,22 @@
                 android:textSize="34sp" />
         </LinearLayout>
     </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="60dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.635"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.291" />
 
 
 </android.support.constraint.ConstraintLayout>
