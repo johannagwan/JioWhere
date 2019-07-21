@@ -215,6 +215,9 @@ public class ListViewAdaptor extends BaseAdapter {
     String currentLocation;
     String tagedWord;
 
+    public static int numberOfActivities;
+    public static String MRTLOCATIONS[];
+
     //public static String[] LOCATION = {};
 
 
@@ -227,6 +230,16 @@ public class ListViewAdaptor extends BaseAdapter {
 
         currentLocation = "";
         tagedWord = "";
+
+        numberOfActivities = arrayList.size();
+        MRTLOCATIONS = new String[numberOfActivities];
+
+        int counter = 0;
+        for(RecommendationInfo ri : recommendationInfoList) {
+            String mrt = ri.getLocation();
+            MRTLOCATIONS[counter] = mrt;
+            counter++;
+        }
 
     }
 

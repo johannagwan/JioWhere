@@ -26,7 +26,27 @@ public class LocationListAdaptor extends BaseAdapter {
         this.list = list;
 
         this.arrayList = new ArrayList<>();
-        this.arrayList.addAll(list);
+        organiseList(list, arrayList);
+
+        //this.arrayList.addAll(list);
+    }
+
+    public void organiseList(List<LocationAndNumber> original, ArrayList<LocationAndNumber> newList) {
+        for (LocationAndNumber locationAndNumber : original) {
+            if(locationAndNumber.getNumberOfActivities() != 0) {
+                newList.add(locationAndNumber);
+            }
+        }
+
+        for (LocationAndNumber locationAndNumber : original) {
+            if(locationAndNumber.getNumberOfActivities() == 0) {
+                newList.add(locationAndNumber);
+            }
+        }
+
+        list.clear();
+        list.addAll(newList);
+
     }
 
     private class ViewHolderr {
@@ -69,7 +89,7 @@ public class LocationListAdaptor extends BaseAdapter {
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolderr) convertView.getTag();
-            result=convertView;
+            result = convertView;
         }
 
         viewHolder.txtName.setText(dataModel.getNameOfLocation());
