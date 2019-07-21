@@ -13,11 +13,46 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static com.example.jiowhere.RecommendationListActivity.LOCATION;
+import static com.example.jiowhere.ListViewAdaptor.MRTLOCATIONS;
+
 
 public class SearchByLocationActivity extends AppCompatActivity {
 
-    private String[] locations = new String[] {"Harbourfront", "Kent Ridge", "Buona Vista", "Clarke Quay", "Expo", "Serangoon"};
+    public static String[] ALLMRTSTATIONS = new String[] {
+            //Red Line -> North South Line
+            "Jurong East", "Bukit Batok", "Bukit Gombak", "Choa Chu Kang", "Yew Tee", "Kranji",
+            "Marsiling", "Woodlands", "Admiralty", "Sembawang", "Canberra", "Yishun", "Khatib",
+            "Yio Chu Kang", "Ang Mo Kio", "Bishan", "Braddell", "Toa Payoh", "Novena", "Newton",
+            "Orchard", "Somerset", "Dhoby Ghaut", "City Hall", "Raffles Place", "Marina Bay", "Marina South Pier",
+
+            //Green line -> East West Line
+            "Tuas Link", "Tuas West Road", "Tuas Crescent", "Gul Circle", "Joo Koon", "Pioneer",
+            "Boon Lay", "Lakeside", "Chinese Garden", "Clementi", "Dover", "Buona Vista", "Commonwealth",
+            "Queenstown", "Redhill", "Tiong Bahru", "Outram Park", "Tanjong Pagar", "Bugis", "Lavender",
+            "Kallang", "Aljunied", "Paya Lebar", "Eunos", "Kembangan", "Bedok", "Tanah Merah", "Simei",
+            "Tampines", "Pasir Ris", "Expo", "Changi Airport",
+
+            //Purple Line -> North East Line
+            "HarbourFront", "Chinatown", "Clarke Quay", "Little India", "Farrer Park", "Boon Keng", "Potong Pasir",
+            "Woodleigh", "Serangoon", "Kovan", "Hougang", "Buangkok", "Sengkang", "Punggol",
+
+            //Yellow line -> Circle Line
+            "Bras Basah", "Esplanade", "Promenade", "Nicoll Highway", "Stadium", "Mountbatten", "Dakota",
+            "MacPherson", "Tai Seng", "Bartley", "Lorong Chuan", "Marymount", "Caldecott", "Botanic Gardens",
+            "Farrer Road", "Holland Village", "One North", "Kent Ridge", "Haw Par Villa", "Pasir Panjang", "Labrador Park",
+            "Telok Blangah", "Keppel", "Cantonment", "Prince Edward Road", "Bayfront",
+
+            //Blue Line -> Downtown Line
+            "Bukit Panjang", "Cashew", "Hillview", "Hume", "Beauty World", "King Albert Park", "Sixth Avenue",
+            "Tan Kah Kee", "Stevens", "Rochor", "Downtown", "Telok Ayer", "Fort Canning", "Bencoolen", "Jalan Besar",
+            "Bendemeer", "Geylang Bahru", "Mattar", "Ubi", "Kaki Bukit", "Bedok North", "Bedok Reservoir",
+            "Tampines West", "Tampines East", "Upper Changi", "Expo", "Xilin", "Sungei Bedok"
+    };
+
+
+
+
+    //"Harbourfront", "Kent Ridge", "Buona Vista", "Clarke Quay", "Expo", "Serangoon"
     EditText locationSearch;
     ListView listView;
     LocationListAdaptor adaptor;
@@ -34,16 +69,26 @@ public class SearchByLocationActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.locationListView);
 
-        for (int i = 0; i < locations.length; i++) {
+
+
+        for (int i = 0; i < ALLMRTSTATIONS.length; i++) {
             int numAct = 0;
-            for(String s : LOCATION) {
-                if (s.contains(locations[i])) {
+            for(String s : MRTLOCATIONS) { //MRTLOCATIONS is the mrt locations that have the activity -> can repeat
+                if (s.contains(ALLMRTSTATIONS[i])) {
                     numAct++;
                 }
             }
-            LocationAndNumber lan = new LocationAndNumber(locations[i], numAct);
+            LocationAndNumber lan = new LocationAndNumber(ALLMRTSTATIONS[i], numAct);
             arrayList.add(lan);
         }
+
+        /*
+        for (int i = 0; i < mrtUsed.length; i++) {
+
+            LocationAndNumber lan = new LocationAndNumber(mrtUsed[i], 0);
+            arrayList.add(lan);
+        }
+        */
 
         adaptor = new LocationListAdaptor(this, arrayList);
         listView.setAdapter(adaptor);

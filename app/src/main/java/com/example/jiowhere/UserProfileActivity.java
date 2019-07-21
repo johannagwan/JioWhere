@@ -43,6 +43,8 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         displayNameTextView = findViewById(R.id.displayNameTextView);
         emailTextView = findViewById(R.id.emailTextView);
 
@@ -64,6 +66,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
             }
         });
+
 
         retrieveSavedActivitiesData();
     }
@@ -112,8 +115,15 @@ public class UserProfileActivity extends AppCompatActivity {
         RecommendationInfo ri = new RecommendationInfo(nearestMRT, timePeriod, nameOfActivity, tags, imageUrl);
         arrayList.add(ri);
 
+
         listViewAdaptor = new ListViewAdaptor(this, arrayList);
         savedActivitiesListView.setAdapter(listViewAdaptor);
     }
 
+    @Override
+    public boolean onSupportNavigateUp(){
+        //code it to launch an intent to the activity you want
+        finish();
+        return true;
+    }
 }

@@ -52,10 +52,12 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
 
     TextView name;
     TextView location;
-    TextView address;
+
+    TextView googleMaps;
     TextView timePeriod;
     TextView openingHours;
     TextView tags;
+
     ImageView image;
 
     ArrayList<Review> reviewList;
@@ -66,15 +68,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
     public static final int LeavingReview = 33;
 
     private DatabaseReference databaseReference;
-    private String uId;
-    private String id;
-    private DatabaseReference userChild;
 
-    Uri imageUri;
-    FirebaseStorage storage;
-    StorageReference storageReference;
-
-    public static final int GalleryPick = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,12 +95,14 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         openingHours = (TextView) findViewById(R.id.openingHoursTextView);
         tags = findViewById(R.id.tagTextView);
         image = (ImageView) findViewById(R.id.imageView);
+        googleMaps = findViewById(R.id.googleMaps);
+
 
         // Receiving value into activity using intent.
         activityName = getIntent().getStringExtra("name");
         String activityNearestMRT = getIntent().getStringExtra("location");
         String activityTimePeriod = getIntent().getStringExtra("timePeriod");
-        String activityOpeningHours = getIntent().getStringExtra("openingHours");
+        //String activityOpeningHours = getIntent().getStringExtra("openingHours");
         String allTags = getIntent().getStringExtra("tags");
         String picture = getIntent().getStringExtra("picture");
 
@@ -115,11 +111,13 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         name.setText(activityName);
         location.setText(activityNearestMRT);
         timePeriod.setText(activityTimePeriod);
-        openingHours.setText(activityOpeningHours);
+        //openingHours.setText(activityOpeningHours);
         tags.setText(allTags);
         Picasso.get().load(picture).into(image);
 
         reviewList = new ArrayList<>();
+
+        getAndSetData();
 
         retrieve();
     }
@@ -131,6 +129,27 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         return true;
     }
 
+    public void getAndSetData(){
+        reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child(activityName);
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String address = dataSnapshot.child("address").getValue().toString();
+                String openHours = dataSnapshot.child("openingHours").getValue().toString();
+
+                openingHours.setText(openHours);
+                googleMaps.setText(address);
+
+                //String email = dataSnapshot.child("email").getValue().toString();
+                //emailTextView.setText(email);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public ArrayList<Review> retrieve() {
         reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child(activityName).child("reviews");
@@ -162,6 +181,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
     {
 
         Review rev = dataSnapshot.getValue(Review.class);
+        //String rev = dataSnapshot.child("nameOfActivity").getValue(String.class);
 
         reviewList.add(rev);
 
@@ -169,7 +189,8 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         mListView.setAdapter(adapter);
     }
 
-   public void onClick(View v) {
+
+    public void onClick(View v) {
         if (v == leaveReviewButton) {
             Intent intent = new Intent(this, LeaveReviewActivity.class);
             intent.putExtra("nameOfActivity", name.getText().toString());
@@ -181,11 +202,8 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         }
     }
 
+
     private void saveActivity() {
-        //uId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(uId).child("Saved Activities");
-        //id = databaseReference.push().getKey();
-        //userChild = databaseReference.child(uId);
         String nameOfActivity = name.getText().toString();
         reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child(nameOfActivity);
         reff.addValueEventListener(new ValueEventListener() {
@@ -202,8 +220,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
                 RecommendationDetails recommendationDetails =
                         new RecommendationDetails(id, nameOfActivity, nearestMRT, address,
                                 timePer, openHours, allTags, imageUrl);
-
-                //getUid() is a built-in function in Firebase
+              
                 databaseReference.child(nameOfActivity).setValue(recommendationDetails);
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.child("reviews").getChildren()) {
@@ -211,7 +228,6 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
                     String username = dataSnapshot1.child("username").getValue().toString();
                     databaseReference.child(nameOfActivity).child("reviews").child(username).setValue(rev);
                 }
-
 
                 Toast.makeText(RecommendationDetailsActivity.this, "Activity Saved...", Toast.LENGTH_LONG).show();
             }
@@ -223,6 +239,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         });
     }
 
+    //for the review
     class CustomAdaptor extends BaseAdapter {
         Context mContext;
         LayoutInflater inflater;

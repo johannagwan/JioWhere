@@ -1,7 +1,9 @@
 package com.example.jiowhere;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Switch;
 import android.widget.CheckBox;
@@ -35,8 +38,11 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+
+import static com.example.jiowhere.SearchByLocationActivity.ALLMRTSTATIONS;
 
 public class RecommendingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -62,17 +68,26 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     private String allTags;
     //Saving image
     private Button uploadPicButton;
+    private Button selectMRTButton;
 
     Uri imageUri;
     FirebaseStorage storage;
     StorageReference storageReference;
 
     public static final int GalleryPick = 99;
+    public static final int selectMRT = 22;
 
     private Button recommendActivityButton;
     private DatabaseReference databaseReference;
 
     public static List<String> uniqueID = new ArrayList<>();
+
+    //making the checkbox
+    //String[] listItems; ALLMRTSTATIONS
+    boolean[] checkedItems;
+    ArrayList<Integer> selectedMRT = new ArrayList<>(); //mUserIrems
+    //ALLMRTSTATIONS = listitems
+    String[] allMrts;
 
 
     @Override
@@ -136,6 +151,13 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+
+        //selectMRT
+        checkedItems = new boolean[ALLMRTSTATIONS.length];
+
+        selectMRTButton = (Button) findViewById(R.id.selectMRTButton);
+        thatDialogThingy();
+
     }
 
     private void checkBoxChecking() {
@@ -156,10 +178,6 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
             if(item.isChecked()) {
                 text = item.getText().toString();
                 allTags = allTags + "#" + text + " ";
-            }
-
-            if (allTags.equals("")) {
-                allTags = "No tags";
             }
         }
     }
@@ -198,6 +216,76 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
             }
         }
 
+    }
+
+    public void thatDialogThingy() {
+        allMrts = new String[ALLMRTSTATIONS.length];
+        int counter = 0;
+        for (String s : ALLMRTSTATIONS) {
+            allMrts[counter] = s;
+            counter++;
+        }
+
+        Arrays.sort(allMrts);
+
+        selectMRTButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(RecommendingActivity.this);
+                mBuilder.setTitle("Select nearby MRT Stations");
+                mBuilder.setMultiChoiceItems(allMrts, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if(isChecked) {
+                            if (! selectedMRT.contains(which)) {
+                                selectedMRT.add(which);
+                            } else {
+                                if (selectedMRT.contains(which)) {
+                                    selectedMRT.remove(selectedMRT.indexOf(which));
+                                }
+                            }
+                        }
+                    }
+                });
+
+                mBuilder.setCancelable(false);
+                mBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String item = "";
+                        for (int i = 0; i < selectedMRT.size(); i++) {
+                            item = item + allMrts[selectedMRT.get(i)];
+                            if (i != selectedMRT.size() - 1) {
+                                item = item + "/";
+                            }
+                        }
+                        nearestMRTEditText.setText(item);
+                    }
+                });
+
+                mBuilder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                mBuilder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        for (int i = 0; i < checkedItems.length; i++) {
+                            checkedItems[i] = false;
+                            selectedMRT.clear();
+                            nearestMRTEditText.setText("");
+
+                        }
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
     }
 
     @Override
@@ -281,6 +369,15 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
                 e.printStackTrace();
             }
 
+        } else if (requestCode == selectMRT) {
+            if (resultCode == RESULT_OK) {
+                // Get String data from Intent
+                String returnString = data.getStringExtra("selectedMRTs");
+
+                // Set text view with string
+                nearestMRTEditText = findViewById(R.id.nearestMRTEditText);
+                nearestMRTEditText.setText(returnString);
+            }
         }
     }
 
@@ -292,19 +389,13 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
 
         if (v == uploadPicButton) {
             openGallery();
-            /*
-            String nameOfActivity = nameOfActivityEditText.getText().toString().trim();
-
-            if (TextUtils.isEmpty(nameOfActivity)) {
-                Toast.makeText(this, "Please fill up name of Activity", Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = new Intent(this, SelectImageActivity.class);
-                intent.putExtra("activityName", nameOfActivity);
-
-                startActivityForResult(intent, openGalleryActivity); //opening gallery
-            }
-            */
-
         }
+
+        /*
+        if (v == selectMRTButton) {
+            Intent intent = new Intent(this, SelectMrtStationActivity.class);
+            startActivityForResult(intent, selectMRT);
+        }
+        */
     }
 }
