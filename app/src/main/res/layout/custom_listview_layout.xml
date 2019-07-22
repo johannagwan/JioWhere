@@ -35,7 +35,7 @@
         android:layout_below="@+id/textView11"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="19dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_toEndOf="@+id/imageView2"
         android:text="Location:"
@@ -48,7 +48,7 @@
         android:layout_below="@+id/textView14"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="19dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="6dp"
         android:layout_toEndOf="@+id/imageView2"
         android:text="Time Period:"
@@ -60,9 +60,9 @@
         android:layout_height="19dp"
         android:layout_below="@+id/textView11"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="6dp"
         android:layout_toEndOf="@+id/imageView2"
         android:text="TextView" />
 
@@ -72,21 +72,46 @@
         android:layout_height="21dp"
         android:layout_below="@+id/textView14"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="3dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="2dp"
         android:layout_toEndOf="@+id/imageView2"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/timePreiodTextView"
+        android:id="@+id/timePeriodTextView"
         android:layout_width="218dp"
         android:layout_height="17dp"
         android:layout_below="@+id/textView16"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="19dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="3dp"
+        android:layout_toEndOf="@+id/imageView2"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="215dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timePeriodTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="7dp"
+        android:layout_toEndOf="@+id/imageView2"
+        android:text="Tags:"
+        android:textColor="#6525D8" />
+
+    <TextView
+        android:id="@+id/tagsView"
+        android:layout_width="213dp"
+        android:layout_height="17dp"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="7dp"
         android:layout_toEndOf="@+id/imageView2"
         android:text="TextView" />
 

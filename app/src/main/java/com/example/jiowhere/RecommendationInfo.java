@@ -10,13 +10,20 @@ public class RecommendationInfo {
     private String location;
     private String time_period;
     private String name;
-    private int image;
+    private String tags;
+    //private int image;
+    private String image;
 
-    public RecommendationInfo(String location, String time_period, String name, int image) {
+    public RecommendationInfo() {
+        //empty
+    }
+
+    public RecommendationInfo(String location, String time_period, String name, String tags, String image) {
         this.location = location;
         this.time_period = time_period;
         this.name = name;
         this.image = image;
+        this.tags = tags;
     }
 
     public String getLocation() {
@@ -44,11 +51,19 @@ public class RecommendationInfo {
         this.time_period = time_period;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

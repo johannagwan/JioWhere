@@ -9,9 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 
 public class ListViewAdaptor extends BaseAdapter {
 
@@ -20,16 +23,39 @@ public class ListViewAdaptor extends BaseAdapter {
     List<RecommendationInfo> recommendationInfoList;
     ArrayList<RecommendationInfo> arrayList;
 
+    String currentLocation;
+    String tagedWord;
+
+    public static int numberOfActivities;
+    public static String MRTLOCATIONS[];
+
+    //public static String[] LOCATION = {};
+
+
     public ListViewAdaptor(Context context, List<RecommendationInfo> recommendationInfoList) {
         this.mContext = context;
         this.recommendationInfoList = recommendationInfoList;
         inflater = LayoutInflater.from(mContext);
         this.arrayList = new ArrayList<RecommendationInfo>();
         this.arrayList.addAll(recommendationInfoList);
+
+        currentLocation = "";
+        tagedWord = "";
+
+        numberOfActivities = arrayList.size();
+        MRTLOCATIONS = new String[numberOfActivities];
+
+        int counter = 0;
+        for(RecommendationInfo ri : recommendationInfoList) {
+            String mrt = ri.getLocation();
+            MRTLOCATIONS[counter] = mrt;
+            counter++;
+        }
+
     }
 
-    public class ViewHolder {
-        TextView myActivity, myLocation, myTimePeriod;
+    private class ViewHolder {
+        TextView myActivity, myLocation, myTimePeriod, myTags;
         ImageView myImage;
     }
 
@@ -58,7 +84,8 @@ public class ListViewAdaptor extends BaseAdapter {
             holder.myImage = (ImageView) convertView.findViewById(R.id.imageView2);
             holder.myActivity = (TextView) convertView.findViewById(R.id.activityTextView);
             holder.myLocation = (TextView) convertView.findViewById(R.id.locationTextView);
-            holder.myTimePeriod = (TextView) convertView.findViewById(R.id.timePreiodTextView);
+            holder.myTimePeriod = (TextView) convertView.findViewById(R.id.timePeriodTextView);
+            holder.myTags = (TextView) convertView.findViewById(R.id.tagsView);
 
             convertView.setTag(holder);
         } else {
@@ -66,10 +93,12 @@ public class ListViewAdaptor extends BaseAdapter {
         }
 
         //set results into TextViews
-        holder.myImage.setImageResource(recommendationInfoList.get(position).getImage());
+        //holder.myImage.setImageResource(recommendationInfoList.get(position).getImage());
+        Picasso.get().load(recommendationInfoList.get(position).getImage()).into(holder.myImage);
         holder.myTimePeriod.setText(recommendationInfoList.get(position).getTime_period());
         holder.myLocation.setText(recommendationInfoList.get(position).getLocation());
         holder.myActivity.setText(recommendationInfoList.get(position).getName());
+        holder.myTags.setText(recommendationInfoList.get(position).getTags());
 
         //make clickable
         final int currentPosition = position;
@@ -80,21 +109,18 @@ public class ListViewAdaptor extends BaseAdapter {
                 Intent myIntent = new Intent(mContext, RecommendationDetailsActivity.class);
 
                 //trying to pass data
-                int image = recommendationInfoList.get(currentPosition).getImage();
+                String image = recommendationInfoList.get(currentPosition).getImage();
                 String name = recommendationInfoList.get(currentPosition).getName();
                 String time_period = recommendationInfoList.get(currentPosition).getTime_period();
                 String location = recommendationInfoList.get(currentPosition).getLocation();
+                String tags = recommendationInfoList.get(currentPosition).getTags();
 
                 myIntent.putExtra("name", name);
                 myIntent.putExtra("location", location);
                 myIntent.putExtra("time", time_period);
+                myIntent.putExtra("tags", tags);
                 myIntent.putExtra("picture", image);
 
-                //passing image
-
-                //end of passing image
-
-                //end of pass data
                 mContext.startActivity(myIntent);
             }
         });
@@ -105,17 +131,68 @@ public class ListViewAdaptor extends BaseAdapter {
 
     //filter
     public void filter (String charText) {
-        charText = charText.toLowerCase(Locale.getDefault());
-        recommendationInfoList.clear();
-        if (charText.length() == 0) {
-            recommendationInfoList.addAll(arrayList);
-        } else {
-            for (RecommendationInfo rc : arrayList) {
-                if (rc.getLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    recommendationInfoList.add(rc);
+            //currentLocation = charText;
+
+            charText = charText.toLowerCase(Locale.getDefault());
+            recommendationInfoList.clear();
+
+            if (charText.length() == 0) {
+                recommendationInfoList.addAll(arrayList);
+            } else {
+                for (RecommendationInfo rc : arrayList) {
+                    currentLocation = charText;
+                    if (rc.getLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
+                        recommendationInfoList.add(rc);
+                    }
                 }
             }
-        }
         notifyDataSetChanged();
     }
+
+
+    //don't work combined
+
+    public  void tagFilter(String charText) {
+        tagedWord = charText;
+
+        //if (charText != null) {
+
+
+            if (charText.length() != 0) {//ignore if no tag
+                charText = charText.toLowerCase(Locale.getDefault());
+
+                List<RecommendationInfo> temp = new ArrayList<>();
+                for(RecommendationInfo ri : recommendationInfoList) {
+                    temp.add(ri);
+                }
+
+
+                recommendationInfoList.clear();
+
+                if (currentLocation != "") { //if there is smth in location Search
+
+                    for (RecommendationInfo ri : arrayList) {
+                        if (ri.getLocation().toLowerCase(Locale.getDefault()).contains(currentLocation)) {
+                            if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
+                                recommendationInfoList.add(ri);
+                            }
+                        }
+                    }
+
+
+
+
+                } else {
+                    for (RecommendationInfo ri : arrayList) {
+                        if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
+                            recommendationInfoList.add(ri);
+                        }
+                    }
+                }
+            }
+
+            notifyDataSetChanged();
+        }
+
 }
+

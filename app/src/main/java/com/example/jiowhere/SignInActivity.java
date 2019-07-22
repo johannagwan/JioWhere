@@ -16,7 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,10 +23,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignIn;
+    private TextView resetPasswordLogin;
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,27 +34,45 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        /*if (firebaseAuth.getCurrentUser() != null) {
+        if (firebaseAuth.getCurrentUser() != null) {
             //user is already logged in
             finish();
             startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
-        }*/
+        }
 
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+
+        editTextEmail = (EditText) findViewById(R.id.emailResetPW);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
-        textViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
+        textViewSignIn = (TextView) findViewById(R.id.SignInText);
+        resetPasswordLogin = (TextView) findViewById(R.id.resetPasswordLogin);
 
-        buttonSignIn.setOnClickListener(this);
+        //buttonSignIn.setOnClickListener(this);
+
+
+        buttonSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == buttonSignIn){
+                    userLogin();
+                }
+            }
+        });
         textViewSignIn.setOnClickListener(this);
+        resetPasswordLogin.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
+
+
 
     }
 
     private void userLogin() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+
+        //String email = inputEmail.getText().toString();
+        //final String password = inputPassword.getText().toString();
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show();
@@ -70,6 +87,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         //if both email and password are entered, show a progressDialogue
         progressDialog.setMessage("Logging in...");
         progressDialog.show();
+
+
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -86,17 +105,24 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 }
             });
+
     }
+
 
     @Override
     public void onClick(View v) {
+
         if (v == buttonSignIn) {
             userLogin();
         }
 
         if (v == textViewSignIn) {
             finish();
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, SignUpActivity.class));
+        }
+
+        if (v == resetPasswordLogin) {
+            startActivity(new Intent(this, ResetPasswordActivity.class));
         }
     }
 }

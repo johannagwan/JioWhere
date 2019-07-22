@@ -1,134 +1,248 @@
 package com.example.jiowhere;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
-import java.util.List;
+
+import static com.example.jiowhere.ListViewAdaptor.MRTLOCATIONS;
+import static com.example.jiowhere.ListViewAdaptor.numberOfActivities;
+
 
 public class RecommendationListActivity extends AppCompatActivity implements View.OnClickListener{
     //this is the search list
     ListView mListView;
-    SearchView mySearchView;
+    AutoCompleteTextView mySearchView;
+    Button tagButton;
+
+    TextView locationSearchTextView;
+    TextView testText;
+    ImageView myImageView;
 
     ListViewAdaptor adaptor;
     ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
+    ArrayList<RecommendationDetails> recommendationDetailsArrayList;
+
+    ArrayList<String> mrtLocationList;
+    TextView filterView;
 
 
-    //see if I can get data from firebase instead
-    int[] images = {R.drawable.nus, R.drawable.sentosa, R.drawable.underwaterworldsg, R.drawable.vivo, R.drawable.socnus};
-    String[] activity = {"NUS", "Sentosa", "Underwater World Singapore", "Vivo City", "Soc NUS"};
-    String[] location = {"Kent Ridge/Bouna Vista", "Habourfront", "Habourfront", "Habourfront", "Kent Ridge"}; //nearest MRT
-    String[] time = {"Permanant", "Permanant", "Permanant", "Permanant", "Permanent"};
+    private DatabaseReference reff;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recommendations_list);
+        setContentView(R.layout.activity_recommendations_list);
 
         mListView = (ListView) findViewById(R.id.mainListView);
 
         //try and read data pls
 
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //adding data into the arrayList
+        /*
         for (int i = 0; i < activity.length; i++) {
-            RecommendationInfo ri = new RecommendationInfo(location[i], time[i], activity[i], images[i]);
+            RecommendationInfo ri = new RecommendationInfo(LOCATION[i], time[i], activity[i], tags[i], images[i]);
             arrayList.add(ri);
         }
+        */
 
-        adaptor = new ListViewAdaptor(this, arrayList);
-        mListView.setAdapter(adaptor);
+        recommendationDetailsArrayList = new ArrayList<>();
+        mrtLocationList = new ArrayList<>();
 
-        //trying to make search view
-        SearchView searchView = (SearchView) findViewById(R.id.mainSearchView);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        //adaptor = new ListViewAdaptor(this, arrayList);
+        //mListView.setAdapter(adaptor);
+
+        locationSearchTextView = findViewById(R.id.locationSearchTextView);
+        myImageView = findViewById(R.id.searchImageList);
+
+        locationSearchTextView.setOnClickListener(this);
+        myImageView.setOnClickListener(this);
+
+        filterView = (TextView) findViewById(R.id.filterByTags);
+
+        locationSearchTextView.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                System.out.println("Text ["+s+"]");
+
+                adaptor.filter(s.toString());
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                if (TextUtils.isEmpty(newText)) {
-                    adaptor.filter("");
-                    mListView.clearTextFilter();
-                } else {
-                    adaptor.filter(newText);
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
 
-                return true;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
 
+
+        //Tags System
+        tagButton = (Button) findViewById(R.id.tagButton);
+        tagButton.setOnClickListener(this);
+
+        TextView tagFilter = findViewById(R.id.filterByTags);
+        tagFilter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //filterView.setText("");
+
+                System.out.println("Text ["+s+"]");
+
+
+                adaptor.tagFilter(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+
+
+    retrieveRecDetailsData();
     }
 
-    /*
+    @Override
+    public boolean onSupportNavigateUp(){
+        //code it to launch an intent to the activity you want
+        finish();
+        return true;
+    }
 
-    protected void loopingForListView(int position, Intent intent, int maxValue) {
-        for (int i = 0; i < maxValue; i++) {
-            if (position == i) {
-                startActivity(intent);
+    public ArrayList<RecommendationDetails> retrieveRecDetailsData() {
+        reff = FirebaseDatabase.getInstance().getReference().child("recommendations");
+        reff.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                fetchRecDetails(dataSnapshot);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                //fetchRecDetails(dataSnapshot);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        return recommendationDetailsArrayList;
+    }
+
+
+    private void fetchRecDetails(DataSnapshot dataSnapshot) {
+        RecommendationDetails rev = dataSnapshot.getValue(RecommendationDetails.class);
+        //String rev = dataSnapshot.child("nameOfActivity").getValue(String.class);
+
+        String nearestMRT = rev.getNearestMRT();
+        String timePeriod = rev.getTimePeriod();
+        String nameOfActivity = rev.getNameOfActivity();
+        String tags = rev.getTags();
+
+        String imageUrl = rev.getImageUrl();
+
+        RecommendationInfo ri = new RecommendationInfo(nearestMRT, timePeriod, nameOfActivity, tags, imageUrl);
+        arrayList.add(ri);
+
+        //recommendationDetailsArrayList.add(rev);
+
+        adaptor = new ListViewAdaptor(this, arrayList);
+        mListView.setAdapter(adaptor);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check that it is the SecondActivity with an OK result
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                // Get String data from Intent
+                String returnString = data.getStringExtra("keyName");
+
+                // Set text view with string
+                //TextView filterView = (TextView) findViewById(R.id.filterByTags);
+                if (returnString == "No Tag") {
+                    filterView.setText("");
+                } else {
+                    filterView.setText(returnString);
+                }
+            }
+        } else if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                // Get String data from Intent
+                String returnString = data.getStringExtra("locationStuff");
+
+                // Set text view with string
+                locationSearchTextView = (TextView) findViewById(R.id.locationSearchTextView);
+                locationSearchTextView.setText(returnString);
+
+                filterView.setText("");
             }
         }
     }
 
 
-    //adaptor for the listview
-    class CustomAdaptor extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return images.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View view = getLayoutInflater().inflate(R.layout.custom_listview_layout, null);
-
-            ImageView mImageView = (ImageView) view.findViewById(R.id.imageView2);
-            TextView aTextView = (TextView) view.findViewById(R.id.activityTextView);
-            TextView lTextView = (TextView) view.findViewById(R.id.locationTextView);
-            TextView tTextView = (TextView) view.findViewById(R.id.timePreiodTextView);
-
-            mImageView.setImageResource(images[position]);
-            aTextView.setText(activity[position]);
-            lTextView.setText(location[position]);
-            tTextView.setText(time[position]);
-
-            return view;
-        }
-
-    }
-    */
-
     @Override
     public void onClick(View v) {
+
+        if (v == tagButton) {
+            Intent intent = new Intent(this, TagSystemActivity.class);
+            startActivityForResult(intent, 1);
+
+        }
+
+        if (v == locationSearchTextView || v == myImageView) {
+            Intent intent = new Intent(this, SearchByLocationActivity.class);
+            //startActivity(intent);
+            startActivityForResult(intent, 2);
+
+
+        }
 
     }
 }
