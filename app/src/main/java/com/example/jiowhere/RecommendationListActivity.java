@@ -40,6 +40,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
     TextView locationSearchTextView;
     TextView testText;
     ImageView myImageView;
+    Button searchByTagButton;
 
     ListViewAdaptor adaptor;
     ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
@@ -63,19 +64,8 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //adding data into the arrayList
-        /*
-        for (int i = 0; i < activity.length; i++) {
-            RecommendationInfo ri = new RecommendationInfo(LOCATION[i], time[i], activity[i], tags[i], images[i]);
-            arrayList.add(ri);
-        }
-        */
-
         recommendationDetailsArrayList = new ArrayList<>();
         mrtLocationList = new ArrayList<>();
-
-        //adaptor = new ListViewAdaptor(this, arrayList);
-        //mListView.setAdapter(adaptor);
 
         locationSearchTextView = findViewById(R.id.locationSearchTextView);
         myImageView = findViewById(R.id.searchImageList);
@@ -133,9 +123,10 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
             }
         });
 
+        searchByTagButton = (Button) findViewById(R.id.searchByTagButton);
+        searchByTagButton.setOnClickListener(this);
 
-
-    retrieveRecDetailsData();
+        retrieveRecDetailsData();
     }
 
     @Override
@@ -233,16 +224,17 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
         if (v == tagButton) {
             Intent intent = new Intent(this, TagSystemActivity.class);
             startActivityForResult(intent, 1);
-
         }
 
         if (v == locationSearchTextView || v == myImageView) {
             Intent intent = new Intent(this, SearchByLocationActivity.class);
             //startActivity(intent);
             startActivityForResult(intent, 2);
-
-
         }
 
+        if (v == searchByTagButton) {
+            Intent intent = new Intent(this, SearchByTagActivity.class);
+            startActivityForResult(intent, 3);
+        }
     }
 }
