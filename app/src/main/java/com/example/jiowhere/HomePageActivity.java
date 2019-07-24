@@ -160,8 +160,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         RecommendationInfo ri = new RecommendationInfo(nearestMRT, timePeriod, nameOfActivity, tags, imageUrl);
         arrayList.add(ri);
 
-        //recommendationDetailsArrayList.add(rev);
-
         adaptor = new ListViewAdaptor(this, arrayList);
         mListView.setAdapter(adaptor);
     }

@@ -62,6 +62,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
 
     ArrayList<Review> reviewList;
     CustomAdaptor adapter;
+    String uId;
 
     String activityName;
 
@@ -181,7 +182,6 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
     {
 
         Review rev = dataSnapshot.getValue(Review.class);
-        //String rev = dataSnapshot.child("nameOfActivity").getValue(String.class);
 
         reviewList.add(rev);
 
