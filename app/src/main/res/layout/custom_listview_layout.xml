@@ -79,7 +79,7 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/timePreiodTextView"
+        android:id="@+id/timePeriodTextView"
         android:layout_width="218dp"
         android:layout_height="17dp"
         android:layout_below="@+id/textView16"
@@ -94,7 +94,7 @@
         android:id="@+id/textView4"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/timePreiodTextView"
+        android:layout_below="@+id/timePeriodTextView"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="19dp"
         android:layout_marginTop="2dp"

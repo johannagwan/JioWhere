@@ -149,7 +149,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     private void fetchRecDetails(DataSnapshot dataSnapshot) {
         RecommendationDetails rev = dataSnapshot.getValue(RecommendationDetails.class);
-        //String rev = dataSnapshot.child("nameOfActivity").getValue(String.class);
 
         String nearestMRT = rev.getNearestMRT();
         String timePeriod = rev.getTimePeriod();
@@ -160,8 +159,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         RecommendationInfo ri = new RecommendationInfo(nearestMRT, timePeriod, nameOfActivity, tags, imageUrl);
         arrayList.add(ri);
-
-        //recommendationDetailsArrayList.add(rev);
 
         adaptor = new ListViewAdaptor(this, arrayList);
         mListView.setAdapter(adaptor);

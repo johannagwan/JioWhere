@@ -20,11 +20,11 @@
 
     <Button
         android:id="@+id/tagButton"
-        android:layout_width="75dp"
+        android:layout_width="150dp"
         android:layout_height="53dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Tags"
+        android:text="Filter by tags"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locationSearchTextView" />
 
@@ -71,5 +71,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.16000003"
         app:srcCompat="@drawable/ic_search_black_24dp" />
+
+    <Button
+        android:id="@+id/searchByTagButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="204dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="JOHANNA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tagButton"
+        app:layout_constraintTop_toTopOf="@+id/locationSearchTextView"
+        app:layout_constraintVertical_bias="0.058" />
 
 </android.support.constraint.ConstraintLayout>

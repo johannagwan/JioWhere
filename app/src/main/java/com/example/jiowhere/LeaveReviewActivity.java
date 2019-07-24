@@ -110,4 +110,3 @@ public class LeaveReviewActivity extends AppCompatActivity implements View.OnCli
         }
     }
 }
-
