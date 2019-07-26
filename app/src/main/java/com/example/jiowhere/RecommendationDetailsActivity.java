@@ -2,10 +2,13 @@ package com.example.jiowhere;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,8 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +51,8 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
     private ListView mListView;
     private Button leaveReviewButton;
     private Button saveButton;
+    private Button deleteReviewButton;
+    private Switch saveActivitySwitch;
 
     //for Firebase database retrieval
     private DatabaseReference reff;
@@ -57,6 +64,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
     TextView timePeriod;
     TextView openingHours;
     TextView tags;
+    TextView priceTextView;
 
     ImageView image;
 
@@ -79,12 +87,15 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mListView = (ListView) findViewById(R.id.reviewsList);
+        priceTextView = findViewById(R.id.priceTextView);
 
         saveButton = (Button) findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
 
         leaveReviewButton = (Button) findViewById(R.id.leaveReviewButton);
         leaveReviewButton.setOnClickListener(this);
+        deleteReviewButton = findViewById(R.id.deleteReviewButton);
+        deleteReviewButton.setOnClickListener(this);
 
         uId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(uId).child("Saved Activities");
@@ -116,6 +127,8 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         tags.setText(allTags);
         Picasso.get().load(picture).into(image);
 
+        checkForSaved();
+
         reviewList = new ArrayList<>();
 
         getAndSetData();
@@ -130,6 +143,36 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         return true;
     }
 
+    //checking
+    public void checkForSaved() {
+        String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        final String namey = name.getText().toString();
+        DatabaseReference userNameRef = rootRef.child("users").child(uID).child("Saved Activities").child(namey);
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) {
+                    //create new user
+                    saveButton.setText("Save Activity");
+                } else {
+                    saveButton.setText("Delete Saved Activity");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.d(TAG, databaseError.getMessage()); //Don't ignore errors!
+            }
+        };
+        userNameRef.addListenerForSingleValueEvent(eventListener);
+
+                }
+
+
+    //end of checking
+
     public void getAndSetData(){
         reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child(activityName);
         reff.addValueEventListener(new ValueEventListener() {
@@ -137,9 +180,14 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String address = dataSnapshot.child("address").getValue().toString();
                 String openHours = dataSnapshot.child("openingHours").getValue().toString();
+                String time = dataSnapshot.child("timePeriod").getValue().toString();
+                String cost = dataSnapshot.child("cost").getValue().toString();
 
                 openingHours.setText(openHours);
                 googleMaps.setText(address);
+                timePeriod.setText(time);
+                priceTextView.setText(cost);
+
 
                 //String email = dataSnapshot.child("email").getValue().toString();
                 //emailTextView.setText(email);
@@ -152,6 +200,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         });
     }
 
+    //for the review
     public ArrayList<Review> retrieve() {
         reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child(activityName).child("reviews");
         reff.addChildEventListener(new ChildEventListener() {
@@ -178,28 +227,14 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
     }
 
 
+    //for the review
     private void fetchData(DataSnapshot dataSnapshot)
     {
-
         Review rev = dataSnapshot.getValue(Review.class);
-
         reviewList.add(rev);
 
         adapter = new CustomAdaptor(this, reviewList);
         mListView.setAdapter(adapter);
-    }
-
-
-    public void onClick(View v) {
-        if (v == leaveReviewButton) {
-            Intent intent = new Intent(this, LeaveReviewActivity.class);
-            intent.putExtra("nameOfActivity", name.getText().toString());
-            startActivityForResult(intent, LeavingReview);
-        }
-
-        if (v == saveButton) {
-            saveActivity();
-        }
     }
 
 
@@ -216,10 +251,11 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
                 String timePer = dataSnapshot.child("timePeriod").getValue().toString();
                 String openHours = dataSnapshot.child("openingHours").getValue().toString();
                 String allTags = dataSnapshot.child("tags").getValue().toString();
+                String cost = dataSnapshot.child("cost").getValue().toString();
                 String imageUrl = dataSnapshot.child("imageUrl").getValue().toString();
                 RecommendationDetails recommendationDetails =
                         new RecommendationDetails(id, nameOfActivity, nearestMRT, address,
-                                timePer, openHours, allTags, imageUrl);
+                                timePer, openHours, allTags, cost, imageUrl);
               
                 databaseReference.child(nameOfActivity).setValue(recommendationDetails);
 
@@ -229,7 +265,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
                     databaseReference.child(nameOfActivity).child("reviews").child(username).setValue(rev);
                 }
 
-                Toast.makeText(RecommendationDetailsActivity.this, "Activity Saved...", Toast.LENGTH_LONG).show();
+                Toast.makeText(RecommendationDetailsActivity.this, "Activity Saved...", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -237,6 +273,113 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
 
             }
         });
+    }
+
+    private void deleteActivity() {
+        String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DatabaseReference datareff = FirebaseDatabase.getInstance().getReference();
+        String nameOfActivity = name.getText().toString();
+
+        datareff.child("users").child(uID).child("Saved Activities").child(nameOfActivity).removeValue();
+        Toast.makeText(RecommendationDetailsActivity.this, "Activity Deleted...", Toast.LENGTH_SHORT).show();
+    }
+
+    private void checkIfAlreadyLeavedAReview() {
+        final String namey = name.getText().toString();
+
+        String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child(namey).child("reviews").child(uID);
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) {
+                    //create new user
+                    Intent intent = new Intent(getApplicationContext(), LeaveReviewActivity.class);
+                    intent.putExtra("nameOfActivity", name.getText().toString());
+                    startActivityForResult(intent, LeavingReview);
+                } else {
+                    Toast.makeText(RecommendationDetailsActivity.this, "You have already left a review", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.d(TAG, databaseError.getMessage()); //Don't ignore errors!
+            }
+        };
+
+        reff.addListenerForSingleValueEvent(eventListener);
+    }
+
+    private void deleteReview() {
+        final String namey = name.getText().toString();
+
+        String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        reff = FirebaseDatabase.getInstance().getReference().child("recommendations").child(namey).child("reviews").child(uID);
+
+        final ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) {
+                    Toast.makeText(RecommendationDetailsActivity.this, "You have not left a review yet", Toast.LENGTH_LONG).show();
+                } else {
+                    String theReview = dataSnapshot.child("review").getValue().toString();
+                    new AlertDialog.Builder(RecommendationDetailsActivity.this)
+                            .setTitle("Would you like to delete your review?")
+                            .setMessage("Review: " + theReview)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // delete review
+                                    reff.removeValue();
+                                    Toast.makeText(RecommendationDetailsActivity.this, "Review Deleted...", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // user doesn't want to logout
+                                }
+                            })
+                            .show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.d(TAG, databaseError.getMessage()); //Don't ignore errors!
+            }
+        };
+
+        reff.addListenerForSingleValueEvent(eventListener);
+    }
+
+    public void onClick(View v) {
+        if (v == leaveReviewButton) {
+            /*
+            Intent intent = new Intent(this, LeaveReviewActivity.class);
+            intent.putExtra("nameOfActivity", name.getText().toString());
+            startActivityForResult(intent, LeavingReview);
+            */
+            checkIfAlreadyLeavedAReview();
+        }
+
+        if (v == saveButton) {
+            String s = saveButton.getText().toString();
+            if (s.equals("Save Activity")) {
+                saveActivity();
+                saveButton.setText("Delete Saved Activity");
+            } else if (s.equals("Delete Saved Activity")) {
+                deleteActivity();
+                saveButton.setText("Save Activity");
+            }
+        }
+
+        if (v == deleteReviewButton) {
+            deleteReview();
+        }
     }
 
     //for the review

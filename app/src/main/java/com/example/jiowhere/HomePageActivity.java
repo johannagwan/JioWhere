@@ -1,8 +1,11 @@
 package com.example.jiowhere;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -50,7 +53,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     Button button;
     Button testingButton;
 
-    ListViewAdaptor adaptor;
+    //ListViewAdaptor adaptor;
+    LimitedActivityAdaptor adaptor;
     ArrayList<RecommendationInfo> arrayList;
     ArrayList<RecommendationDetails> recommendationDetailsArrayList;
 
@@ -66,6 +70,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+
         mListView = (ListView) findViewById(R.id.listViewTimeLimitedActivities);
         recommendButton = (Button) findViewById(R.id.recommendButton);
 
@@ -78,7 +83,9 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         setSupportActionBar(toolbar);
 
 
-        adaptor = new ListViewAdaptor(this, arrayList);
+        //adaptor = new ListViewAdaptor(this, arrayList);
+        adaptor = new LimitedActivityAdaptor(this, arrayList);
+
         mListView.setAdapter(adaptor);
 
 
@@ -107,7 +114,9 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logoutButton:
-                startActivity(new Intent(this, SignInActivity.class));
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(this, SignInActivity.class));
+                alert();
                 return true;
             case R.id.userProfile:
                 startActivity(new Intent(this, UserProfileActivity.class));
@@ -115,6 +124,77 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void alert() {
+
+        final String uID = "" + FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(uID);
+        //String yesORno = databaseReference.child(uID).child("keepSignedIn").toString();
+
+
+        new AlertDialog.Builder(HomePageActivity.this)
+                .setTitle("Logout")
+                .setMessage("Would you like to logout?\n" +
+                        "Your account will NOT be automatically signed in next time if you originally selected for it to be.")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // logout
+                        //databaseReference.child("keepSignedIn").removeValue();
+                        databaseReference.child("keepSignedIn").setValue("no");
+
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // user doesn't want to logout
+                    }
+                })
+                .show();
+        /*
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String yesORno = dataSnapshot.child("keepSignedIn").getValue().toString();
+                //AlertDialog.Builder ab = new AlertDialog.Builder(HomePageActivity.this);
+                if (yesORno.equals("yes")) {
+                    //AlertDialog.Builder ab = new AlertDialog.Builder(HomePageActivity.this);
+
+                } else if (yesORno.equals("no")){
+                    new AlertDialog.Builder(HomePageActivity.this)
+                            .setTitle("Logout")
+                            .setMessage("Would you like to logout?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // logout
+                                    databaseReference.child("keepSignedIn").setValue("no");
+
+                                    FirebaseAuth.getInstance().signOut();
+                                    finish();
+                                    Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // user doesn't want to logout
+                                }
+                            })
+                            .show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        */
+
     }
 
     public ArrayList<RecommendationDetails> retrieveRecDetailsData() {
@@ -158,9 +238,13 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         String imageUrl = rev.getImageUrl();
 
         RecommendationInfo ri = new RecommendationInfo(nearestMRT, timePeriod, nameOfActivity, tags, imageUrl);
-        arrayList.add(ri);
+        if (!timePeriod.equals("Permanent")) {
+            arrayList.add(ri);
+        }
 
-        adaptor = new ListViewAdaptor(this, arrayList);
+        //adaptor = new ListViewAdaptor(this, arrayList);
+        adaptor = new LimitedActivityAdaptor(this, arrayList);
+
         mListView.setAdapter(adaptor);
     }
 
@@ -171,12 +255,9 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         }
 
         if (v == myImageView || v == myTextView) {
-            if (MRTLOCATIONS.length != 0) {
                 Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
                 startActivity(intent);
-            } else {
-                Toast.makeText(this, "Please wait for activities to load", Toast.LENGTH_SHORT).show();
-            }
+
         }
 
     }

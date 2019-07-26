@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +17,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     //Main Activity -> SignUp Activity
@@ -28,11 +34,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private EditText editTextDisplayName;
     private TextView textViewSignIn;
     private TextView resetPasswordSignup;
+    private CheckBox acceptionCheckBox;
 
     private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
+    private DatabaseReference reff;
+
+    //private ArrayList<String>
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +68,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         editTextDisplayName = findViewById(R.id.editTextDisplayName);
         textViewSignIn = (TextView) findViewById(R.id.SignInText);
         resetPasswordSignup = (TextView) findViewById(R.id.resetPasswordSignup);
+        //acceptionCheckBox = findViewById(R.id.acceptionCheckBox);
 
         buttonRegister.setOnClickListener(this);
         textViewSignIn.setOnClickListener(this);
         resetPasswordSignup.setOnClickListener(this);
     }
+
 
     private void registerUser() {
         final String email = editTextEmail.getText().toString().trim();
@@ -80,6 +92,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Please enter your username", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //checkUsername();
+
         //if both email and password are entered, show a progressDialogue
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
@@ -95,6 +114,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             UserInformation userInformation = new UserInformation(email, displayName);
                             databaseReference.child(uID).setValue(userInformation);
+                            databaseReference.child(uID).child("keepSignedIn").setValue("no");
 
                             finish();
                             Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);

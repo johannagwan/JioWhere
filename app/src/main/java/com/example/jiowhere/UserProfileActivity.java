@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class UserProfileActivity extends AppCompatActivity {
     ListView savedActivitiesListView;
     ArrayList<RecommendationDetails> savedActivitiesList = new ArrayList<>();
     ArrayList<RecommendationInfo> arrayList = new ArrayList<>();
-    ListViewAdaptor listViewAdaptor;
+    SavedActivityAdaptor savedActivityAdaptor;
 
     String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -70,6 +71,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
         retrieveSavedActivitiesData();
     }
+
+
 
     public ArrayList<RecommendationDetails> retrieveSavedActivitiesData() {
 
@@ -116,8 +119,8 @@ public class UserProfileActivity extends AppCompatActivity {
         arrayList.add(ri);
 
 
-        listViewAdaptor = new ListViewAdaptor(this, arrayList);
-        savedActivitiesListView.setAdapter(listViewAdaptor);
+        savedActivityAdaptor = new SavedActivityAdaptor(this, arrayList);
+        savedActivitiesListView.setAdapter(savedActivityAdaptor);
     }
 
     @Override

@@ -54,7 +54,9 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     private EditText addressEditText;
     private EditText openingHoursEditText;
     private EditText timePeriodEditText;
+    private EditText priceEditText;
     private Switch permanentSwitch;
+    private Switch costSwitch;
     private CheckBox familyCheckBox;
     private CheckBox friendsCheckBox;
     private CheckBox loverCheckBox;
@@ -105,6 +107,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         addressEditText = (EditText) findViewById(R.id.addressEditText);
         timePeriodEditText = (EditText) findViewById(R.id.timePeriodEditText);
         openingHoursEditText = (EditText) findViewById(R.id.openingHoursEditText);
+        priceEditText = findViewById(R.id.priceEditText);
 
 
 
@@ -139,6 +142,24 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
                     String currentText = timePeriodEditText.getText().toString();
                     if (currentText.equals("Permanent")) {
                         timePeriodEditText.setText("");
+                    }
+                    //}
+                }
+            }
+        });
+
+        costSwitch = findViewById(R.id.freeSwitch);
+        permanentSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                if (isChecked) { //if true => if switch is on => is permanent
+                    priceEditText.setText("Free");
+                } else {
+                    //if ((timePeriodEditText.getText()).equals("Permanent")) {
+                    String currentText = timePeriodEditText.getText().toString();
+                    if (currentText.equals("Free")) {
+                        priceEditText.setText("");
                     }
                     //}
                 }
@@ -191,6 +212,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         String address = addressEditText.getText().toString().trim();
         String timePeriod = timePeriodEditText.getText().toString().trim();
         String openingHours = openingHoursEditText.getText().toString();
+        String cost = priceEditText.getText().toString();
         //boolean isPermanent = true; //dummy value => no longer needed, replaced with Opening Hours
 
         if (!TextUtils.isEmpty(nameOfActivity)
@@ -200,7 +222,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
             String id = databaseReference.push().getKey();
             uniqueID.add(id);
 
-            uploadingInfo(id, nameOfActivity, nearestMRT, address, timePeriod, openingHours, allTags);
+            uploadingInfo(id, nameOfActivity, nearestMRT, address, timePeriod, openingHours, cost, allTags);
 
         } else {
             if (TextUtils.isEmpty(nameOfActivity)) {
@@ -218,6 +240,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
 
     }
 
+    //the all mrt stations
     public void thatDialogThingy() {
         allMrts = new String[ALLMRTSTATIONS.length];
         int counter = 0;
@@ -266,6 +289,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
                 mBuilder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         dialog.dismiss();
                     }
                 });
@@ -305,7 +329,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
 
     public void uploadingInfo(final String id, final String nameOfActivity,
                               final String nearestMRT, final String address,
-                              final String timePeriod, final String openingHours, final String allTags) {
+                              final String timePeriod, final String openingHours, final String cost, final String allTags) {
         //final StorageReference filePath = UserProfileImageRef.child(currentUserID + ".jpg");
         final StorageReference filePath = storageReference.child("images/"+ UUID.randomUUID().toString());
 
@@ -328,14 +352,14 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
                         //UploadImage uploadImage = new UploadImage(activityName, downloadUrl);
                         RecommendationDetails recommendationDetails =
                                 new RecommendationDetails(id, nameOfActivity, nearestMRT, address,
-                                        timePeriod, openingHours, allTags, downloadUrl);
+                                        timePeriod, openingHours, allTags, cost, downloadUrl);
 
                         //getUid() is a built-in function in Firebase
                         databaseReference.child(nameOfActivity).setValue(recommendationDetails);
 
                         //databaseReference.child(activityName).child("imageUrl").setValue(downloadUrl);
-                        DatabaseReference reff = FirebaseDatabase.getInstance().getReference("allActivities");
-                        reff.child(nameOfActivity).setValue(nameOfActivity);
+                        //DatabaseReference reff = FirebaseDatabase.getInstance().getReference("allActivities");
+                        //reff.child(nameOfActivity).setValue(nameOfActivity);
 
                         Toast.makeText(RecommendingActivity.this, "Recommendation Saved...", Toast.LENGTH_LONG).show();
                         finish();

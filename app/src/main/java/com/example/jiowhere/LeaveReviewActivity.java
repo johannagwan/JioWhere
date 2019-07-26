@@ -93,11 +93,12 @@ public class LeaveReviewActivity extends AppCompatActivity implements View.OnCli
         String theReview = submitReviewEditText.getText().toString();
         String userEmail = useremailTextView.getText().toString();
         String username = usernameTextView.getText().toString();
+        String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         Review reviewClass = new Review(theReview, userEmail, username);
 
         //databaseReference.child("reviews").child(username).setValue(reviewClass);
-        databaseReference.child(activityName).child("reviews").child(username).setValue(reviewClass);
+        databaseReference.child(activityName).child("reviews").child(uID).setValue(reviewClass);
         Toast.makeText(this, "Review submitted...", Toast.LENGTH_LONG).show();
 
         finish();

@@ -4,6 +4,10 @@ public class UserInformation {
     String email;
     String username;
 
+    public  UserInformation() {
+        //empty
+    }
+
     public UserInformation(String email, String username) {
         this.email = email;
         this.username = username;
