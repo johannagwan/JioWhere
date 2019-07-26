@@ -13,6 +13,7 @@ public class RecommendationDetails {
     public String openingHours;
     //UploadImage uploadImage;
     String tags;
+    String cost;
 
     public RecommendationDetails() {
         //no argument constructor
@@ -21,7 +22,7 @@ public class RecommendationDetails {
     public RecommendationDetails(String id, String nameOfActivity,
                                  String nearestMRT, String address,
                                  String timePeriod, String openingHours,
-                                 String tags, String imageUrl) {
+                                 String tags, String cost, String imageUrl) {
         this.id = id;
         this.nameOfActivity = nameOfActivity;
         this.nearestMRT = nearestMRT;
@@ -31,6 +32,7 @@ public class RecommendationDetails {
         this.tags = tags;
         this.imageUrl = imageUrl;
         this.openingHours = openingHours;
+        this.cost = cost;
         //this.uploadImage = uploadImage;
     }
 
@@ -40,6 +42,14 @@ public class RecommendationDetails {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
     }
 
     public String getId() {

@@ -30,8 +30,8 @@
 
     <TextView
         android:id="@+id/filterByTags"
-        android:layout_width="290dp"
-        android:layout_height="38dp"
+        android:layout_width="234dp"
+        android:layout_height="42dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -40,9 +40,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/mainListView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tagButton"
-        app:layout_constraintTop_toBottomOf="@+id/locationSearchTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/locationSearchTextView"
+        app:layout_constraintVertical_bias="0.666" />
 
     <TextView
         android:id="@+id/locationSearchTextView"
@@ -82,8 +83,9 @@
         android:text="JOHANNA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/tagButton"
         app:layout_constraintTop_toTopOf="@+id/locationSearchTextView"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintVertical_bias="0.065" />
 
 </android.support.constraint.ConstraintLayout>

@@ -64,9 +64,10 @@ public class SearchByTagActivity extends AppCompatActivity implements View.OnCli
                     String openHours = dataSnapshot1.child("openingHours").getValue().toString();
                     String allTags = dataSnapshot1.child("tags").getValue().toString();
                     String imageUrl = dataSnapshot1.child("imageUrl").getValue().toString();
+                    String cost = dataSnapshot1.child("cost").getValue().toString();
                     RecommendationDetails act =
                             new RecommendationDetails(id, nameOfActivity, nearestMRT, address,
-                                    timePer, openHours, allTags, imageUrl);
+                                    timePer, openHours, allTags, cost, imageUrl);
 
                     allActivities.add(act);
                 }
