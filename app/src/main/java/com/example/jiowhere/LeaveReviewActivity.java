@@ -1,7 +1,9 @@
 package com.example.jiowhere;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -90,20 +92,39 @@ public class LeaveReviewActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void submitReview() {
-        String theReview = submitReviewEditText.getText().toString();
-        String userEmail = useremailTextView.getText().toString();
-        String username = usernameTextView.getText().toString();
-        String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        Review reviewClass = new Review(theReview, userEmail, username);
+        new AlertDialog.Builder(LeaveReviewActivity.this)
+                .setTitle("Would you like to sumbit your review?")
+                .setMessage("Please make sure you have tried out this activity so as to ensure review credibility.")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // logout
+                        //databaseReference.child("keepSignedIn").removeValue();
+                        String theReview = submitReviewEditText.getText().toString();
+                        String userEmail = useremailTextView.getText().toString();
+                        String username = usernameTextView.getText().toString();
+                        String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        //databaseReference.child("reviews").child(username).setValue(reviewClass);
-        databaseReference.child(activityName).child("reviews").child(uID).setValue(reviewClass);
-        Toast.makeText(this, "Review submitted...", Toast.LENGTH_LONG).show();
+                        Review reviewClass = new Review(theReview, userEmail, username);
 
-        finish();
-        //startActivity(new Intent(getApplicationContext(), RecommendationDetailsActivity.class));
+                        //databaseReference.child("reviews").child(username).setValue(reviewClass);
+                        databaseReference.child(activityName).child("reviews").child(uID).setValue(reviewClass);
+                        Toast.makeText(LeaveReviewActivity.this, "Review submitted...", Toast.LENGTH_LONG).show();
+
+                        finish();
+                        //startActivity(new Intent(getApplicationContext(), RecommendationDetailsActivity.class));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // user doesn't want to logout
+                    }
+                })
+                .show();
+
     }
+
+
 
     public void onClick(View v) {
         if (v == submitReviewButton) {

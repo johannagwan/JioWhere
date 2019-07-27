@@ -231,6 +231,24 @@ public class SearchByTagActivity extends AppCompatActivity implements View.OnCli
     private CheckBox outdoorCheckBox;
     private CheckBox romanceCheckBox;
     private CheckBox culinaryCheckBox;
+    private CheckBox natureCheckBox;
+    private CheckBox gamesCheckBox;
+    private CheckBox culturalCheckBox;
+    private CheckBox museumCheckBox;
+    private CheckBox parksCheckBox;
+    private CheckBox shoppingCheckBox;
+    private CheckBox theaterCheckBox;
+    private CheckBox sportsCheckBox;
+    private CheckBox concertCheckBox;
+    private CheckBox historicCheckBox;
+    private CheckBox sightseeingCheckBox;
+    private CheckBox bikingCheckBox;
+    private CheckBox zooCheckBox;
+    private CheckBox architecturalCheckBox;
+    private CheckBox monumentCheckBox;
+    private CheckBox religiousCheckBox;
+    private CheckBox themeparkCheckBox;
+    private CheckBox beachCheckBox;
 
     ListViewAdaptor adaptor;
     ListView tagListView;
@@ -242,6 +260,8 @@ public class SearchByTagActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_by_tag);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         activities = new ArrayList<RecommendationDetails>();
         allActivities = new ArrayList<RecommendationDetails>();
@@ -256,8 +276,26 @@ public class SearchByTagActivity extends AppCompatActivity implements View.OnCli
         soloCheckBox = (CheckBox) findViewById(R.id.checkBox4);
         indoorCheckBox = (CheckBox) findViewById(R.id.checkBox5);
         outdoorCheckBox = (CheckBox) findViewById(R.id.checkBox6);
-        romanceCheckBox = (CheckBox) findViewById(R.id.checkBox7);
-        culinaryCheckBox = (CheckBox) findViewById(R.id.checkBox8);
+        romanceCheckBox = (CheckBox) findViewById(R.id.romanceCheckBox1);
+        culinaryCheckBox = (CheckBox) findViewById(R.id.culinaryCheckBox1);
+        natureCheckBox = findViewById(R.id.natureCheckBox1);
+        gamesCheckBox = findViewById(R.id.gamesCheckBox1);
+        culturalCheckBox = findViewById(R.id.culturalCheckBox1);
+        museumCheckBox = findViewById(R.id.museumCheckBox1);
+        parksCheckBox = findViewById(R.id.parkCheckBox1);
+        shoppingCheckBox = findViewById(R.id.shoppingCheckBox1);
+        theaterCheckBox = findViewById(R.id.theaterCheckBox1);
+        sportsCheckBox = findViewById(R.id.sportsCheckBox1);
+        concertCheckBox = findViewById(R.id.concertCheckBox1);
+        historicCheckBox = findViewById(R.id.historicCheckBox1);
+        sightseeingCheckBox = findViewById(R.id.sightseeingCheckBox1);
+        bikingCheckBox = findViewById(R.id.bikingCheckBox1);
+        zooCheckBox = findViewById(R.id.zooCheckBox1);
+        architecturalCheckBox = findViewById(R.id.architecturalCheckBox1);
+        monumentCheckBox = findViewById(R.id.monumentCheckBox1);
+        religiousCheckBox = findViewById(R.id.religiousCheckBox1);
+        themeparkCheckBox = findViewById(R.id.themeparkCheckBox1);
+        beachCheckBox = findViewById(R.id.beachCheckBox1);
 
         //tagListView = (ListView) findViewById(R.id.tagListView);
         searchByTagButton = (Button) findViewById(R.id.searchByTagButton);
@@ -266,6 +304,13 @@ public class SearchByTagActivity extends AppCompatActivity implements View.OnCli
         finalTag = "";
 
         //getAllActivities();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        //code it to launch an intent to the activity you want
+        finish();
+        return true;
     }
 
     private void checkBoxChecking() {
@@ -279,6 +324,24 @@ public class SearchByTagActivity extends AppCompatActivity implements View.OnCli
         items.add(outdoorCheckBox);
         items.add(romanceCheckBox);
         items.add(culinaryCheckBox);
+        items.add(natureCheckBox);
+        items.add(gamesCheckBox);
+        items.add(culturalCheckBox);
+        items.add(museumCheckBox);
+        items.add(parksCheckBox);
+        items.add(shoppingCheckBox);
+        items.add(theaterCheckBox);
+        items.add(sportsCheckBox);
+        items.add(concertCheckBox);
+        items.add(historicCheckBox);
+        items.add(sightseeingCheckBox);
+        items.add(bikingCheckBox);
+        items.add(zooCheckBox);
+        items.add(architecturalCheckBox);
+        items.add(monumentCheckBox);
+        items.add(religiousCheckBox);
+        items.add(themeparkCheckBox);
+        items.add(beachCheckBox);
 
         String text = "";
 

@@ -57,14 +57,36 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     private EditText priceEditText;
     private Switch permanentSwitch;
     private Switch costSwitch;
+
     private CheckBox familyCheckBox;
     private CheckBox friendsCheckBox;
     private CheckBox loverCheckBox;
     private CheckBox soloCheckBox;
     private CheckBox indoorCheckBox;
     private CheckBox outdoorCheckBox;
+
     private CheckBox romanceCheckBox;
     private CheckBox culinaryCheckBox;
+    private CheckBox natureCheckBox;
+    private CheckBox gamesCheckBox;
+    private CheckBox culturalCheckBox;
+    private CheckBox museumCheckBox;
+    private CheckBox parksCheckBox;
+    private CheckBox shoppingCheckBox;
+    private CheckBox theaterCheckBox;
+    private CheckBox sportsCheckBox;
+    private CheckBox concertCheckBox;
+    private CheckBox historicCheckBox;
+    private CheckBox sightseeingCheckBox;
+    private CheckBox bikingCheckBox;
+    private CheckBox zooCheckBox;
+    private CheckBox architecturalCheckBox;
+    private CheckBox monumentCheckBox;
+    private CheckBox religiousCheckBox;
+    private CheckBox themeparkCheckBox;
+    private CheckBox beachCheckBox;
+
+
     private ImageView uploadedImage;
 
     private String allTags;
@@ -117,8 +139,36 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         soloCheckBox = (CheckBox) findViewById(R.id.soloCheckBox);
         indoorCheckBox = (CheckBox) findViewById(R.id.indoorCheckBox);
         outdoorCheckBox = (CheckBox) findViewById(R.id.outdoorCheckBox);
+
+
         romanceCheckBox = (CheckBox) findViewById(R.id.romanceCheckBox);
         culinaryCheckBox = (CheckBox) findViewById(R.id.culinaryCheckBox);
+        natureCheckBox = findViewById(R.id.natureCheckBox);
+        gamesCheckBox = findViewById(R.id.gamesCheckBox);
+        culturalCheckBox = findViewById(R.id.culturalCheckBox);
+        museumCheckBox = findViewById(R.id.museumCheckBox);
+        parksCheckBox = findViewById(R.id.parkCheckBox);
+        shoppingCheckBox = findViewById(R.id.shoppingCheckBox);
+        theaterCheckBox = findViewById(R.id.theaterCheckBox);
+        sportsCheckBox = findViewById(R.id.sportsCheckBox);
+        concertCheckBox = findViewById(R.id.concertCheckBox);
+        historicCheckBox = findViewById(R.id.historicCheckBox);
+        sightseeingCheckBox = findViewById(R.id.sightseeingCheckBox);
+        bikingCheckBox = findViewById(R.id.bikingCheckBox);
+        zooCheckBox = findViewById(R.id.zooCheckBox);
+        architecturalCheckBox = findViewById(R.id.architecturalCheckBox);
+        monumentCheckBox = findViewById(R.id.monumentCheckBox);
+        religiousCheckBox = findViewById(R.id.religiousCheckBox);
+        themeparkCheckBox = findViewById(R.id.themeparkCheckBox);
+        beachCheckBox = findViewById(R.id.beachCheckBox);
+
+        /*
+        private CheckBox architecturalCheckBox;
+        private CheckBox monumentCheckBox;
+        private CheckBox religiousCheckBox;
+        private CheckBox themeparkCheckBox;
+        private CheckBox beachCheckBox;
+        */
 
         uploadedImage = (ImageView) findViewById(R.id.uploadedImage);
         uploadedImage.setImageResource(R.drawable.empty);
@@ -192,6 +242,25 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         items.add(outdoorCheckBox);
         items.add(romanceCheckBox);
         items.add(culinaryCheckBox);
+
+        items.add(natureCheckBox);
+        items.add(gamesCheckBox);
+        items.add(culturalCheckBox);
+        items.add(museumCheckBox);
+        items.add(parksCheckBox);
+        items.add(shoppingCheckBox);
+        items.add(theaterCheckBox);
+        items.add(sportsCheckBox);
+        items.add(concertCheckBox);
+        items.add(historicCheckBox);
+        items.add(sightseeingCheckBox);
+        items.add(bikingCheckBox);
+        items.add(zooCheckBox);
+        items.add(architecturalCheckBox);
+        items.add(monumentCheckBox);
+        items.add(religiousCheckBox);
+        items.add(themeparkCheckBox);
+        items.add(beachCheckBox);
 
         String text = "";
 
@@ -401,7 +470,22 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if (v == recommendActivityButton) {
-            saveRecommendation();
+            new android.support.v7.app.AlertDialog.Builder(RecommendingActivity.this)
+                    .setTitle("Submit Recommendation")
+                    .setMessage("Would you like to submit your recommendation?\n" +
+                            "Please make sure that this activity exist to ensure credibility of recommendation.")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            saveRecommendation();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // user doesn't want to logout
+                        }
+                    })
+                    .show();
+
         }
 
         if (v == uploadPicButton) {

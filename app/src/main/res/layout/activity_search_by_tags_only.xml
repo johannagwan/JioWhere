@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchByTagsOnlyActivity">
+
+    <Button
+        android:id="@+id/searchByTagButtono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="SEARCH"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayouto" />
+
+    <TextView
+        android:id="@+id/partnerTextViewo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Who do you wanna go out with?"
+        android:textColor="#673AB7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.072"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/indoorOrOutdoorextViewo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Indoor or Outdoor?"
+        android:textColor="#673AB7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxo" />
+
+    <CheckBox
+        android:id="@+id/checkBoxo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/family"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/partnerTextViewo" />
+
+    <CheckBox
+        android:id="@+id/checkBox2o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/friends"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxo"
+        app:layout_constraintTop_toBottomOf="@+id/partnerTextViewo" />
+
+    <CheckBox
+        android:id="@+id/checkBox3o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Lover"
+        app:layout_constraintStart_toEndOf="@+id/checkBox2o"
+        app:layout_constraintTop_toBottomOf="@+id/partnerTextViewo" />
+
+    <CheckBox
+        android:id="@+id/checkBox4o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Solo"
+        app:layout_constraintStart_toEndOf="@+id/checkBox3o"
+        app:layout_constraintTop_toBottomOf="@+id/partnerTextViewo" />
+
+    <CheckBox
+        android:id="@+id/checkBox5o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="Indoor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/indoorOrOutdoorextViewo" />
+
+    <CheckBox
+        android:id="@+id/checkBox6o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Outdoor"
+        app:layout_constraintStart_toEndOf="@+id/checkBox5o"
+        app:layout_constraintTop_toBottomOf="@+id/indoorOrOutdoorextViewo" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayouto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox5o">
+
+
+        <TextView
+            android:id="@+id/typeOfActivityTextView1o"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:text="Types of Activity/Events         ---> scroll this way"
+            android:textColor="#673AB7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.171"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <HorizontalScrollView
+            android:layout_width="409dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/typeOfActivityTextView1o">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/architecturalCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Architectural"
+                    tools:layout_editor_absoluteX="20dp"
+                    tools:layout_editor_absoluteY="46dp" />
+
+                <CheckBox
+                    android:id="@+id/beachCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Beach"
+                    tools:layout_editor_absoluteX="138dp"
+                    tools:layout_editor_absoluteY="91dp" />
+
+                <CheckBox
+                    android:id="@+id/bikingCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Biking"
+                    tools:layout_editor_absoluteX="218dp" />
+
+                <CheckBox
+                    android:id="@+id/concertCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Concert" />
+
+                <CheckBox
+                    android:id="@+id/culinaryCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Culinary"
+                    tools:layout_editor_absoluteY="131dp" />
+
+                <CheckBox
+                    android:id="@+id/culturalCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cultural"
+                    tools:layout_editor_absoluteY="131dp" />
+
+                <CheckBox
+                    android:id="@+id/gamesCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Games" />
+
+                <CheckBox
+                    android:id="@+id/historicCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Historic" />
+
+
+                <CheckBox
+                    android:id="@+id/monumentCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monument" />
+
+
+                <CheckBox
+                    android:id="@+id/museumCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Museum" />
+
+
+                <CheckBox
+                    android:id="@+id/natureCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nature" />
+
+
+                <CheckBox
+                    android:id="@+id/parkCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Park" />
+
+                <CheckBox
+                    android:id="@+id/religiousCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Religious" />
+
+                <CheckBox
+                    android:id="@+id/romanceCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Romance" />
+
+                <CheckBox
+                    android:id="@+id/shoppingCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shopping" />
+
+                <CheckBox
+                    android:id="@+id/sightseeingCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sightseeing" />
+
+                <CheckBox
+                    android:id="@+id/sportsCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sports" />
+
+
+                <CheckBox
+                    android:id="@+id/theaterCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Theater" />
+
+                <CheckBox
+                    android:id="@+id/themeparkCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ThemePark" />
+
+
+                <CheckBox
+                    android:id="@+id/zooCheckBox1o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Zoo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="          " />
+
+            </LinearLayout>
+
+
+        </HorizontalScrollView>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ListView
+        android:id="@+id/tagActivityListView"
+        android:layout_width="388dp"
+        android:layout_height="306dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchByTagButtono" />
+
+    <TextView
+        android:id="@+id/randomTextV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="tags"
+        app:layout_constraintEnd_toStartOf="@+id/searchByTagButtono"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView30"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayouto" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Tags Selected:"
+        android:textColor="#673AB7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayouto" />
+
+
+</android.support.constraint.ConstraintLayout>
