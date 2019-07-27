@@ -149,9 +149,110 @@ public class ListViewAdaptor extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    /*
+    public void filtering(String charText) {
+        String[] arrOfStr = charText.split("/");
+        for (int i = 0; i < arrOfStr.length; i++) {
+            tagFilter(arrOfStr[i]);
+        }
+    }
 
-    //don't work combined
+    public  void tagFilter(String charText) {
+        tagedWord = charText; //useless
+        String[] arrOfStr = charText.split("/");
 
+        if (charText.length() != 0) {//ignore if no tag
+            charText = charText.toLowerCase(Locale.getDefault());
+
+            List<RecommendationInfo> temp = new ArrayList<>();
+            for(RecommendationInfo ri : recommendationInfoList) {
+                temp.add(ri);
+            }
+
+            recommendationInfoList.clear();
+
+            if (currentLocation != "") { //if there is smth in location Search
+
+                for (RecommendationInfo ri : arrayList) {//arraylist with everything
+                    if (ri.getLocation().toLowerCase(Locale.getDefault()).contains(currentLocation)) {
+
+                        //for (int i = 0; i < arrOfStr.length; i++) {
+                            if (ri.getTags().toLowerCase(Locale.getDefault()).contains("Indoor")) {
+                                //if (ri.getTags().toLowerCase(Locale.getDefault()).contains(arrOfStr[1])) {
+                                    recommendationInfoList.add(ri);
+                                    //break;
+                                //}
+                            }
+                        //}
+
+                    }
+                }
+            } else { //if there is nothing in location
+                for (RecommendationInfo ri : arrayList) {
+                    if (ri.getTags().toLowerCase(Locale.getDefault()).contains("Indoor")) {
+                        //if (ri.getTags().toLowerCase(Locale.getDefault()).contains(arrOfStr[1])) {
+                            recommendationInfoList.add(ri);
+                            //break;
+                        //}
+                    }
+                }
+            }
+        }
+
+        notifyDataSetChanged();
+    }
+    */
+
+    public  void tagFilter(String charText) {
+
+        if (charText.length() != 0) {//ignore if no tag
+            charText = charText.toLowerCase(Locale.getDefault());
+            String[] arrOfStr = charText.split("/"); //ok now it works
+
+            List<RecommendationInfo> temp = new ArrayList<>();
+            for(RecommendationInfo ri : recommendationInfoList) {
+                temp.add(ri);
+            }
+
+            recommendationInfoList.clear();
+
+            if (currentLocation != "") { //if there is smth in location Search
+                for (RecommendationInfo ri : arrayList) { //for everything =>
+                    if (ri.getLocation().toLowerCase(Locale.getDefault()).contains(currentLocation)) { //for only this location
+                        if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
+                            recommendationInfoList.add(ri);
+                        }
+                    }
+                }
+            } else {
+                for (RecommendationInfo ri : arrayList) {
+                    /*
+                    if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
+                        recommendationInfoList.add(ri);
+                    }
+                    */
+                    boolean haveAllTags = true;
+                    for (int i = 0; i < arrOfStr.length; i++) {
+                        if (haveAllTags == true) { //only when its true do I continue, else i just stop cause one tag is missing
+                            if (ri.getTags().toLowerCase(Locale.getDefault()).contains(arrOfStr[i])) {
+                                haveAllTags = true;
+                            } else {
+                                haveAllTags = false;
+                            }
+                        }
+                    }
+
+                    if (haveAllTags == true) {
+                        recommendationInfoList.add(ri);
+                    }
+                }
+            }
+        }
+
+        notifyDataSetChanged();
+    }
+
+    /*
     public  void tagFilter(String charText) {
         tagedWord = charText;
 
@@ -178,10 +279,6 @@ public class ListViewAdaptor extends BaseAdapter {
                             }
                         }
                     }
-
-
-
-
                 } else {
                     for (RecommendationInfo ri : arrayList) {
                         if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
@@ -193,6 +290,7 @@ public class ListViewAdaptor extends BaseAdapter {
 
             notifyDataSetChanged();
         }
+        */
 
 }
 

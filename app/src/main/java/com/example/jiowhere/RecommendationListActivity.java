@@ -97,8 +97,8 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
 
         //Tags System
-        tagButton = (Button) findViewById(R.id.tagButton);
-        tagButton.setOnClickListener(this);
+        //tagButton = (Button) findViewById(R.id.tagButton);
+        //tagButton.setOnClickListener(this);
 
         TextView tagFilter = findViewById(R.id.filterByTags);
         tagFilter.addTextChangedListener(new TextWatcher() {
@@ -110,6 +110,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
 
                 adaptor.tagFilter(s.toString());
+                //adaptor.filtering(s.toString());
             }
 
             @Override
@@ -213,6 +214,16 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
                 locationSearchTextView.setText(returnString);
 
                 filterView.setText("");
+            }
+        } else if (requestCode == 3) { //from Johanna
+            if (resultCode == RESULT_OK) {
+                String returnString = data.getStringExtra("testing");
+                String[] arrOfStr = returnString.split("/");
+
+                //String baba = "" + arrOfStr.length;
+                //filterView.setText(arrOfStr[0]);
+                filterView.setText(returnString);
+
             }
         }
     }
