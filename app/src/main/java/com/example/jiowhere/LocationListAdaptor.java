@@ -32,6 +32,27 @@ public class LocationListAdaptor extends BaseAdapter {
     }
 
     public void organiseList(List<LocationAndNumber> original, ArrayList<LocationAndNumber> newList) {
+
+        /*
+        int highestNum = 0;
+        for (LocationAndNumber locationAndNumber : original) {
+            int currentNum = locationAndNumber.getNumberOfActivities();
+            if(currentNum > highestNum) {
+                highestNum = currentNum;
+            }
+        }
+
+        for(int i = highestNum; i >= 0; i++) {
+            for (LocationAndNumber locationAndNumber : original) {
+                int currentNum = locationAndNumber.getNumberOfActivities();
+                if(currentNum == i) {
+                    newList.add(locationAndNumber);
+                }
+            }
+        }
+        */
+
+
         for (LocationAndNumber locationAndNumber : original) {
             if(locationAndNumber.getNumberOfActivities() != 0) {
                 newList.add(locationAndNumber);
@@ -43,6 +64,7 @@ public class LocationListAdaptor extends BaseAdapter {
                 newList.add(locationAndNumber);
             }
         }
+
 
         list.clear();
         list.addAll(newList);

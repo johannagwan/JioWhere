@@ -149,7 +149,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         });
 
         costSwitch = findViewById(R.id.freeSwitch);
-        permanentSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        costSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be
                 // true if the switch is in the On position
@@ -157,7 +157,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
                     priceEditText.setText("Free");
                 } else {
                     //if ((timePeriodEditText.getText()).equals("Permanent")) {
-                    String currentText = timePeriodEditText.getText().toString();
+                    String currentText = priceEditText.getText().toString();
                     if (currentText.equals("Free")) {
                         priceEditText.setText("");
                     }
@@ -319,13 +319,6 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         return true;
     }
 
-
-    private String getFileExtension(Uri uri) {
-        ContentResolver contentResolver = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-
-        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
-    }
 
     public void uploadingInfo(final String id, final String nameOfActivity,
                               final String nearestMRT, final String address,
