@@ -381,7 +381,6 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         }
 
         if (v == copyTextImageButton) {
-//            startActivity(new Intent(this, GoogleMapsActivity.class));
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("address", googleMaps.getText().toString());
             clipboard.setPrimaryClip(clip);
