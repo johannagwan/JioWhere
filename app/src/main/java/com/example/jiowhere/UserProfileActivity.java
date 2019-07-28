@@ -61,6 +61,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     FirebaseStorage storage;
     StorageReference storageReference;
 
+    ImageView refresh;
+
     String signInValue;
 
     @Override
@@ -74,6 +76,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         emailTextView = findViewById(R.id.emailTextView);
         profilePicture = findViewById(R.id.profilePicture);
         profilePicture.setOnClickListener(this);
+        refresh = findViewById(R.id.refreshButton);
+        refresh.setOnClickListener(this);
 
         savedActivitiesListView = findViewById(R.id.savedActivitiesListView);
 
@@ -169,7 +173,6 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
     public void saveProfile() {
 
-
         final StorageReference filePath = storageReference.child("images/"+ UUID.randomUUID().toString());
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -224,8 +227,6 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 .setMessage("Set current profile picture as profile?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
-                        databaseReference.child(uID).child("keepSignedIn").setValue("no");
                         saveProfile();
                     }
                 })
@@ -264,6 +265,11 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                     .show();
 
 
+        }
+
+        if ( v== refresh) {
+            finish();
+            startActivity(getIntent());
         }
     }
 }

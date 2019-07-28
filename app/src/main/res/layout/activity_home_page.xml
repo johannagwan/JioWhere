@@ -16,7 +16,7 @@
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="128dp"
-        android:background="@drawable/bluegradient"
+        android:background="@color/graylight"
         app:layout_constraintTop_toBottomOf="@+id/mainActivityToolbar"
         tools:layout_editor_absoluteX="49dp">
 
@@ -31,7 +31,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/searchImage"
             app:layout_constraintTop_toTopOf="parent">
@@ -93,6 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
+                android:shadowColor="#00C52121"
                 android:text="Search by Tags"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,11 +107,12 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="387dp"
-        android:layout_height="29dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="Time Limited Activities:"
+        android:textColor="#673AB7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
