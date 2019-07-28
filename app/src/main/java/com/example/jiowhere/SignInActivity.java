@@ -45,40 +45,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        ifIsKeepedSignedIn();
-        /*
+
         if (firebaseAuth.getCurrentUser() != null) {
             Toast.makeText(SignInActivity.this, "Account detected, logging in automatically", Toast.LENGTH_LONG).show();
             //user is already logged in
             finish();
             startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
         }
-        */
+        
 
-        keepSignedIn = findViewById(R.id.keepSignedInCheckBox);
-        keepSignedIn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (keepSignedIn.isChecked()) {
-                    new AlertDialog.Builder(SignInActivity.this)
-                            .setTitle("Keep account logged in?")
-                            .setMessage("Would you like to keep account logged in on this device?\n" + "Make sure that this device " +
-                                    "is only used by you to prevent security issues")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // logout
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // user doesn't want to logout
-                                    keepSignedIn.setChecked(false);
-                                }
-                            })
-                            .show();
-                }
-            }
-        });
+
 
         editTextEmail = (EditText) findViewById(R.id.emailResetPW);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -107,46 +83,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
 
 
-    private void ifIsKeepedSignedIn() {
-        if (firebaseAuth.getCurrentUser() != null) {
-            String uID = "" + FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference reff = FirebaseDatabase.getInstance().getReference().child("users").child(uID);
-
-            reff.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String yesORno = dataSnapshot.child("keepSignedIn").getValue().toString();
-
-                    if (yesORno.equals("yes")) {
-                        Toast.makeText(SignInActivity.this, "Account detected, logging in automatically", Toast.LENGTH_LONG).show();
-                        //user is already logged in
-                        finish();
-                        startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-        }
-
-    }
-
-
-    private void checkSignIn() {
-        if(keepSignedIn.isChecked()) {
-            String uID = "" + FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
-            //databaseReference.child(uID).child("keepSignedIn").removeValue();
-            databaseReference.child(uID).child("keepSignedIn").setValue("yes");
-
-        } else {
-            //idk
-        }
-    }
 
 
     private void userLogin() {
@@ -181,7 +117,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                     if (task.isSuccessful()) {
                         //user is successfully registered and logged in
-                        checkSignIn();
                         finish();
                         startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
                     } else {

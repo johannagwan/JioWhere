@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -53,6 +54,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     ImageView myImageView;
     Button button;
     Button searchByTagsHomeButton;
+    CardView cardthingy;
 
     //ListViewAdaptor adaptor;
     LimitedActivityAdaptor adaptor;
@@ -74,6 +76,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         mListView = (ListView) findViewById(R.id.listViewTimeLimitedActivities);
         recommendButton = (Button) findViewById(R.id.recommendButton);
+        cardthingy = findViewById(R.id.cardView);
+        cardthingy.setOnClickListener(this);
 
         arrayList = new ArrayList<>();
         recommendationDetailsArrayList = new ArrayList<>();
@@ -137,13 +141,10 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         new AlertDialog.Builder(HomePageActivity.this)
                 .setTitle("Logout")
-                .setMessage("Would you like to logout?\n" +
-                        "Your account will NOT be automatically signed in next time if you originally selected for it to be.")
+                .setMessage("Would you like to logout?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // logout
-                        //databaseReference.child("keepSignedIn").removeValue();
-                        databaseReference.child("keepSignedIn").setValue("no");
 
                         FirebaseAuth.getInstance().signOut();
                         finish();
@@ -217,7 +218,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
             startActivity(new Intent(this, RecommendingActivity.class));
         }
 
-        if (v == myImageView || v == myTextView) {
+        if (v == myImageView || v == myTextView || v == cardthingy) {
                 Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
                 startActivity(intent);
 
