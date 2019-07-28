@@ -16,7 +16,9 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="26dp"
         android:layout_marginEnd="18dp"
-        android:text="Reviews" />
+        android:fontFamily="@font/montserrat"
+        android:text="Reviews"
+        android:textColor="#A642210B" />
 
     <TextView
         android:id="@+id/username"
@@ -28,8 +30,10 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="285dp"
+        android:fontFamily="@font/montserrat"
         android:text="Username"
-        android:textColor="#3F51B5" />
+        android:textColor="#42210B"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/displayEmail"
@@ -41,8 +45,10 @@
         android:layout_marginStart="197dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="17dp"
+        android:fontFamily="@font/montserrat"
         android:text="Email"
-        android:textColor="#3F51B5" />
+        android:textColor="#42210B"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView13"
@@ -66,6 +72,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="29dp"
         android:layout_marginEnd="185dp"
+        android:fontFamily="@font/montserrat"
         android:text="Review:"
-        android:textColor="#9C27B0" />
+        android:textColor="#42210B" />
 </RelativeLayout>

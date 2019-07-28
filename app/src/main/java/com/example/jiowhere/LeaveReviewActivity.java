@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -92,36 +93,39 @@ public class LeaveReviewActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void submitReview() {
+        String reviewSubmitted = submitReviewEditText.getText().toString();
+        if (TextUtils.isEmpty(reviewSubmitted)) {
+            Toast.makeText(this, "Please fill up the review", Toast.LENGTH_SHORT).show();
+        } else {
+            new AlertDialog.Builder(LeaveReviewActivity.this)
+                    .setTitle("Would you like to sumbit your review?")
+                    .setMessage("Please make sure you have tried out this activity so as to ensure review credibility.")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // logout
+                            //databaseReference.child("keepSignedIn").removeValue();
+                            String theReview = submitReviewEditText.getText().toString();
+                            String userEmail = useremailTextView.getText().toString();
+                            String username = usernameTextView.getText().toString();
+                            String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        new AlertDialog.Builder(LeaveReviewActivity.this)
-                .setTitle("Would you like to sumbit your review?")
-                .setMessage("Please make sure you have tried out this activity so as to ensure review credibility.")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // logout
-                        //databaseReference.child("keepSignedIn").removeValue();
-                        String theReview = submitReviewEditText.getText().toString();
-                        String userEmail = useremailTextView.getText().toString();
-                        String username = usernameTextView.getText().toString();
-                        String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            Review reviewClass = new Review(theReview, userEmail, username);
 
-                        Review reviewClass = new Review(theReview, userEmail, username);
+                            //databaseReference.child("reviews").child(username).setValue(reviewClass);
+                            databaseReference.child(activityName).child("reviews").child(uID).setValue(reviewClass);
+                            Toast.makeText(LeaveReviewActivity.this, "Review submitted...", Toast.LENGTH_LONG).show();
 
-                        //databaseReference.child("reviews").child(username).setValue(reviewClass);
-                        databaseReference.child(activityName).child("reviews").child(uID).setValue(reviewClass);
-                        Toast.makeText(LeaveReviewActivity.this, "Review submitted...", Toast.LENGTH_LONG).show();
-
-                        finish();
-                        //startActivity(new Intent(getApplicationContext(), RecommendationDetailsActivity.class));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // user doesn't want to logout
-                    }
-                })
-                .show();
-
+                            finish();
+                            //startActivity(new Intent(getApplicationContext(), RecommendationDetailsActivity.class));
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // user doesn't want to logout
+                        }
+                    })
+                    .show();
+        }
     }
 
 
