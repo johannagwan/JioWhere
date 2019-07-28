@@ -55,16 +55,39 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     private EditText openingHoursEditText;
     private EditText timePeriodEditText;
     private EditText priceEditText;
+    private EditText descriptionEditText;
     private Switch permanentSwitch;
     private Switch costSwitch;
+
     private CheckBox familyCheckBox;
     private CheckBox friendsCheckBox;
     private CheckBox loverCheckBox;
     private CheckBox soloCheckBox;
     private CheckBox indoorCheckBox;
     private CheckBox outdoorCheckBox;
+
     private CheckBox romanceCheckBox;
     private CheckBox culinaryCheckBox;
+    private CheckBox natureCheckBox;
+    private CheckBox gamesCheckBox;
+    private CheckBox culturalCheckBox;
+    private CheckBox museumCheckBox;
+    private CheckBox parksCheckBox;
+    private CheckBox shoppingCheckBox;
+    private CheckBox theaterCheckBox;
+    private CheckBox sportsCheckBox;
+    private CheckBox concertCheckBox;
+    private CheckBox historicCheckBox;
+    private CheckBox sightseeingCheckBox;
+    private CheckBox bikingCheckBox;
+    private CheckBox zooCheckBox;
+    private CheckBox architecturalCheckBox;
+    private CheckBox monumentCheckBox;
+    private CheckBox religiousCheckBox;
+    private CheckBox themeparkCheckBox;
+    private CheckBox beachCheckBox;
+
+
     private ImageView uploadedImage;
 
     private String allTags;
@@ -107,6 +130,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         addressEditText = (EditText) findViewById(R.id.addressEditText);
         timePeriodEditText = (EditText) findViewById(R.id.timePeriodEditText);
         openingHoursEditText = (EditText) findViewById(R.id.openingHoursEditText);
+        descriptionEditText = findViewById(R.id.descriptionEditText);
         priceEditText = findViewById(R.id.priceEditText);
 
 
@@ -117,8 +141,36 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         soloCheckBox = (CheckBox) findViewById(R.id.soloCheckBox);
         indoorCheckBox = (CheckBox) findViewById(R.id.indoorCheckBox);
         outdoorCheckBox = (CheckBox) findViewById(R.id.outdoorCheckBox);
+
+
         romanceCheckBox = (CheckBox) findViewById(R.id.romanceCheckBox);
         culinaryCheckBox = (CheckBox) findViewById(R.id.culinaryCheckBox);
+        natureCheckBox = findViewById(R.id.natureCheckBox);
+        gamesCheckBox = findViewById(R.id.gamesCheckBox);
+        culturalCheckBox = findViewById(R.id.culturalCheckBox);
+        museumCheckBox = findViewById(R.id.museumCheckBox);
+        parksCheckBox = findViewById(R.id.parkCheckBox);
+        shoppingCheckBox = findViewById(R.id.shoppingCheckBox);
+        theaterCheckBox = findViewById(R.id.theaterCheckBox);
+        sportsCheckBox = findViewById(R.id.sportsCheckBox);
+        concertCheckBox = findViewById(R.id.concertCheckBox);
+        historicCheckBox = findViewById(R.id.historicCheckBox);
+        sightseeingCheckBox = findViewById(R.id.sightseeingCheckBox);
+        bikingCheckBox = findViewById(R.id.bikingCheckBox);
+        zooCheckBox = findViewById(R.id.zooCheckBox);
+        architecturalCheckBox = findViewById(R.id.architecturalCheckBox);
+        monumentCheckBox = findViewById(R.id.monumentCheckBox);
+        religiousCheckBox = findViewById(R.id.religiousCheckBox);
+        themeparkCheckBox = findViewById(R.id.themeparkCheckBox);
+        beachCheckBox = findViewById(R.id.beachCheckBox);
+
+        /*
+        private CheckBox architecturalCheckBox;
+        private CheckBox monumentCheckBox;
+        private CheckBox religiousCheckBox;
+        private CheckBox themeparkCheckBox;
+        private CheckBox beachCheckBox;
+        */
 
         uploadedImage = (ImageView) findViewById(R.id.uploadedImage);
         uploadedImage.setImageResource(R.drawable.empty);
@@ -193,6 +245,25 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         items.add(romanceCheckBox);
         items.add(culinaryCheckBox);
 
+        items.add(natureCheckBox);
+        items.add(gamesCheckBox);
+        items.add(culturalCheckBox);
+        items.add(museumCheckBox);
+        items.add(parksCheckBox);
+        items.add(shoppingCheckBox);
+        items.add(theaterCheckBox);
+        items.add(sportsCheckBox);
+        items.add(concertCheckBox);
+        items.add(historicCheckBox);
+        items.add(sightseeingCheckBox);
+        items.add(bikingCheckBox);
+        items.add(zooCheckBox);
+        items.add(architecturalCheckBox);
+        items.add(monumentCheckBox);
+        items.add(religiousCheckBox);
+        items.add(themeparkCheckBox);
+        items.add(beachCheckBox);
+
         String text = "";
 
         for (CheckBox item : items){
@@ -213,6 +284,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         String timePeriod = timePeriodEditText.getText().toString().trim();
         String openingHours = openingHoursEditText.getText().toString();
         String cost = priceEditText.getText().toString();
+        String description = descriptionEditText.getText().toString();
         //boolean isPermanent = true; //dummy value => no longer needed, replaced with Opening Hours
 
         if (!TextUtils.isEmpty(nameOfActivity)
@@ -222,7 +294,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
             String id = databaseReference.push().getKey();
             uniqueID.add(id);
 
-            uploadingInfo(id, nameOfActivity, nearestMRT, address, timePeriod, openingHours, cost, allTags);
+            uploadingInfo(id, nameOfActivity, nearestMRT, address, timePeriod, openingHours, cost, allTags, description);
 
         } else {
             if (TextUtils.isEmpty(nameOfActivity)) {
@@ -233,7 +305,9 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
                 Toast.makeText(this, "Please fill up the address", Toast.LENGTH_SHORT).show();
             } else if (TextUtils.isEmpty(timePeriod)) {
                 Toast.makeText(this, "Please fill up the time period of the activity", Toast.LENGTH_SHORT).show();
-            }else {
+            }else if (TextUtils.isEmpty(description)) {
+                Toast.makeText(this, "Please fill up the description of the activity", Toast.LENGTH_SHORT).show();
+            } else {
                 Toast.makeText(this, "Please fill up the required fields", Toast.LENGTH_SHORT).show();
             }
         }
@@ -322,7 +396,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
 
     public void uploadingInfo(final String id, final String nameOfActivity,
                               final String nearestMRT, final String address,
-                              final String timePeriod, final String openingHours, final String cost, final String allTags) {
+                              final String timePeriod, final String openingHours, final String cost, final String allTags, final String description) {
         //final StorageReference filePath = UserProfileImageRef.child(currentUserID + ".jpg");
         final StorageReference filePath = storageReference.child("images/"+ UUID.randomUUID().toString());
 
@@ -345,7 +419,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
                         //UploadImage uploadImage = new UploadImage(activityName, downloadUrl);
                         RecommendationDetails recommendationDetails =
                                 new RecommendationDetails(id, nameOfActivity, nearestMRT, address,
-                                        timePeriod, openingHours, allTags, cost, downloadUrl);
+                                        timePeriod, openingHours, allTags, cost, downloadUrl, description);
 
                         //getUid() is a built-in function in Firebase
                         databaseReference.child(nameOfActivity).setValue(recommendationDetails);
@@ -401,7 +475,22 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if (v == recommendActivityButton) {
-            saveRecommendation();
+            new android.support.v7.app.AlertDialog.Builder(RecommendingActivity.this)
+                    .setTitle("Submit Recommendation")
+                    .setMessage("Would you like to submit your recommendation?\n" +
+                            "Please make sure that this activity exist to ensure credibility of recommendation.")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            saveRecommendation();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // user doesn't want to logout
+                        }
+                    })
+                    .show();
+
         }
 
         if (v == uploadPicButton) {

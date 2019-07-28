@@ -69,6 +69,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
     TextView openingHours;
     TextView tags;
     TextView priceTextView;
+    TextView activityDescription;
 
     ImageView image;
 
@@ -117,6 +118,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         tags = findViewById(R.id.tagTextView);
         image = (ImageView) findViewById(R.id.imageView);
         googleMaps = findViewById(R.id.googleMaps);
+        activityDescription = findViewById(R.id.activityDescriptionTextView);
 
         // Receiving value into activity using intent.
         activityName = getIntent().getStringExtra("name");
@@ -176,7 +178,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         };
         userNameRef.addListenerForSingleValueEvent(eventListener);
 
-                }
+    }
 
 
     //end of checking
@@ -190,11 +192,14 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
                 String openHours = dataSnapshot.child("openingHours").getValue().toString();
                 String time = dataSnapshot.child("timePeriod").getValue().toString();
                 String cost = dataSnapshot.child("cost").getValue().toString();
+                String description = dataSnapshot.child("description").getValue().toString();
 
                 openingHours.setText(openHours);
                 googleMaps.setText(address);
                 timePeriod.setText(time);
                 priceTextView.setText(cost);
+                activityDescription.setText(description);
+
             }
 
             @Override
@@ -257,9 +262,11 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
                 String allTags = dataSnapshot.child("tags").getValue().toString();
                 String cost = dataSnapshot.child("cost").getValue().toString();
                 String imageUrl = dataSnapshot.child("imageUrl").getValue().toString();
+                String description = dataSnapshot.child("description").getValue().toString();
+
                 RecommendationDetails recommendationDetails =
                         new RecommendationDetails(id, nameOfActivity, nearestMRT, address,
-                                timePer, openHours, allTags, cost, imageUrl);
+                                timePer, openHours, allTags, cost, imageUrl, description);
               
                 databaseReference.child(nameOfActivity).setValue(recommendationDetails);
 

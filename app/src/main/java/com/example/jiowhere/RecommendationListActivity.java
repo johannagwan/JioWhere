@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -36,6 +37,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
     ListView mListView;
     AutoCompleteTextView mySearchView;
     Button tagButton;
+    CardView carddie;
 
     TextView locationSearchTextView;
     TextView testText;
@@ -59,6 +61,8 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.activity_recommendations_list);
 
         mListView = (ListView) findViewById(R.id.mainListView);
+        carddie = findViewById(R.id.cardViewList);
+        carddie.setOnClickListener(this);
 
         //try and read data pls
 
@@ -237,7 +241,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
             startActivityForResult(intent, 1);
         }
 
-        if (v == locationSearchTextView || v == myImageView) {
+        if (v == locationSearchTextView || v == myImageView || v == carddie) {
             Intent intent = new Intent(this, SearchByLocationActivity.class);
             //startActivity(intent);
             startActivityForResult(intent, 2);
