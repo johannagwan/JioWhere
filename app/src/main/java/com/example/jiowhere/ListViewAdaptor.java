@@ -218,7 +218,18 @@ public class ListViewAdaptor extends BaseAdapter {
             if (currentLocation != "") { //if there is smth in location Search
                 for (RecommendationInfo ri : arrayList) { //for everything =>
                     if (ri.getLocation().toLowerCase(Locale.getDefault()).contains(currentLocation)) { //for only this location
-                        if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
+                        boolean haveAllTags = true;
+                        for (int i = 0; i < arrOfStr.length; i++) {
+                            if (haveAllTags == true) { //only when its true do I continue, else i just stop cause one tag is missing
+                                if (ri.getTags().toLowerCase(Locale.getDefault()).contains(arrOfStr[i])) {
+                                    haveAllTags = true;
+                                } else {
+                                    haveAllTags = false;
+                                }
+                            }
+                        }
+
+                        if (haveAllTags == true) {
                             recommendationInfoList.add(ri);
                         }
                     }
