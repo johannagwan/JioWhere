@@ -15,7 +15,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/vivo" />
 
-
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
@@ -153,8 +152,23 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/textView10"
                     app:layout_constraintTop_toBottomOf="@+id/mrtNameTextView" />
+              
+                <ImageButton
+                    android:id="@+id/copyTextImageButton"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/copytext"
+                    app:layout_constraintBottom_toTopOf="@+id/timePeriodTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/googleMaps"
+                    app:layout_constraintTop_toBottomOf="@+id/mrtNameTextView"
+                    app:layout_constraintVertical_bias="0.785" />
             </android.support.constraint.ConstraintLayout>
-
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="wrap_content"
@@ -342,8 +356,5 @@
         </LinearLayout>
 
     </ScrollView>
-
-
-
 
 </android.support.constraint.ConstraintLayout>
