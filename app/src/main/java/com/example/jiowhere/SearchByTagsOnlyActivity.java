@@ -69,7 +69,7 @@ public class SearchByTagsOnlyActivity extends AppCompatActivity implements View.
         selectedTags = "";
         random = findViewById(R.id.randomTextV);
 
-        searchButton = findViewById(R.id.searchByTagButtono);
+        searchButton = findViewById(R.id.searchByTagButton);
         searchButton.setOnClickListener(this);
         listView = findViewById(R.id.tagActivityListView);
 

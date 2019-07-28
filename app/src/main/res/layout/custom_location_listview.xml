@@ -13,8 +13,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="13dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/montserrat"
         android:hint="location"
-        android:textSize="18sp" />
+        android:textColor="#42210B"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/numOfActivities"
@@ -26,6 +29,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="17dp"
         android:layout_toEndOf="@+id/locationName"
+        android:fontFamily="@font/montserrat"
         android:hint="number"
-        android:textSize="18sp" />
+        android:textColor="#A642210B"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 </RelativeLayout>

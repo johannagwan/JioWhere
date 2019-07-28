@@ -66,6 +66,14 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     Button searchByTagsHomeButton;
     CardView cardthingy;
 
+    //new UI
+    ImageView searchByLocationImageView;
+    TextView searchByLocationTextView;
+    ImageView searchByTagImageView;
+    TextView searchByTagTextView;
+    ImageView recommendingImageView;
+    TextView recommendingTextView;
+
     //ListViewAdaptor adaptor;
     LimitedActivityAdaptor adaptor;
     ArrayList<RecommendationInfo> arrayList;
@@ -77,13 +85,13 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_home_page_2);
 
 
         mListView = (ListView) findViewById(R.id.listViewTimeLimitedActivities);
-        recommendButton = (Button) findViewById(R.id.recommendButton);
+        /*recommendButton = (Button) findViewById(R.id.recommendButton);
         cardthingy = findViewById(R.id.cardView);
-        cardthingy.setOnClickListener(this);
+        cardthingy.setOnClickListener(this);*/
 
         arrayList = new ArrayList<>();
         recommendationDetailsArrayList = new ArrayList<>();
@@ -99,7 +107,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         mListView.setAdapter(adaptor);
 
-        searchByTagsHomeButton = findViewById(R.id.searchByTagsHomeButton);
+        /*searchByTagsHomeButton = findViewById(R.id.searchByTagsHomeButton);
         searchByTagsHomeButton.setOnClickListener(this);
 
         //the search bar
@@ -109,9 +117,24 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         myTextView.setOnClickListener(this);
         myImageView.setOnClickListener(this);
-        recommendButton.setOnClickListener(this);
+        recommendButton.setOnClickListener(this);*/
 
-        //retrieve(); //activityList contains the list of activity
+        //new one
+        searchByLocationImageView = (ImageView) findViewById(R.id.searchByLocationImageView);
+        searchByLocationImageView.setOnClickListener(this);
+        searchByLocationTextView = (TextView) findViewById(R.id.searchByLocationTextView);
+        searchByLocationTextView.setOnClickListener(this);
+
+        searchByTagImageView = (ImageView) findViewById(R.id.searchByTagImageView);
+        searchByTagImageView.setOnClickListener(this);
+        searchByTagTextView = (TextView) findViewById(R.id.searchByTagTextView);
+        searchByTagTextView.setOnClickListener(this);
+
+        recommendingImageView = (ImageView) findViewById(R.id.recommendingImageView);
+        recommendingImageView.setOnClickListener(this);
+        recommendingTextView = (TextView) findViewById(R.id.recommendingTextView);
+        recommendingTextView.setOnClickListener(this);
+
         retrieveRecDetailsData();
     }
 
@@ -219,7 +242,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
 
     public void onClick(View v) {
-        if (v == recommendButton) {
+        /*if (v == recommendButton) {
             startActivity(new Intent(this, RecommendingActivity.class));
         }
 
@@ -232,6 +255,19 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         if (v == searchByTagsHomeButton) {
             Intent intent = new Intent(this, SearchByTagsOnlyActivity.class);
             startActivity(intent);
+        }*/
+        if (v == searchByLocationImageView || v == searchByLocationTextView) {
+            Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
+            startActivity(intent);
+        }
+
+        if (v == searchByTagImageView || v == searchByTagTextView) {
+            Intent intent = new Intent(this, SearchByTagsOnlyActivity.class);
+            startActivity(intent);
+        }
+
+        if (v == recommendingImageView || v == recommendingTextView) {
+            startActivity(new Intent(this, RecommendingActivity.class));
         }
 
     }

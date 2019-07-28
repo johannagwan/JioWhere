@@ -87,8 +87,8 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     private CheckBox themeparkCheckBox;
     private CheckBox beachCheckBox;
 
-
     private ImageView uploadedImage;
+    private CheckBox TORCheckBox;
 
     private String allTags;
     //Saving image
@@ -133,15 +133,12 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         descriptionEditText = findViewById(R.id.descriptionEditText);
         priceEditText = findViewById(R.id.priceEditText);
 
-
-
         familyCheckBox = (CheckBox) findViewById(R.id.familyCheckBox);
         friendsCheckBox = (CheckBox) findViewById(R.id.friendsCheckBox);
         loverCheckBox = (CheckBox) findViewById(R.id.loverCheckBox);
         soloCheckBox = (CheckBox) findViewById(R.id.soloCheckBox);
         indoorCheckBox = (CheckBox) findViewById(R.id.indoorCheckBox);
         outdoorCheckBox = (CheckBox) findViewById(R.id.outdoorCheckBox);
-
 
         romanceCheckBox = (CheckBox) findViewById(R.id.romanceCheckBox);
         culinaryCheckBox = (CheckBox) findViewById(R.id.culinaryCheckBox);
@@ -174,6 +171,8 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
 
         uploadedImage = (ImageView) findViewById(R.id.uploadedImage);
         uploadedImage.setImageResource(R.drawable.empty);
+
+        TORCheckBox = (CheckBox) findViewById(R.id.TORCheckBox);
 
         //Buttons
         recommendActivityButton = (Button) findViewById(R.id.recommendActivityButton);
@@ -475,22 +474,25 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if (v == recommendActivityButton) {
-            new android.support.v7.app.AlertDialog.Builder(RecommendingActivity.this)
-                    .setTitle("Submit Recommendation")
-                    .setMessage("Would you like to submit your recommendation?\n" +
-                            "Please make sure that this activity exist to ensure credibility of recommendation.")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            saveRecommendation();
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // user doesn't want to logout
-                        }
-                    })
-                    .show();
-
+            if (!TORCheckBox.isChecked()) {
+                Toast.makeText(this, "You have to agree to the Terms and Conditions before proceeding", Toast.LENGTH_SHORT).show();
+            } else {
+                new android.support.v7.app.AlertDialog.Builder(RecommendingActivity.this)
+                        .setTitle("Submit Recommendation")
+                        .setMessage("Would you like to submit your recommendation?\n" +
+                                "Please make sure that this activity exist to ensure credibility of recommendation.")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                saveRecommendation();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // user doesn't want to logout
+                            }
+                        })
+                        .show();
+            }
         }
 
         if (v == uploadPicButton) {
