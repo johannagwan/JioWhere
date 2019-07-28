@@ -53,10 +53,10 @@
 
     <TextView
         android:id="@+id/googleMaps"
-        android:layout_width="299dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="56dp"
         android:text="Click for Google Maps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mrtNameTextView" />
@@ -257,6 +257,22 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/leaveReviewButton"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewTag" />
+
+    <ImageButton
+        android:id="@+id/copyTextImageButton"
+        android:layout_width="17dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/copytext"
+        app:layout_constraintBottom_toTopOf="@+id/timePeriodTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/googleMaps"
+        app:layout_constraintTop_toBottomOf="@+id/mrtNameTextView"
+        app:layout_constraintVertical_bias="0.785" />
 
 
 </android.support.constraint.ConstraintLayout>

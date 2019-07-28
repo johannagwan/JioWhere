@@ -1,6 +1,7 @@
 package com.example.jiowhere;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -44,6 +46,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import android.content.ClipboardManager;
 
 public class RecommendationDetailsActivity<string> extends AppCompatActivity implements View.OnClickListener {
     //This is the full recommendation -> the detailed recommendation
@@ -78,6 +82,8 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
 
     private DatabaseReference databaseReference;
 
+    ImageButton copyTextImageButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +103,9 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         deleteReviewButton = findViewById(R.id.deleteReviewButton);
         deleteReviewButton.setOnClickListener(this);
 
+        copyTextImageButton = (ImageButton) findViewById(R.id.copyTextImageButton);
+        copyTextImageButton.setOnClickListener(this);
+
         uId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(uId).child("Saved Activities");
 
@@ -108,7 +117,6 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         tags = findViewById(R.id.tagTextView);
         image = (ImageView) findViewById(R.id.imageView);
         googleMaps = findViewById(R.id.googleMaps);
-
 
         // Receiving value into activity using intent.
         activityName = getIntent().getStringExtra("name");
@@ -187,10 +195,6 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
                 googleMaps.setText(address);
                 timePeriod.setText(time);
                 priceTextView.setText(cost);
-
-
-                //String email = dataSnapshot.child("email").getValue().toString();
-                //emailTextView.setText(email);
             }
 
             @Override
@@ -358,11 +362,6 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
 
     public void onClick(View v) {
         if (v == leaveReviewButton) {
-            /*
-            Intent intent = new Intent(this, LeaveReviewActivity.class);
-            intent.putExtra("nameOfActivity", name.getText().toString());
-            startActivityForResult(intent, LeavingReview);
-            */
             checkIfAlreadyLeavedAReview();
         }
 
@@ -379,6 +378,15 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
 
         if (v == deleteReviewButton) {
             deleteReview();
+        }
+
+        if (v == copyTextImageButton) {
+//            startActivity(new Intent(this, GoogleMapsActivity.class));
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("address", googleMaps.getText().toString());
+            clipboard.setPrimaryClip(clip);
+
+            Toast.makeText(RecommendationDetailsActivity.this, "Address copied to clipboard", Toast.LENGTH_SHORT).show();
         }
     }
 
