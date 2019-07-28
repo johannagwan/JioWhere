@@ -10,10 +10,11 @@
         android:id="@+id/searchByTagButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="SEARCH"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <TextView
         android:id="@+id/partnerTextView"
@@ -40,19 +41,6 @@
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBox" />
-
-    <TextView
-        android:id="@+id/typeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Types of Activities/ Events"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox5" />
 
     <CheckBox
         android:id="@+id/checkBox"
@@ -114,23 +102,240 @@
         app:layout_constraintStart_toEndOf="@+id/checkBox5"
         app:layout_constraintTop_toBottomOf="@+id/indoorOrOutdoorextView" />
 
-    <CheckBox
-        android:id="@+id/checkBox7"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:text="Romance"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox5">
 
-    <CheckBox
-        android:id="@+id/checkBox8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Culinary"
-        app:layout_constraintStart_toEndOf="@+id/checkBox7"
-        app:layout_constraintTop_toBottomOf="@+id/typeTextView" />
+        <TextView
+            android:id="@+id/typeOfActivityTextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:text="Types of Activity/Events"
+            android:textColor="#673AB7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <CheckBox
+            android:id="@+id/romanceCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Romance"
+            app:layout_constraintStart_toEndOf="@+id/religiousCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/monumentCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/culinaryCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:text="Culinary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/architecturalCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/natureCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Nature"
+            app:layout_constraintStart_toEndOf="@+id/museumCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/culinaryCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/gamesCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Games"
+            app:layout_constraintStart_toEndOf="@+id/culturalCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/architecturalCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/culturalCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Cultural"
+            app:layout_constraintStart_toEndOf="@+id/culinaryCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/architecturalCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/museumCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Museum"
+            app:layout_constraintStart_toEndOf="@+id/monumentCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/culinaryCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/parkCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Park"
+            app:layout_constraintStart_toEndOf="@+id/natureCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/culinaryCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/shoppingCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Shopping"
+            app:layout_constraintStart_toEndOf="@+id/romanceCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/monumentCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/theaterCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Theater"
+            app:layout_constraintStart_toEndOf="@+id/sportsCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/religiousCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/sportsCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Sports"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/religiousCheckBox1"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <CheckBox
+            android:id="@+id/concertCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Concert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/bikingCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/typeOfActivityTextView1" />
+
+        <CheckBox
+            android:id="@+id/historicCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Historic"
+            app:layout_constraintStart_toEndOf="@+id/gamesCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/architecturalCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/sightseeingCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Sightseeing"
+            app:layout_constraintStart_toEndOf="@+id/shoppingCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/monumentCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/bikingCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Biking"
+            app:layout_constraintStart_toEndOf="@+id/beachCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/typeOfActivityTextView1" />
+
+        <CheckBox
+            android:id="@+id/zooCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Zoo"
+            app:layout_constraintStart_toEndOf="@+id/themeparkCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/religiousCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/architecturalCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:text="Architectural"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/typeOfActivityTextView1" />
+
+        <CheckBox
+            android:id="@+id/monumentCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="40dp"
+            android:text="Monument"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/culinaryCheckBox1"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <CheckBox
+            android:id="@+id/religiousCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:text="Religious"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/monumentCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/themeparkCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="ThemePark"
+            app:layout_constraintStart_toEndOf="@+id/theaterCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/religiousCheckBox1" />
+
+        <CheckBox
+            android:id="@+id/beachCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Beach"
+            app:layout_constraintStart_toEndOf="@+id/architecturalCheckBox1"
+            app:layout_constraintTop_toBottomOf="@+id/typeOfActivityTextView1" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
 </android.support.constraint.ConstraintLayout>

@@ -168,7 +168,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         };
         userNameRef.addListenerForSingleValueEvent(eventListener);
 
-                }
+    }
 
 
     //end of checking

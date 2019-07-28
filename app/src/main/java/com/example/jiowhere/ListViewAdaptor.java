@@ -31,7 +31,6 @@ public class ListViewAdaptor extends BaseAdapter {
 
     //public static String[] LOCATION = {};
 
-
     public ListViewAdaptor(Context context, List<RecommendationInfo> recommendationInfoList) {
         this.mContext = context;
         this.recommendationInfoList = recommendationInfoList;

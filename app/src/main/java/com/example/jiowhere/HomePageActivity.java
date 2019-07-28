@@ -3,6 +3,7 @@ package com.example.jiowhere;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -51,7 +52,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     TextView myTextView;
     ImageView myImageView;
     Button button;
-    Button testingButton;
+    Button searchByTagsHomeButton;
 
     //ListViewAdaptor adaptor;
     LimitedActivityAdaptor adaptor;
@@ -88,7 +89,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         mListView.setAdapter(adaptor);
 
-
+        searchByTagsHomeButton = findViewById(R.id.searchByTagsHomeButton);
+        searchByTagsHomeButton.setOnClickListener(this);
 
         //the search bar
         myTextView = (TextView) findViewById(R.id.searchTextView);
@@ -155,45 +157,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                     }
                 })
                 .show();
-        /*
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String yesORno = dataSnapshot.child("keepSignedIn").getValue().toString();
-                //AlertDialog.Builder ab = new AlertDialog.Builder(HomePageActivity.this);
-                if (yesORno.equals("yes")) {
-                    //AlertDialog.Builder ab = new AlertDialog.Builder(HomePageActivity.this);
-
-                } else if (yesORno.equals("no")){
-                    new AlertDialog.Builder(HomePageActivity.this)
-                            .setTitle("Logout")
-                            .setMessage("Would you like to logout?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // logout
-                                    databaseReference.child("keepSignedIn").setValue("no");
-
-                                    FirebaseAuth.getInstance().signOut();
-                                    finish();
-                                    Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-                                    startActivity(intent);
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // user doesn't want to logout
-                                }
-                            })
-                            .show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        */
 
     }
 
@@ -258,6 +221,11 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                 Intent intent = new Intent(v.getContext(), RecommendationListActivity.class);
                 startActivity(intent);
 
+        }
+
+        if (v == searchByTagsHomeButton) {
+            Intent intent = new Intent(this, SearchByTagsOnlyActivity.class);
+            startActivity(intent);
         }
 
     }
