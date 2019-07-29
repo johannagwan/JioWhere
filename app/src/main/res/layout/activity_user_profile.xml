@@ -11,7 +11,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="280dp"
         android:background="@drawable/bg1cut"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
