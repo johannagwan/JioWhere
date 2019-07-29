@@ -289,7 +289,11 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         if (!TextUtils.isEmpty(nameOfActivity)
                 && !TextUtils.isEmpty(nearestMRT)
                 && !TextUtils.isEmpty(address)
-                && !TextUtils.isEmpty(timePeriod)) {
+                && !TextUtils.isEmpty(timePeriod)
+                && !TextUtils.isEmpty(openingHours)
+                && !TextUtils.isEmpty(timePeriod)
+                && !TextUtils.isEmpty(cost)
+                && (imageUri != null)) {
             String id = databaseReference.push().getKey();
             uniqueID.add(id);
 
@@ -304,8 +308,14 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
                 Toast.makeText(this, "Please fill up the address", Toast.LENGTH_SHORT).show();
             } else if (TextUtils.isEmpty(timePeriod)) {
                 Toast.makeText(this, "Please fill up the time period of the activity", Toast.LENGTH_SHORT).show();
-            }else if (TextUtils.isEmpty(description)) {
+            } else if (TextUtils.isEmpty(description)) {
                 Toast.makeText(this, "Please fill up the description of the activity", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(openingHours)) {
+                Toast.makeText(this, "Please fill up the opening hours of the activity\"", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(cost)) {
+                Toast.makeText(this, "Please fill up the cost of the activity\"", Toast.LENGTH_SHORT).show();
+            } else if (imageUri == null) {
+                Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Please fill up the required fields", Toast.LENGTH_SHORT).show();
             }
