@@ -126,13 +126,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/montserrat"
+        android:paddingLeft="10dp"
         android:paddingRight="25dp"
         android:text="Contributions to JioWhere should accurately represent the location/ activity/ event in question. Where contributions distort truth, we will remove the respective content. If content is inaccurately associated with the listing, the contribution may be rejected.
         \n\nReviews are automatically processed to detect inappropriate content like fake reviews and spam. We may take down reviews in order to comply with JioWhere policies or legal obligations."
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
