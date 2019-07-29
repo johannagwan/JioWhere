@@ -352,7 +352,9 @@ public class SearchByTagActivity extends AppCompatActivity implements View.OnCli
             }
         }
 
-        finalTag = finalTag.substring(1);
+        if (finalTag.length() > 0) {
+            finalTag = finalTag.substring(1);
+        }
 
     }
 
@@ -360,11 +362,15 @@ public class SearchByTagActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if (v == searchByTagButton) {
             checkBoxChecking();
-            //searchByTag(v);
-            Intent intent = new Intent();
-            intent.putExtra("testing", finalTag);
-            setResult(RESULT_OK, intent);
-            finish();
+            if (finalTag.length() > 0) {
+                //searchByTag(v);
+                Intent intent = new Intent();
+                intent.putExtra("testing", finalTag);
+                setResult(RESULT_OK, intent);
+                finish();
+            } else {
+                Toast.makeText(this, "Please select at least 1 tag", Toast.LENGTH_LONG).show();
+            }
         }
     }
 

@@ -1,7 +1,9 @@
 package com.example.jiowhere;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -42,6 +44,8 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
     TextView locationSearchTextView;
     TextView testText;
     ImageView myImageView;
+    ImageView locationDelete;
+    ImageView questionMark;
     Button searchByTagButton;
 
     ListViewAdaptor adaptor;
@@ -73,9 +77,13 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
         locationSearchTextView = findViewById(R.id.locationSearchTextView);
         myImageView = findViewById(R.id.searchImageList);
+        locationDelete = findViewById(R.id.locationDelete);
+        questionMark = findViewById(R.id.questionMarkList);
 
+        questionMark.setOnClickListener(this);
         locationSearchTextView.setOnClickListener(this);
         myImageView.setOnClickListener(this);
+        locationDelete.setOnClickListener(this);
 
         filterView = (TextView) findViewById(R.id.filterByTags);
 
@@ -251,5 +259,26 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
             Intent intent = new Intent(this, SearchByTagActivity.class);
             startActivityForResult(intent, 3);
         }
+
+        if (v == locationDelete) {
+
+            locationSearchTextView.setText("");
+            filterView.setText("");
+        }
+
+        if (v == questionMark) {
+            new AlertDialog.Builder(RecommendationListActivity.this)
+                    .setTitle("Recommended Activity")
+                    .setMessage("All activities available are listed here. " +
+                            "Users will be able to search and filter for activities that they are interested in based on " +
+                            "location of activity and various tags.")
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    }).show();
+
+        }
+
     }
 }

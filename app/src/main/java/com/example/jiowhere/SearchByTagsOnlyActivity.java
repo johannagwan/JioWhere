@@ -171,7 +171,9 @@ public class SearchByTagsOnlyActivity extends AppCompatActivity implements View.
             }
         }
 
-        selectedTags = selectedTags.substring(1);
+        if (selectedTags.length() > 0) {
+            selectedTags = selectedTags.substring(1);
+        }
 
     }
 

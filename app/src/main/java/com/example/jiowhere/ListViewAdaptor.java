@@ -206,18 +206,44 @@ public class ListViewAdaptor extends BaseAdapter {
 
         if (charText.length() != 0) {//ignore if no tag
             charText = charText.toLowerCase(Locale.getDefault());
-            String[] arrOfStr = charText.split("/"); //ok now it works
 
-            List<RecommendationInfo> temp = new ArrayList<>();
-            for(RecommendationInfo ri : recommendationInfoList) {
-                temp.add(ri);
-            }
+                String[] arrOfStr = charText.split("/"); //ok now it works
 
-            recommendationInfoList.clear();
+                List<RecommendationInfo> temp = new ArrayList<>();
+                for (RecommendationInfo ri : recommendationInfoList) {
+                    temp.add(ri);
+                }
 
-            if (currentLocation != "") { //if there is smth in location Search
-                for (RecommendationInfo ri : arrayList) { //for everything =>
-                    if (ri.getLocation().toLowerCase(Locale.getDefault()).contains(currentLocation)) { //for only this location
+                recommendationInfoList.clear();
+
+
+                if (currentLocation != "") { //if there is smth in location Search
+
+                    for (RecommendationInfo ri : arrayList) { //for everything =>
+                        if (ri.getLocation().toLowerCase(Locale.getDefault()).contains(currentLocation)) { //for only this location
+                            boolean haveAllTags = true;
+                            for (int i = 0; i < arrOfStr.length; i++) {
+                                if (haveAllTags == true) { //only when its true do I continue, else i just stop cause one tag is missing
+                                    if (ri.getTags().toLowerCase(Locale.getDefault()).contains(arrOfStr[i])) {
+                                        haveAllTags = true;
+                                    } else {
+                                        haveAllTags = false;
+                                    }
+                                }
+                            }
+
+                            if (haveAllTags == true) {
+                                recommendationInfoList.add(ri);
+                            }
+                        }
+                    }
+                } else {
+                    for (RecommendationInfo ri : arrayList) {
+                    /*
+                    if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
+                        recommendationInfoList.add(ri);
+                    }
+                    */
                         boolean haveAllTags = true;
                         for (int i = 0; i < arrOfStr.length; i++) {
                             if (haveAllTags == true) { //only when its true do I continue, else i just stop cause one tag is missing
@@ -234,30 +260,8 @@ public class ListViewAdaptor extends BaseAdapter {
                         }
                     }
                 }
-            } else {
-                for (RecommendationInfo ri : arrayList) {
-                    /*
-                    if (ri.getTags().toLowerCase(Locale.getDefault()).contains(charText)) {
-                        recommendationInfoList.add(ri);
-                    }
-                    */
-                    boolean haveAllTags = true;
-                    for (int i = 0; i < arrOfStr.length; i++) {
-                        if (haveAllTags == true) { //only when its true do I continue, else i just stop cause one tag is missing
-                            if (ri.getTags().toLowerCase(Locale.getDefault()).contains(arrOfStr[i])) {
-                                haveAllTags = true;
-                            } else {
-                                haveAllTags = false;
-                            }
-                        }
-                    }
-
-                    if (haveAllTags == true) {
-                        recommendationInfoList.add(ri);
-                    }
-                }
             }
-        }
+
 
         notifyDataSetChanged();
     }

@@ -7,6 +7,23 @@
     android:background="@drawable/bg4"
     tools:context=".SearchByTagsOnlyActivity">
 
+    <TextView
+        android:id="@+id/textView101"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Recommended Activities"
+        android:textColor="#42210B"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.365"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/randomTextV" />
+
     <Button
         android:id="@+id/searchByTagButton"
         android:background="@drawable/custom_button"
@@ -332,8 +349,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/randomTextV" />
+        app:layout_constraintTop_toBottomOf="@+id/textView101" />
 
     <TextView
         android:id="@+id/randomTextV"
@@ -358,6 +376,8 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayouto" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>
