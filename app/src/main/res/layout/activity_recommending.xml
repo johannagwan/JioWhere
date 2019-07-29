@@ -24,23 +24,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/RecommendingTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="Recommend an activity!"
+                    android:textAlignment="center"
+                    android:textColor="#42210B"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.504"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/RecommendingTextView"
-                android:layout_width="367dp"
-                android:layout_height="55dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:text="Recommend an activity!"
-                android:textAlignment="center"
-                android:textColor="#42210B"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.504"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
+
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -66,8 +73,8 @@
 
                 <EditText
                     android:id="@+id/nameOfActivityEditText"
-                    android:layout_width="347dp"
-                    android:layout_height="56dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="24dp"
@@ -102,15 +109,17 @@
 
                 <EditText
                     android:id="@+id/descriptionEditText"
-                    android:layout_width="358dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
                     android:layout_marginBottom="24dp"
                     android:ems="10"
                     android:fontFamily="@font/montserrat"
                     android:hint="Description of Activity"
                     android:inputType="textPersonName"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView31"
                     app:layout_constraintVertical_bias="1.0" />
@@ -140,8 +149,8 @@
 
                 <EditText
                     android:id="@+id/nearestMRTEditText"
-                    android:layout_width="350dp"
-                    android:layout_height="59dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="24dp"
@@ -181,8 +190,8 @@
 
                 <TextView
                     android:id="@+id/nearestMRTTextView2"
-                    android:layout_width="366dp"
-                    android:layout_height="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
@@ -197,18 +206,21 @@
 
                 <EditText
                     android:id="@+id/addressEditText"
-                    android:layout_width="362dp"
-                    android:layout_height="54dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="24dp"
                     android:ems="10"
                     android:fontFamily="@font/montserrat"
                     android:hint="Address"
                     android:inputType="textPersonName"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.484"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nearestMRTTextView2" />
+                    app:layout_constraintTop_toBottomOf="@+id/nearestMRTTextView2"
+                    app:layout_constraintVertical_bias="0.0" />
             </android.support.constraint.ConstraintLayout>
 
 
@@ -222,47 +234,55 @@
                     android:id="@+id/timePeriodTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:fontFamily="@font/montserrat"
                     android:text="Opening hours (HH:MM - HH:MM)"
                     android:textColor="#A642210B"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.071"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/timePeriodEditText" />
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
-                <EditText
-                    android:id="@+id/timePeriodEditText"
-                    android:layout_width="243dp"
-                    android:layout_height="46dp"
-                    android:layout_marginStart="20dp"
+                <LinearLayout
+                    android:id="@+id/linearLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:ems="10"
-                    android:fontFamily="@font/montserrat"
-                    android:hint="Time Period"
-                    android:inputType="textPersonName"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView19" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView19">
 
-                <Switch
-                    android:id="@+id/permanentSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="17dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:checked="false"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Permanent"
-                    android:textColor="#A642210B"
-                    android:textOff="NO"
-                    android:textOn="YES"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.488"
-                    app:layout_constraintStart_toEndOf="@+id/timePeriodEditText"
-                    app:layout_constraintTop_toBottomOf="@+id/textView19" />
+                    <EditText
+                        android:id="@+id/timePeriodEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="8dp"
+                        android:ems="10"
+                        android:fontFamily="@font/montserrat"
+                        android:hint="Time Period"
+                        android:inputType="textPersonName"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+                    <Switch
+                        android:id="@+id/permanentSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="17dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:checked="false"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Permanent"
+                        android:textColor="#A642210B"
+                        android:textOff="NO"
+                        android:textOn="YES"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+                </LinearLayout>
+
+
 
                 <TextView
                     android:id="@+id/textView19"
@@ -282,11 +302,11 @@
 
                 <EditText
                     android:id="@+id/openingHoursEditText"
-                    android:layout_width="348dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="24dp"
                     android:layout_marginBottom="8dp"
                     android:ems="10"
                     android:fontFamily="@font/montserrat"
@@ -372,63 +392,72 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <CheckBox
-                    android:id="@+id/friendsCheckBox"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Friends"
-                    android:textColor="#A642210B"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tagsTextView" />
-
-                <CheckBox
-                    android:id="@+id/loverCheckBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Lover"
-                    android:textColor="#A642210B"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/familyCheckBox"
-                    app:layout_constraintTop_toBottomOf="@+id/tagsTextView"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toBottomOf="@+id/tagsTextView">
 
-                <CheckBox
-                    android:id="@+id/familyCheckBox"
-                    android:layout_width="85dp"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Family"
-                    android:textColor="#A642210B"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/friendsCheckBox"
-                    app:layout_constraintTop_toBottomOf="@+id/tagsTextView"
-                    app:layout_constraintVertical_bias="0.0" />
+                    <CheckBox
+                        android:id="@+id/friendsCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Friends"
+                        android:textColor="#A642210B"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tagsTextView" />
 
-                <CheckBox
-                    android:id="@+id/soloCheckBox"
-                    android:layout_width="65dp"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="24dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Solo"
-                    android:textColor="#A642210B"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/loverCheckBox"
-                    app:layout_constraintTop_toBottomOf="@+id/tagsTextView" />
+                    <CheckBox
+                        android:id="@+id/loverCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Lover"
+                        android:textColor="#A642210B"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/familyCheckBox"
+                        app:layout_constraintTop_toBottomOf="@+id/tagsTextView"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <CheckBox
+                        android:id="@+id/familyCheckBox"
+                        android:layout_width="85dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Family"
+                        android:textColor="#A642210B"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/friendsCheckBox"
+                        app:layout_constraintTop_toBottomOf="@+id/tagsTextView"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <CheckBox
+                        android:id="@+id/soloCheckBox"
+                        android:layout_width="65dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="24dp"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Solo"
+                        android:textColor="#A642210B"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/loverCheckBox"
+                        app:layout_constraintTop_toBottomOf="@+id/tagsTextView" />
+
+                </LinearLayout>
+
 
             </android.support.constraint.ConstraintLayout>
 
@@ -779,7 +808,7 @@
 
                 <ImageView
                     android:id="@+id/uploadedImage"
-                    android:layout_width="402dp"
+                    android:layout_width="match_parent"
                     android:layout_height="258dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"

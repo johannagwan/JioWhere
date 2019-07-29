@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/activityNameReview"
-        android:layout_width="379dp"
-        android:layout_height="36dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
@@ -123,11 +123,11 @@
 
     <TextView
         android:id="@+id/textView22"
-        android:layout_width="393dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/montserrat"
         android:paddingRight="25dp"
         android:text="Contributions to JioWhere should accurately represent the location/ activity/ event in question. Where contributions distort truth, we will remove the respective content. If content is inaccurately associated with the listing, the contribution may be rejected.

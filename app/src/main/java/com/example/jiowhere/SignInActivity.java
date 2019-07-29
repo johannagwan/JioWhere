@@ -52,8 +52,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             finish();
             startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
         }
-        
-
 
 
         editTextEmail = (EditText) findViewById(R.id.emailResetPW);
