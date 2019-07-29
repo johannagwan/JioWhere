@@ -102,10 +102,10 @@
         android:gravity="center">
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
             <Button
                 android:id="@+id/searchByTagButton"
                 android:layout_width="wrap_content"
@@ -124,19 +124,35 @@
 
 
             <TextView
+                android:id="@+id/statementTextView"
+                android:layout_width="255dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="#A642210B"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.183"
+                app:layout_constraintStart_toEndOf="@+id/searchByTagButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:id="@+id/filterByTags"
-                android:layout_width="wrap_content"
+                android:layout_width="256dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/montserrat"
-                android:text="Or don't know where to go? \nDecide what to do first!"
                 android:textColor="#A642210B"
-                app:layout_constraintBottom_toTopOf="@+id/textView33"
+                app:layout_constraintBottom_toBottomOf="@+id/statementTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.183"
-                app:layout_constraintTop_toBottomOf="@+id/idknani" />
+                app:layout_constraintStart_toEndOf="@+id/searchByTagButton" />
 
-        </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+
+
 
 
     </LinearLayout>
@@ -196,6 +212,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
         app:layout_constraintVertical_bias="0.082" />
+
+    <TextView
+        android:id="@+id/noActivityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/mainListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mainListView"
+        app:layout_constraintVertical_bias="0.085" />
 
 
 </android.support.constraint.ConstraintLayout>

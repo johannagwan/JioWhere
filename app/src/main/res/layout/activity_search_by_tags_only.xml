@@ -378,7 +378,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayouto" />
 
-
+    <TextView
+        android:id="@+id/noActivityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/montserrat"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tagActivityListView"
+        app:layout_constraintEnd_toEndOf="@+id/tagActivityListView"
+        app:layout_constraintStart_toStartOf="@+id/tagActivityListView"
+        app:layout_constraintTop_toTopOf="@+id/tagActivityListView" />
 
 
 </android.support.constraint.ConstraintLayout>

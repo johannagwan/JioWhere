@@ -51,6 +51,7 @@ public class SearchByTagsOnlyActivity extends AppCompatActivity implements View.
     private CheckBox beachCheckBox;
 
     private TextView random;
+    private TextView noActivityText;
     private Button searchButton;
 
     String selectedTags;
@@ -74,6 +75,7 @@ public class SearchByTagsOnlyActivity extends AppCompatActivity implements View.
         searchButton = findViewById(R.id.searchByTagButton);
         searchButton.setOnClickListener(this);
         listView = findViewById(R.id.tagActivityListView);
+        noActivityText = findViewById(R.id.noActivityText);
 
         familyCheckBox = (CheckBox) findViewById(R.id.checkBoxo);
         friendsCheckBox = (CheckBox) findViewById(R.id.checkBox2o);
@@ -111,6 +113,12 @@ public class SearchByTagsOnlyActivity extends AppCompatActivity implements View.
                 System.out.println("Text ["+s+"]");
 
                 adaptor.tagFilter(s.toString());
+
+                if (adaptor.noActivity()) {
+                    noActivityText.setText("NO SEARCH RESULT");
+                } else {
+                    noActivityText.setText("");
+                }
             }
 
             @Override
