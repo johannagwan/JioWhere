@@ -135,18 +135,45 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/timeLimitedActivitiesTextView"
+
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:fontFamily="@font/montserrat"
-        android:paddingTop="20dp"
-        android:text="Time-limited Activities"
-        android:textAlignment="center"
-        android:textColor="#42210B"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/timeLimitedActivitiesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:fontFamily="@font/montserrat"
+                android:text="Time-limited Activities"
+                android:textAlignment="center"
+                android:textColor="#42210B"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/homepageQuestionMark"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/question" />
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

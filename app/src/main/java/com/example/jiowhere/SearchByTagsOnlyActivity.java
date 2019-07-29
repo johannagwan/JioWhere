@@ -1,5 +1,6 @@
 package com.example.jiowhere;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -232,7 +234,14 @@ public class SearchByTagsOnlyActivity extends AppCompatActivity implements View.
         if (v == searchButton) {
 
             checkBoxChecking();
-            random.setText(selectedTags);
+
+            if (selectedTags.length() > 0) {
+                //searchByTag(v);
+                random.setText(selectedTags);
+            } else {
+                Toast.makeText(this, "Please select at least 1 tag", Toast.LENGTH_LONG).show();
+            }
+
             //adaptor.tagFilter("Indoor");
 
         }
