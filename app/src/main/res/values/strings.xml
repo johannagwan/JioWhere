@@ -20,4 +20,5 @@
     <string name="submit">Submit</string>
     <string name="leave_a_review_here">Leave a review here</string>
     <string name="log_out">Log Out</string>
+    <string name="google_map_api_key">AIzaSyA7tdebCSVhEsUfoMM6GVZyEaCFdh43AA0</string>
 </resources>

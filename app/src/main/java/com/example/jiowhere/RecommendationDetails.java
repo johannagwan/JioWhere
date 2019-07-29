@@ -123,13 +123,5 @@ public class RecommendationDetails {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-    /*
-    public void setUploadImage(UploadImage uploadImage) {
-        this.uploadImage = uploadImage;
-    }
 
-    public UploadImage getUploadImage() {
-        return uploadImage;
-    }
-    */
 }

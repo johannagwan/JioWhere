@@ -4,15 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg4"
     tools:context=".SearchByTagActivity">
 
     <Button
         android:id="@+id/searchByTagButton"
+        android:background="@drawable/custom_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/montserrat"
         android:text="SEARCH"
+        android:textColor="#42210B"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
@@ -23,8 +28,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/montserrat"
         android:text="Who do you want to go out with?"
-        android:textColor="#673AB7"
+        android:textColor="#42210B"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.072"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +44,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/montserrat"
         android:text="Indoor or Outdoor?"
-        android:textColor="#673AB7"
+        android:textColor="#42210B"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +59,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
         android:text="@string/family"
+        android:textColor="#A642210B"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/partnerTextView" />
 
@@ -60,7 +71,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
         android:text="@string/friends"
+        android:textColor="#A642210B"
         app:layout_constraintStart_toEndOf="@+id/checkBox"
         app:layout_constraintTop_toBottomOf="@+id/partnerTextView" />
 
@@ -70,7 +83,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
         android:text="Lover"
+        android:textColor="#A642210B"
         app:layout_constraintStart_toEndOf="@+id/checkBox2"
         app:layout_constraintTop_toBottomOf="@+id/partnerTextView" />
 
@@ -80,7 +95,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
         android:text="Solo"
+        android:textColor="#A642210B"
         app:layout_constraintStart_toEndOf="@+id/checkBox3"
         app:layout_constraintTop_toBottomOf="@+id/partnerTextView" />
 
@@ -90,7 +107,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
         android:text="Indoor"
+        android:textColor="#A642210B"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/indoorOrOutdoorextView" />
 
@@ -100,7 +119,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
         android:text="Outdoor"
+        android:textColor="#A642210B"
         app:layout_constraintStart_toEndOf="@+id/checkBox5"
         app:layout_constraintTop_toBottomOf="@+id/indoorOrOutdoorextView" />
 
@@ -120,8 +141,10 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
+            android:fontFamily="@font/montserrat"
             android:text="Types of Activity/Events"
-            android:textColor="#673AB7"
+            android:textColor="#42210B"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +157,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Romance"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/religiousCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/monumentCheckBox1" />
 
@@ -144,7 +169,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Culinary"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/architecturalCheckBox1" />
 
@@ -154,7 +181,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Nature"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/museumCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/culinaryCheckBox1" />
 
@@ -164,7 +193,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Games"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/culturalCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/architecturalCheckBox1" />
 
@@ -174,7 +205,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Cultural"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/culinaryCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/architecturalCheckBox1" />
 
@@ -184,7 +217,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Museum"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/monumentCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/culinaryCheckBox1" />
 
@@ -194,7 +229,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Park"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/natureCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/culinaryCheckBox1" />
 
@@ -204,7 +241,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Shopping"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/romanceCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/monumentCheckBox1" />
 
@@ -214,7 +253,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Theater"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/sportsCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/religiousCheckBox1" />
 
@@ -225,7 +266,9 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Sports"
+            android:textColor="#A642210B"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/religiousCheckBox1"
@@ -238,7 +281,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat"
             android:text="Concert"
+            android:textColor="#A642210B"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/bikingCheckBox1"
@@ -250,7 +295,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Historic"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/gamesCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/architecturalCheckBox1" />
 
@@ -259,7 +306,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Sightseeing"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/shoppingCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/monumentCheckBox1" />
 
@@ -269,7 +318,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Biking"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/beachCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/typeOfActivityTextView1" />
 
@@ -279,7 +330,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Zoo"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/themeparkCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/religiousCheckBox1" />
 
@@ -289,7 +342,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Architectural"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/typeOfActivityTextView1" />
 
@@ -300,7 +355,9 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="40dp"
+            android:fontFamily="@font/montserrat"
             android:text="Monument"
+            android:textColor="#A642210B"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/culinaryCheckBox1"
@@ -312,7 +369,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Religious"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/monumentCheckBox1" />
 
@@ -322,7 +381,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="ThemePark"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/theaterCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/religiousCheckBox1" />
 
@@ -332,7 +393,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Beach"
+            android:textColor="#A642210B"
             app:layout_constraintStart_toEndOf="@+id/architecturalCheckBox1"
             app:layout_constraintTop_toBottomOf="@+id/typeOfActivityTextView1" />
 
