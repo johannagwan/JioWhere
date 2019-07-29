@@ -479,8 +479,7 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
             } else {
                 new android.support.v7.app.AlertDialog.Builder(RecommendingActivity.this)
                         .setTitle("Submit Recommendation")
-                        .setMessage("Would you like to submit your recommendation?\n" +
-                                "Please make sure that this activity exist to ensure credibility of recommendation.")
+                        .setMessage("Would you like to submit your recommendation?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 saveRecommendation();

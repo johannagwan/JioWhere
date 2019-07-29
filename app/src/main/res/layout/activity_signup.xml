@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/jiowherebg"
+    android:background="@drawable/bg4"
     tools:context=".SignUpActivity">
 
 
@@ -15,6 +15,13 @@
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="240dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/transjiowhere" />
+
 
         <TextView
             android:id="@+id/textViewUserRegistration"

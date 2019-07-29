@@ -76,7 +76,6 @@
                     android:fontFamily="@font/montserrat"
                     android:hint="Name of Activity"
                     android:inputType="textPersonName"
-                    android:textColor="#FFF8EF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -111,7 +110,6 @@
                     android:fontFamily="@font/montserrat"
                     android:hint="Description of Activity"
                     android:inputType="textPersonName"
-                    android:textColor="#FFF8EF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView31"
@@ -152,7 +150,6 @@
                     android:fontFamily="@font/montserrat"
                     android:hint="Nearest MRT"
                     android:inputType="textPersonName"
-                    android:textColor="#FFF8EF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -208,7 +205,6 @@
                     android:fontFamily="@font/montserrat"
                     android:hint="Address"
                     android:inputType="textPersonName"
-                    android:textColor="#FFF8EF"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.484"
                     app:layout_constraintStart_toStartOf="parent"
@@ -247,7 +243,6 @@
                     android:fontFamily="@font/montserrat"
                     android:hint="Time Period"
                     android:inputType="textPersonName"
-                    android:textColor="#FFF8EF"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
@@ -297,7 +292,6 @@
                     android:fontFamily="@font/montserrat"
                     android:hint="Opening Hours"
                     android:inputType="textPersonName"
-                    android:textColor="#FFF8EF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -788,6 +782,7 @@
                     android:layout_width="402dp"
                     android:layout_height="258dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/uploadPicButton"
                     tools:srcCompat="@drawable/empty" />
@@ -829,10 +824,11 @@
 
                 <TextView
                     android:id="@+id/TORTextView2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginEnd="8dp"
                     android:fontFamily="@font/montserrat"
                     android:paddingRight="30dp"
                     android:text="Contributions to JioWhere should accurately represent the location/ activity/ event in question. Where contributions distort truth, we will remove the respective content. This includes reviews, photos, or information not related to the activity or event where they are tagged. If content is inaccurately associated with the listing, the contribution may be rejected.
@@ -840,6 +836,7 @@
                     android:textAlignment="viewStart"
                     android:textColor="#A642210B"
                     android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/TORTextView" />
 
