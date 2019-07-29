@@ -61,7 +61,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     private Button recommendButton;
 
     TextView myTextView;
-    ImageView myImageView;
+    ImageView questionMark;
     Button button;
     Button searchByTagsHomeButton;
     CardView cardthingy;
@@ -107,6 +107,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         mListView.setAdapter(adaptor);
 
+        questionMark = findViewById(R.id.homepageQuestionMark);
+        questionMark.setOnClickListener(this);
         /*searchByTagsHomeButton = findViewById(R.id.searchByTagsHomeButton);
         searchByTagsHomeButton.setOnClickListener(this);
 
@@ -268,6 +270,19 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         if (v == recommendingImageView || v == recommendingTextView) {
             startActivity(new Intent(this, RecommendingActivity.class));
+        }
+
+        if (v == questionMark) {
+            new AlertDialog.Builder(HomePageActivity.this)
+                    .setTitle("Time Limited Activity")
+                    .setMessage("Activities only available for a certain period of time are " +
+                            "shown here at the main page. This allows users to notice them more quickly" +
+                            " and thus not miss possible events that they might be interested in.")
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    }).show();
         }
 
     }
