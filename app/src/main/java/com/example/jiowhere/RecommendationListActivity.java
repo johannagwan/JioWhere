@@ -43,6 +43,8 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
     TextView locationSearchTextView;
     TextView testText;
+    TextView statementTextView;
+    TextView noActivityTextView;
     ImageView myImageView;
     ImageView locationDelete;
     ImageView questionMark;
@@ -55,6 +57,7 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
     ArrayList<String> mrtLocationList;
     TextView filterView;
 
+    String searchBarString;
 
     private DatabaseReference reff;
 
@@ -72,6 +75,8 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+
         recommendationDetailsArrayList = new ArrayList<>();
         mrtLocationList = new ArrayList<>();
 
@@ -79,6 +84,8 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
         myImageView = findViewById(R.id.searchImageList);
         locationDelete = findViewById(R.id.locationDelete);
         questionMark = findViewById(R.id.questionMarkList);
+        statementTextView = findViewById(R.id.statementTextView);
+        noActivityTextView = findViewById(R.id.noActivityTextView);
 
         questionMark.setOnClickListener(this);
         locationSearchTextView.setOnClickListener(this);
@@ -94,6 +101,12 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
                 System.out.println("Text ["+s+"]");
 
                 adaptor.filter(s.toString());
+
+                if (adaptor.noActivity()) {
+                    noActivityTextView.setText("NO SEARCH RESULT");
+                } else {
+                    noActivityTextView.setText("");
+                }
             }
 
             @Override
@@ -122,6 +135,12 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
 
                 adaptor.tagFilter(s.toString());
+                if (adaptor.noActivity()) {
+                    noActivityTextView.setText("NO SEARCH RESULT");
+                } else {
+                    noActivityTextView.setText("");
+                }
+
                 //adaptor.filtering(s.toString());
             }
 
@@ -138,6 +157,13 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
         searchByTagButton = (Button) findViewById(R.id.searchByTagButton);
         searchByTagButton.setOnClickListener(this);
+        searchByTagButton.setVisibility(View.VISIBLE);
+
+        searchBarString = locationSearchTextView.getText().toString();
+        if (searchBarString.equals("Search by Location here") || searchBarString.equals("")) {
+            searchByTagButton.setVisibility(View.GONE);
+            //tagFilter.setText("");
+        }
 
         retrieveRecDetailsData();
     }
@@ -210,12 +236,16 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
                 // Set text view with string
                 //TextView filterView = (TextView) findViewById(R.id.filterByTags);
+
                 if (returnString == "No Tag") {
                     filterView.setText("");
                 } else {
                     filterView.setText(returnString);
                 }
+
+
             }
+
         } else if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 // Get String data from Intent
@@ -224,9 +254,15 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
                 // Set text view with string
                 locationSearchTextView = (TextView) findViewById(R.id.locationSearchTextView);
                 locationSearchTextView.setText(returnString);
+                searchByTagButton.setVisibility(View.VISIBLE);
+                //"Or don't know where to go? \nDecide what to do first!"
 
+                statementTextView.setText("Select some tags to further filter your search results!");
                 filterView.setText("");
+
+
             }
+
         } else if (requestCode == 3) { //from Johanna
             if (resultCode == RESULT_OK) {
                 String returnString = data.getStringExtra("testing");
@@ -256,6 +292,8 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
         }
 
         if (v == searchByTagButton) {
+            statementTextView.setText("");
+
             Intent intent = new Intent(this, SearchByTagActivity.class);
             startActivityForResult(intent, 3);
         }

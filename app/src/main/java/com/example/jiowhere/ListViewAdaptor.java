@@ -148,59 +148,15 @@ public class ListViewAdaptor extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    /*
-    public void filtering(String charText) {
-        String[] arrOfStr = charText.split("/");
-        for (int i = 0; i < arrOfStr.length; i++) {
-            tagFilter(arrOfStr[i]);
+    public boolean noActivity() {
+        if (recommendationInfoList.size() == 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 
-    public  void tagFilter(String charText) {
-        tagedWord = charText; //useless
-        String[] arrOfStr = charText.split("/");
 
-        if (charText.length() != 0) {//ignore if no tag
-            charText = charText.toLowerCase(Locale.getDefault());
-
-            List<RecommendationInfo> temp = new ArrayList<>();
-            for(RecommendationInfo ri : recommendationInfoList) {
-                temp.add(ri);
-            }
-
-            recommendationInfoList.clear();
-
-            if (currentLocation != "") { //if there is smth in location Search
-
-                for (RecommendationInfo ri : arrayList) {//arraylist with everything
-                    if (ri.getLocation().toLowerCase(Locale.getDefault()).contains(currentLocation)) {
-
-                        //for (int i = 0; i < arrOfStr.length; i++) {
-                            if (ri.getTags().toLowerCase(Locale.getDefault()).contains("Indoor")) {
-                                //if (ri.getTags().toLowerCase(Locale.getDefault()).contains(arrOfStr[1])) {
-                                    recommendationInfoList.add(ri);
-                                    //break;
-                                //}
-                            }
-                        //}
-
-                    }
-                }
-            } else { //if there is nothing in location
-                for (RecommendationInfo ri : arrayList) {
-                    if (ri.getTags().toLowerCase(Locale.getDefault()).contains("Indoor")) {
-                        //if (ri.getTags().toLowerCase(Locale.getDefault()).contains(arrOfStr[1])) {
-                            recommendationInfoList.add(ri);
-                            //break;
-                        //}
-                    }
-                }
-            }
-        }
-
-        notifyDataSetChanged();
-    }
-    */
 
     public  void tagFilter(String charText) {
 
