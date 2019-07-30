@@ -70,6 +70,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
     TextView tags;
     TextView priceTextView;
     TextView activityDescription;
+    TextView noActivityText;
 
     ImageView image;
 
@@ -95,6 +96,7 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
 
         mListView = (ListView) findViewById(R.id.reviewsList);
         priceTextView = findViewById(R.id.priceTextView);
+        noActivityText = findViewById(R.id.noActivityText);
 
         saveButton = (Button) findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
@@ -144,6 +146,16 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
         getAndSetData();
 
         retrieve();
+
+        if (adapter == null) {
+            noActivityText.setText("No Review Present");
+        } else {
+            if (adapter.getCount() == 0) {
+                noActivityText.setText("No Review Present");
+            } else {
+                noActivityText.setText("");
+            }
+        }
     }
 
     @Override
@@ -237,13 +249,13 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
 
 
     //for the review
-    private void fetchData(DataSnapshot dataSnapshot)
-    {
+    private void fetchData(DataSnapshot dataSnapshot) {
         Review rev = dataSnapshot.getValue(Review.class);
         reviewList.add(rev);
 
         adapter = new CustomAdaptor(this, reviewList);
         mListView.setAdapter(adapter);
+        noActivityText.setText("");
     }
 
 
@@ -465,6 +477,8 @@ public class RecommendationDetailsActivity<string> extends AppCompatActivity imp
             // Return the completed view to render on screen
             return convertView;
         }
+
+
     }
 
 }

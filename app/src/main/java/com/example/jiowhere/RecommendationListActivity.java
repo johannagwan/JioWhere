@@ -133,7 +133,6 @@ public class RecommendationListActivity extends AppCompatActivity implements Vie
 
                 System.out.println("Text ["+s+"]");
 
-
                 adaptor.tagFilter(s.toString());
                 if (adaptor.noActivity()) {
                     noActivityTextView.setText("NO SEARCH RESULT");
