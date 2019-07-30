@@ -46,12 +46,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         firebaseAuth = FirebaseAuth.getInstance();
 
 
+        /*
         if (firebaseAuth.getCurrentUser() != null) {
             Toast.makeText(SignInActivity.this, "Account detected, logging in automatically", Toast.LENGTH_LONG).show();
             //user is already logged in
             finish();
             startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
         }
+        */
 
 
         editTextEmail = (EditText) findViewById(R.id.emailResetPW);

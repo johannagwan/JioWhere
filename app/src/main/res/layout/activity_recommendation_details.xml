@@ -123,15 +123,15 @@
                     android:layout_width="190dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat"
                     android:text="@string/nearest_mrt_name"
                     android:textColor="#A642210B"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.815"
                     app:layout_constraintStart_toEndOf="@+id/nearestMRTImageView"
-                    app:layout_constraintTop_toTopOf="parent"
 
-                    android:layout_marginTop="10dp"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </LinearLayout>
 
