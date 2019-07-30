@@ -106,12 +106,8 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
     private DatabaseReference databaseReference;
 
     public static List<String> uniqueID = new ArrayList<>();
-
-    //making the checkbox
-    //String[] listItems; ALLMRTSTATIONS
     boolean[] checkedItems;
     ArrayList<Integer> selectedMRT = new ArrayList<>(); //mUserIrems
-    //ALLMRTSTATIONS = listitems
     String[] allMrts;
 
 
@@ -507,12 +503,5 @@ public class RecommendingActivity extends AppCompatActivity implements View.OnCl
         if (v == uploadPicButton) {
             openGallery();
         }
-
-        /*
-        if (v == selectMRTButton) {
-            Intent intent = new Intent(this, SelectMrtStationActivity.class);
-            startActivityForResult(intent, selectMRT);
-        }
-        */
     }
 }

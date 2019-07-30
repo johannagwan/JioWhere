@@ -191,7 +191,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textView33"
-                app:srcCompat="@drawable/question" />
+                app:srcCompat="@drawable/questionmark" />
 
         </LinearLayout>
 
