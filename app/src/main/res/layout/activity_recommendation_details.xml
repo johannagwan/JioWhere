@@ -63,30 +63,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/textView29"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Activity Description:"
-                    android:textColor="#42210B"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/descriptionImageView"
+                    android:layout_width="63dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="20dp"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/description" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/lightgray">
+                    android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/activityDescriptionTextView"
                         android:layout_width="match_parent"
@@ -94,14 +88,17 @@
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="8dp"
                         android:fontFamily="@font/montserrat"
+                        android:orientation="vertical"
                         android:text="TextView"
                         android:textColor="#A642210B"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView29"
+                        app:layout_constraintStart_toEndOf="@+id/descriptionImageView"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+
+                        />
 
                 </LinearLayout>
 
@@ -110,36 +107,33 @@
 
 
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-               <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/location_nearest_mrt"
-                android:textColor="#42210B"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/nearestMRTImageView"
+                    android:layout_width="63dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="20dp"
+                    app:srcCompat="@drawable/mrtlogo" />
 
-    <TextView
-        android:id="@+id/mrtNameTextView"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/nearest_mrt_name"
-        android:textColor="#A642210B"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.815"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/mrtNameTextView"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/nearest_mrt_name"
+                    android:textColor="#A642210B"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.815"
+                    app:layout_constraintStart_toEndOf="@+id/nearestMRTImageView"
+                    app:layout_constraintTop_toTopOf="parent"
 
-           </LinearLayout>
+                    android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
 
 
 
@@ -149,17 +143,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="@string/address"
-                    android:textColor="#42210B"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/addressImageView"
+                    android:layout_width="63dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="20dp"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/address" />
 
 
                 <TextView
@@ -167,15 +157,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:layout_marginTop="0dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/montserrat"
                     android:text="Click for Google Maps"
                     android:textColor="#A642210B"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView10"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/addressImageView"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="10dp"/>
 
                 <ImageButton
                     android:id="@+id/copyTextImageButton"
@@ -190,7 +181,9 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/googleMaps"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintVertical_bias="1.0"
+
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
 
@@ -199,18 +192,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="0dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="@string/time_period"
-                    android:textColor="#42210B"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/timePeriodImageView"
+                    android:layout_width="63dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="20dp"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/timeperiod" />
 
                 <TextView
                     android:id="@+id/timePeriodTextView"
@@ -223,8 +211,10 @@
                     android:textColor="#A642210B"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView15"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/timePeriodImageView"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="10dp"/>
 
             </LinearLayout>
 
@@ -233,18 +223,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/textviewdura"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="0dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Opening Hours:"
-                    android:textColor="#42210B"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/openingHoursImageView"
+                    android:layout_width="63dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="20dp"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/openinghours" />
 
                 <TextView
                     android:id="@+id/openingHoursTextView"
@@ -257,8 +242,10 @@
                     android:textColor="#A642210B"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.303"
-                    app:layout_constraintStart_toEndOf="@+id/textviewdura"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/openingHoursImageView"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="10dp"/>
 
             </LinearLayout>
 
@@ -270,16 +257,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="0dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="@string/price"
-                    android:textColor="#42210B"
-                    android:textStyle="bold"
+                <ImageView
+                    android:id="@+id/priceImageView"
+                    android:layout_width="63dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="20dp"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/price"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -288,62 +272,61 @@
                     android:layout_width="328dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="0dp"
                     android:fontFamily="@font/montserrat"
                     android:text="Free"
                     android:textColor="#A642210B"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.2"
-                    app:layout_constraintStart_toEndOf="@+id/textView18"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/priceImageView"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="10dp"/>
             </android.support.constraint.ConstraintLayout>
 
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/tagsImageView"
+                    android:layout_width="63dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="20dp"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/tags" />
+
+                <HorizontalScrollView
+                    android:id="@+id/horizontalScrollViewTag"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/textView20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="@string/tags"
-                        android:textColor="#42210B"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/tagsImageView"
+                    app:layout_constraintTop_toTopOf="parent"
 
-                    <HorizontalScrollView
-                        android:id="@+id/horizontalScrollViewTag"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView20"
-                        app:layout_constraintTop_toTopOf="parent">
+                    android:layout_marginTop="10dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/tagTextView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/montserrat"
-                                android:text="#Outdoor #Friends #Romance #Family #Indoor #Lover #Solo #Life"
-                                android:textColor="#A642210B"
-                                tools:layout_editor_absoluteX="96dp"
-                                tools:layout_editor_absoluteY="398dp" />
-                        </LinearLayout>
-                    </HorizontalScrollView>
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tagTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:text="#Outdoor #Friends #Romance #Family #Indoor #Lover #Solo #Life"
+                            android:textColor="#A642210B"
+                            tools:layout_editor_absoluteX="96dp"
+                            tools:layout_editor_absoluteY="398dp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
 
 
             <LinearLayout
@@ -352,19 +335,12 @@
                 android:orientation="horizontal">
 
 
-                <TextView
-                    android:id="@+id/textView21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="@string/reviews"
-                    android:textColor="#42210B"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/reviewsImageView"
+                    android:layout_width="63dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="20dp"
+                    app:srcCompat="@drawable/review" />
 
 
                 <Button
@@ -379,7 +355,7 @@
                     android:textColor="#42210B"
                     android:textSize="10sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/textView21"
+                    app:layout_constraintStart_toEndOf="@+id/reviewsImageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
@@ -411,7 +387,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.333"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView21"
+                app:layout_constraintTop_toBottomOf="@+id/reviewsImageView"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
